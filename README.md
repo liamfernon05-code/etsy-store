@@ -1,17 +1,18 @@
-# Etsy Store AI Team
+# Etsy Print-on-Demand AI Team
 
-A team of AI agents (built on the Claude API) that runs an Etsy store for you. A **CEO agent** takes a goal,
-delegates to specialists, and hands you finished drafts to approve.
+A team of AI agents (built on the Claude API) that runs a **print-on-demand Etsy store** for you. A **CEO agent**
+takes a goal, delegates to specialists, and hands you finished drafts to approve.
 
 | Agent | Job |
 |---|---|
 | `ceo` | Plans, delegates, reviews, reports |
-| `product_researcher` | Finds winning niches/products (demand, competition, pricing, trends) |
-| `sourcing_specialist` | Finds POD / dropship / production partners, computes unit economics |
-| `listing_writer` | SEO titles, 13 tags, descriptions, photo/mockup plans |
+| `product_researcher` | Finds winning POD niches/products (demand, competition, pricing, seasonality) |
+| `pod_specialist` | Picks Printful/Printify/Gelato + blanks, unit economics, print-file specs |
+| `designer` | Original design collections, slogans (IP-checked), AI image prompts, mockup plans |
+| `listing_writer` | SEO titles, 13 tags, descriptions, photo plans |
 | `marketing_manager` | Brand, Pinterest/Instagram/TikTok/email/Etsy Ads plans and content |
-| `customer_service` | Drafts replies to messages, reviews, returns |
-| `finance_analyst` | Margins, fees, ad break-even, P&L, what to scale/kill |
+| `customer_service` | Drafts replies to messages, reviews, defects, returns |
+| `finance_analyst` | Margins, fees, ad break-even, P&L, what to scale/retire |
 
 ## Setup
 
@@ -27,22 +28,26 @@ export ANTHROPIC_API_KEY=sk-ant-...
 python -m etsy_agents agents                     # list the team
 python -m etsy_agents launch                     # CEO plans a full store launch
 python -m etsy_agents weekly                     # weekly routine
-python -m etsy_agents ask "Find 5 wedding-gift products under $40"
+python -m etsy_agents ask "Design a 6-shirt collection for nurses"
+python -m etsy_agents run designer "Create 5 designs for the dog-mom niche"
 python -m etsy_agents run customer_service "Buyer says her mug arrived chipped. Draft a reply."
 ```
 
 All deliverables are written to `outputs/` (git-ignored). Set `ETSY_AGENTS_MODEL` to change the model.
 
-## Important: Etsy rules and safety
+## Print-on-demand rules that matter
 
-- Etsy does **not** allow reselling generic mass-produced goods. The team is built around print-on-demand,
-  production partners you disclose, and digital downloads. Always verify current Etsy policy.
+- **IP is the top cause of suspensions.** No brands, characters, celebrities, lyrics, or teams. Agents check
+  slogans against the USPTO trademark database and flag risk, but you make the final call.
+- **Disclose your production partner** on Etsy, and disclose AI-generated design work where Etsy requires it.
+- **Order samples** of your top products before launching to check print quality.
+- Plan seasonal products early (Q4 gift shopping starts in late summer).
 - Agents only produce **drafts**. They never publish listings, post to social, spend on ads, or message
-  customers. You review and click go. That's deliberate: you're on the hook for the shop.
+  customers. You review and approve everything.
 
 ## Roadmap (Phase 2)
 
 1. Etsy Open API v3 integration (create draft listings, read orders/stats) after you register an Etsy app.
-2. Printful/Printify API tools to push designs and fetch live costs.
-3. Scheduled runs (cron/GitHub Actions) for the weekly routine.
-4. Image generation for mockups and designs.
+2. Printful/Printify API tools to upload designs, create products and fetch live costs.
+3. Image generation tools for designs and mockups.
+4. Scheduled runs (cron/GitHub Actions) for the weekly routine.
