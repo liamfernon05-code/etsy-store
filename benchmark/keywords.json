@@ -1,0 +1,15 @@
+{
+  "our_price": 44.99,
+  "designs": {
+    "01-retriever-in-name-only": {"slogan": "retriever in name only", "keywords": ["golden retriever sweatshirt", "golden retriever mom sweatshirt", "retriever funny sweatshirt", "golden retriever gift"]},
+    "02-shedding-love-language": {"slogan": "shedding is a love language", "keywords": ["dog shedding sweatshirt", "shedding is a love language", "dog hair sweatshirt funny", "dog mom sweatshirt funny"]},
+    "03-husky-opinions": {"slogan": "my husky has opinions", "keywords": ["husky sweatshirt", "husky mom sweatshirt", "husky funny shirt", "husky gift"]},
+    "04-maximum-dog": {"slogan": "maximum dog minimum legs", "keywords": ["dachshund sweatshirt", "dachshund mom sweatshirt", "wiener dog sweatshirt funny", "dachshund gift"]},
+    "05-reactive-dog": {"slogan": "yes she's reactive no you can't say hi", "keywords": ["reactive dog sweatshirt", "reactive dog mom sweatshirt", "reactive dog owner shirt", "reactive dog gift"]},
+    "06-only-meant-to-foster": {"slogan": "i only meant to foster", "keywords": ["foster dog sweatshirt", "dog rescue sweatshirt", "foster mom sweatshirt", "adoption sweatshirt dog"]},
+    "07-slow-walks": {"slogan": "slow walks soft beds good dog", "keywords": ["senior dog sweatshirt", "old dog mom sweatshirt", "senior dog mom gift", "dog loss gift sweatshirt"]},
+    "08-cat-review": {"slogan": "cat review five stars no notes", "keywords": ["funny cat sweatshirt", "cat mom sweatshirt funny", "cat lover sweatshirt", "cat dad sweatshirt"]},
+    "09-meeting-cancelled": {"slogan": "meeting cancelled cat has decided", "keywords": ["cat sweatshirt work from home", "cat mom sweatshirt", "funny cat crewneck", "cat lover gift coworker"]},
+    "10-heated-by-dog": {"slogan": "heated by dog", "keywords": ["dog mom winter sweatshirt", "dog lover christmas sweatshirt", "dog sweatshirt funny", "dog mom crewneck"]}
+  }
+}
