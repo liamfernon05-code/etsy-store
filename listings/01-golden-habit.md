@@ -42,7 +42,7 @@ Care: machine wash cold, inside out, with similar colors; tumble dry low or hang
 
 Size chart: see the size chart image in the listing photos (unisex sizing, measured in inches). If you are between sizes, size up for a roomier fit. Confirm the chart against the current Printify size guide before publishing.
 
-PRODUCTION AND SHPASS (low confidence). Carried over: 'Tennis Ball Obsessed Golden Retriever' and 'Tennis Ball is Life' exist as merch, so that wording is NOT used. TO DO before publishing: (1) search tmsearch.uspto.gov for 'GOLDEN HEART' and 'TENNIS BALL HABIT' (word mark, classes 25, 35, 18, 21); (2) search Etsy in quotes for "tennis ball habit" and "golden heart tennis ball". Fallback wording if a collision appears: 'Golden Heart. Tennis Ball Problem.'PING
+PRODUCTION AND SHIPPING
 Made to order. Production typically takes [2-5 business days] plus transit; US delivery estimate: [X-Y business days]. Confirm actual times with Printify before publishing and update this section. Shipping to the US is free on this listing (confirm your shipping profile).
 
 ABOUT HOW THIS IS MADE
@@ -114,7 +114,7 @@ Colors may vary slightly by screen. Thank you for shopping with us!
    - Mockup instruction: Icon strip: cold wash, inside out, tumble low, do not iron print.
    - Note: Confirm care with Printify product page.
 
-## 6. PASS (low confidence). Carried over: 'Tennis Ball Obsessed Golden Retriever' and 'Tennis Ball is Life' exist as merch, so that wording is NOT used. TO DO before publishing: (1) search tmsearch.uspto.gov for 'GOLDEN HEART' and 'TENNIS BALL HABIT' (word mark, classes 25, 35, 18, 21); (2) search Etsy in quotes for "tennis ball habit" and "golden heart tennis ball". Fallback wording if a collision appears: 'Golden Heart. Tennis Ball Problem.' flag (carried over from the design file)
+## 6. IP flag (carried over from the design file)
 
 PASS (low confidence). Carried over: 'Tennis Ball Obsessed Golden Retriever' and 'Tennis Ball is Life' exist as merch, so that wording is NOT used. TO DO before publishing: (1) search tmsearch.uspto.gov for 'GOLDEN HEART' and 'TENNIS BALL HABIT' (word mark, classes 25, 35, 18, 21); (2) search Etsy in quotes for "tennis ball habit" and "golden heart tennis ball". Fallback wording if a collision appears: 'Golden Heart. Tennis Ball Problem.'
 

@@ -28,7 +28,7 @@ Duplicate check: none within this listing. Keyword demand: UNVERIFIED. Re-verify
 ## 3. Description (paste into Etsy)
 
 ```
-Slow walks. Soft beds. Good dog. A quiet, tender crewneck for the people who love a dog with a little silver on the muzzle.
+Slow walks. Soft beds. Good dog. A quiet, tender crewneck for the people who love a dog with a few years behind them.
 
 WHO IT'S FOR / GIFT OCCASIONS
 Senior-dog parents, people who adopted an older dog, and gift-givers who want something gentle. Birthdays, adoption anniversaries, Christmas and cozy Q4 gifting. The tone is warm and kind.
@@ -42,7 +42,7 @@ Care: machine wash cold, inside out, with similar colors; tumble dry low or hang
 
 Size chart: see the size chart image in the listing photos (unisex sizing, measured in inches). If you are between sizes, size up for a roomier fit. Confirm the chart against the current Printify size guide before publishing.
 
-PRODUCTION AND SHPASS (low confidence). Carried over: 'Gray Muzzle Club' and 'Silver Snout Society' were rejected (The Grey Muzzle Organization, Gray Muzzle Society, Silver Snout Senior Dog Rescue with merch). NEVER use 'Grey Muzzle', 'Gray Muzzle' or 'Silver Snout' in the title, tags or description (the text above avoids them; 'silver on the muzzle' in the hook is a descriptive phrase: re-check or remove if uncomfortable). TO DO before publishing: (1) tmsearch.uspto.gov for 'SLOW WALKS SOFT BEDS' (classes 25, 35, 18, 21); (2) Etsy exact-phrase search "slow walks soft beds"; (3) confirm no tag contains 'grey muzzle' or 'silver snout'.PING
+PRODUCTION AND SHIPPING
 Made to order. Production typically takes [2-5 business days] plus transit; US delivery estimate: [X-Y business days]. Confirm actual times with Printify before publishing and update this section. Shipping to the US is free on this listing (confirm your shipping profile).
 
 ABOUT HOW THIS IS MADE
@@ -112,9 +112,9 @@ Colors may vary slightly by screen. Thank you for shopping with us!
    - Mockup instruction: Care icons.
    - Note: Confirm with Printify.
 
-## 6. PASS (low confidence). Carried over: 'Gray Muzzle Club' and 'Silver Snout Society' were rejected (The Grey Muzzle Organization, Gray Muzzle Society, Silver Snout Senior Dog Rescue with merch). NEVER use 'Grey Muzzle', 'Gray Muzzle' or 'Silver Snout' in the title, tags or description (the text above avoids them; 'silver on the muzzle' in the hook is a descriptive phrase: re-check or remove if uncomfortable). TO DO before publishing: (1) tmsearch.uspto.gov for 'SLOW WALKS SOFT BEDS' (classes 25, 35, 18, 21); (2) Etsy exact-phrase search "slow walks soft beds"; (3) confirm no tag contains 'grey muzzle' or 'silver snout'. flag (carried over from the design file)
+## 6. IP flag (carried over from the design file)
 
-PASS (low confidence). Carried over: 'Gray Muzzle Club' and 'Silver Snout Society' were rejected (The Grey Muzzle Organization, Gray Muzzle Society, Silver Snout Senior Dog Rescue with merch). NEVER use 'Grey Muzzle', 'Gray Muzzle' or 'Silver Snout' in the title, tags or description (the text above avoids them; 'silver on the muzzle' in the hook is a descriptive phrase: re-check or remove if uncomfortable). TO DO before publishing: (1) tmsearch.uspto.gov for 'SLOW WALKS SOFT BEDS' (classes 25, 35, 18, 21); (2) Etsy exact-phrase search "slow walks soft beds"; (3) confirm no tag contains 'grey muzzle' or 'silver snout'.
+PASS (low confidence). Carried over: 'Gray Muzzle Club' and 'Silver Snout Society' were rejected (The Grey Muzzle Organization, Gray Muzzle Society, Silver Snout Senior Dog Rescue with merch). NEVER use 'Grey Muzzle', 'Gray Muzzle' or 'Silver Snout' in the title, tags or description (the copy above avoids them). TO DO before publishing: (1) tmsearch.uspto.gov for 'SLOW WALKS SOFT BEDS' (classes 25, 35, 18, 21); (2) Etsy exact-phrase search "slow walks soft beds"; (3) confirm no tag contains 'grey muzzle' or 'silver snout'.
 
 ## 7. Keyword notes
 

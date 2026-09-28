@@ -42,7 +42,7 @@ Care: machine wash cold, inside out, with similar colors; tumble dry low or hang
 
 Size chart: see the size chart image in the listing photos (unisex sizing, measured in inches). If you are between sizes, size up for a roomier fit. Confirm the chart against the current Printify size guide before publishing.
 
-PRODUCTION AND SHPASS (low confidence). Carried over: nap-themed dachshund merch exists but no exact 'Long Dog, Longer Nap' found. Existing brands 'A DACHSHUND COMPANY' and 'Long Dog Apparel': do NOT use those names in listing or tags. TO DO before publishing: (1) tmsearch.uspto.gov for 'LONG DOG LONGER NAP' and 'LONG DOG' (classes 25, 35, 18, 21); (2) Etsy exact-phrase search "longer nap" dachshund; (3) confirm no tag/title says 'long dog apparel'. Fallback: 'Long Boy. Longer Nap.' Note: the tag 'long dog sweatshirt' contains 'long dog' as a descriptor: check the mark search result for LONG DOG before keeping it.PING
+PRODUCTION AND SHIPPING
 Made to order. Production typically takes [2-5 business days] plus transit; US delivery estimate: [X-Y business days]. Confirm actual times with Printify before publishing and update this section. Shipping to the US is free on this listing (confirm your shipping profile).
 
 ABOUT HOW THIS IS MADE
@@ -112,7 +112,7 @@ Colors may vary slightly by screen. Thank you for shopping with us!
    - Mockup instruction: Care icons.
    - Note: Confirm with Printify.
 
-## 6. PASS (low confidence). Carried over: nap-themed dachshund merch exists but no exact 'Long Dog, Longer Nap' found. Existing brands 'A DACHSHUND COMPANY' and 'Long Dog Apparel': do NOT use those names in listing or tags. TO DO before publishing: (1) tmsearch.uspto.gov for 'LONG DOG LONGER NAP' and 'LONG DOG' (classes 25, 35, 18, 21); (2) Etsy exact-phrase search "longer nap" dachshund; (3) confirm no tag/title says 'long dog apparel'. Fallback: 'Long Boy. Longer Nap.' Note: the tag 'long dog sweatshirt' contains 'long dog' as a descriptor: check the mark search result for LONG DOG before keeping it. flag (carried over from the design file)
+## 6. IP flag (carried over from the design file)
 
 PASS (low confidence). Carried over: nap-themed dachshund merch exists but no exact 'Long Dog, Longer Nap' found. Existing brands 'A DACHSHUND COMPANY' and 'Long Dog Apparel': do NOT use those names in listing or tags. TO DO before publishing: (1) tmsearch.uspto.gov for 'LONG DOG LONGER NAP' and 'LONG DOG' (classes 25, 35, 18, 21); (2) Etsy exact-phrase search "longer nap" dachshund; (3) confirm no tag/title says 'long dog apparel'. Fallback: 'Long Boy. Longer Nap.' Note: the tag 'long dog sweatshirt' contains 'long dog' as a descriptor: check the mark search result for LONG DOG before keeping it.
 

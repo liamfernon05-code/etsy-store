@@ -42,7 +42,7 @@ Care: wash inside out in cold water, dry on low heat, no bleach, and keep the ir
 
 Sizing: the chart is in the listing photos (unisex, inches). Sizes run like a classic crewneck; order one size up for an oversized look. [Confirm chart with Printify.]
 
-PRODUCTION AND SHCAUTION. Carried over: 'My Favorite Breed Is Rescued' was rejected (saturated). 'Second Chance. First Choice.' had no exact match but 'Second Chance' is used in many rescue names (e.g. Second Chance Animal Rescue Society, Second Chance Animal Shelter): do NOT add any rescue name to the listing and do not imply affiliation. TO DO before publishing: (1) tmsearch.uspto.gov for 'SECOND CHANCE FIRST CHOICE' (classes 25, 35, 18, 21, 36/45 charity); (2) Etsy exact-phrase search "second chance first choice"; (3) note any rescue org merch using it. Fallback: 'Rescued Me Right Back.'PING
+PRODUCTION AND SHIPPING
 Made to order. Production typically takes [2-5 business days] plus transit; US delivery estimate: [X-Y business days]. Confirm actual times with Printify before publishing and update this section. Shipping to the US is free on this listing (confirm your shipping profile).
 
 ABOUT HOW THIS IS MADE
@@ -114,7 +114,7 @@ Colors may vary slightly by screen. Thank you for shopping with us!
    - Mockup instruction: Care icons.
    - Note: Confirm with Printify.
 
-## 6. CAUTION. Carried over: 'My Favorite Breed Is Rescued' was rejected (saturated). 'Second Chance. First Choice.' had no exact match but 'Second Chance' is used in many rescue names (e.g. Second Chance Animal Rescue Society, Second Chance Animal Shelter): do NOT add any rescue name to the listing and do not imply affiliation. TO DO before publishing: (1) tmsearch.uspto.gov for 'SECOND CHANCE FIRST CHOICE' (classes 25, 35, 18, 21, 36/45 charity); (2) Etsy exact-phrase search "second chance first choice"; (3) note any rescue org merch using it. Fallback: 'Rescued Me Right Back.' flag (carried over from the design file)
+## 6. IP flag (carried over from the design file)
 
 CAUTION. Carried over: 'My Favorite Breed Is Rescued' was rejected (saturated). 'Second Chance. First Choice.' had no exact match but 'Second Chance' is used in many rescue names (e.g. Second Chance Animal Rescue Society, Second Chance Animal Shelter): do NOT add any rescue name to the listing and do not imply affiliation. TO DO before publishing: (1) tmsearch.uspto.gov for 'SECOND CHANCE FIRST CHOICE' (classes 25, 35, 18, 21, 36/45 charity); (2) Etsy exact-phrase search "second chance first choice"; (3) note any rescue org merch using it. Fallback: 'Rescued Me Right Back.'
 

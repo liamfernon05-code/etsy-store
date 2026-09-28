@@ -42,7 +42,7 @@ Care: turn inside out, wash cold with like colors, dry low or line dry. Avoid ir
 
 Sizing: this is a unisex fit; please check the size chart in the photos before ordering, and size up if you like a slouchier sweatshirt. [Verify the chart against Printify's current sizing.]
 
-PRODUCTION AND SHPASS (low confidence). Carried over: no trademark found on the phrase. 'Tell Your Dog I Said Hi' is a mark (WeRateDogs LLC): never use 'say hi to your dog' wording. Do NOT use the Yellow Dog Project logo or its name; yellow is only an ink color here. Do not imply service-dog or medical status (FAQ line covers this). TO DO before publishing: (1) tmsearch.uspto.gov for 'REACTIVE' + 'CAN'T SAY HI' style phrases (classes 25, 35, 18, 21); (2) Etsy exact-phrase search "yes she's reactive" and "no you can't say hi"; (3) confirm the description does not say 'yellow dog project'. Fallback: 'Yes, [Name] Is Reactive.' variant.PING
+PRODUCTION AND SHIPPING
 Made to order. Production typically takes [2-5 business days] plus transit; US delivery estimate: [X-Y business days]. Confirm actual times with Printify before publishing and update this section. Shipping to the US is free on this listing (confirm your shipping profile).
 
 ABOUT HOW THIS IS MADE
@@ -114,7 +114,7 @@ Colors may vary slightly by screen. Thank you for shopping with us!
    - Mockup instruction: Care icons.
    - Note: Confirm with Printify.
 
-## 6. PASS (low confidence). Carried over: no trademark found on the phrase. 'Tell Your Dog I Said Hi' is a mark (WeRateDogs LLC): never use 'say hi to your dog' wording. Do NOT use the Yellow Dog Project logo or its name; yellow is only an ink color here. Do not imply service-dog or medical status (FAQ line covers this). TO DO before publishing: (1) tmsearch.uspto.gov for 'REACTIVE' + 'CAN'T SAY HI' style phrases (classes 25, 35, 18, 21); (2) Etsy exact-phrase search "yes she's reactive" and "no you can't say hi"; (3) confirm the description does not say 'yellow dog project'. Fallback: 'Yes, [Name] Is Reactive.' variant. flag (carried over from the design file)
+## 6. IP flag (carried over from the design file)
 
 PASS (low confidence). Carried over: no trademark found on the phrase. 'Tell Your Dog I Said Hi' is a mark (WeRateDogs LLC): never use 'say hi to your dog' wording. Do NOT use the Yellow Dog Project logo or its name; yellow is only an ink color here. Do not imply service-dog or medical status (FAQ line covers this). TO DO before publishing: (1) tmsearch.uspto.gov for 'REACTIVE' + 'CAN'T SAY HI' style phrases (classes 25, 35, 18, 21); (2) Etsy exact-phrase search "yes she's reactive" and "no you can't say hi"; (3) confirm the description does not say 'yellow dog project'. Fallback: 'Yes, [Name] Is Reactive.' variant.
 

@@ -42,7 +42,7 @@ Care: machine wash cold, inside out, with similar colors; tumble dry low or hang
 
 Size chart: see the size chart image in the listing photos (unisex sizing, measured in inches). If you are between sizes, size up for a roomier fit. Confirm the chart against the current Printify size guide before publishing.
 
-PRODUCTION AND SHPASS (low confidence). Carried over: 'Cold Nose, Warm Heart' is a registered mark (Serial 78047738) and was rejected: do NOT use it anywhere, and no 'cold nose' tags. No Santa, elf, Grinch or characters. TO DO before publishing: (1) tmsearch.uspto.gov for 'WARM FEET PROVIDED BY DOG' and 'WARM FEET' (classes 25, 35, 18, 21, 10 heating/socks); (2) Etsy exact-phrase search "warm feet provided by dog"; (3) confirm no 'cold nose warm heart' phrase. Fallback: 'Warm Lap Provided by Cat' variant only if searched too.PING
+PRODUCTION AND SHIPPING
 Made to order. Production typically takes [2-5 business days] plus transit; US delivery estimate: [X-Y business days]. Confirm actual times with Printify before publishing and update this section. Shipping to the US is free on this listing (confirm your shipping profile).
 
 ABOUT HOW THIS IS MADE
@@ -114,10 +114,10 @@ Colors may vary slightly by screen. Thank you for shopping with us!
    - Mockup instruction: Care icons.
    - Note: Confirm with Printify.
 
-## 6. PASS (low confidence). Carried over: 'Cold Nose, Warm Heart' is a registered mark (Serial 78047738) and was rejected: do NOT use it anywhere, and no 'cold nose' tags. No Santa, elf, Grinch or characters. TO DO before publishing: (1) tmsearch.uspto.gov for 'WARM FEET PROVIDED BY DOG' and 'WARM FEET' (classes 25, 35, 18, 21, 10 heating/socks); (2) Etsy exact-phrase search "warm feet provided by dog"; (3) confirm no 'cold nose warm heart' phrase. Fallback: 'Warm Lap Provided by Cat' variant only if searched too. flag (carried over from the design file)
+## 6. IP flag (carried over from the design file)
 
 PASS (low confidence). Carried over: 'Cold Nose, Warm Heart' is a registered mark (Serial 78047738) and was rejected: do NOT use it anywhere, and no 'cold nose' tags. No Santa, elf, Grinch or characters. TO DO before publishing: (1) tmsearch.uspto.gov for 'WARM FEET PROVIDED BY DOG' and 'WARM FEET' (classes 25, 35, 18, 21, 10 heating/socks); (2) Etsy exact-phrase search "warm feet provided by dog"; (3) confirm no 'cold nose warm heart' phrase. Fallback: 'Warm Lap Provided by Cat' variant only if searched too.
 
 ## 7. Keyword notes
 
-Sanity check: dog Christmas and winter gifts are seasonal; today is 2026-09-28, so this is the right time to list it. Demand: UNVERIFIED. Tag 'dog dad gift' is repeated in other listings' style but not duplicated here.
+Sanity check: dog Christmas and winter gifts are seasonal; today is 2026-09-28, so this is the right time to list it. Demand: UNVERIFIED. 

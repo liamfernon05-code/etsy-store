@@ -42,7 +42,7 @@ Care: wash inside out in cold water, dry on low heat, no bleach, and keep the ir
 
 Sizing: the chart is in the listing photos (unisex, inches). Sizes run like a classic crewneck; order one size up for an oversized look. [Confirm chart with Printify.]
 
-PRODUCTION AND SHCAUTION. Carried over: 'Sploot Happens' was rejected (saturated, named seller). 'Sploot Season' had no exact match, but sploot merch is crowded and a shop called 'Single Sploot' exists: never use 'Single Sploot'. TO DO before publishing: (1) tmsearch.uspto.gov for 'SPLOOT SEASON' (classes 25, 35, 18, 21); (2) Etsy exact-phrase search "sploot season" and note any seller with the same text; (3) confirm no tag uses 'sploot happens' or 'single sploot'. Fallback: 'Sploot: A Lifestyle.'PING
+PRODUCTION AND SHIPPING
 Made to order. Production typically takes [2-5 business days] plus transit; US delivery estimate: [X-Y business days]. Confirm actual times with Printify before publishing and update this section. Shipping to the US is free on this listing (confirm your shipping profile).
 
 ABOUT HOW THIS IS MADE
@@ -112,7 +112,7 @@ Colors may vary slightly by screen. Thank you for shopping with us!
    - Mockup instruction: Care icons.
    - Note: Confirm with Printify.
 
-## 6. CAUTION. Carried over: 'Sploot Happens' was rejected (saturated, named seller). 'Sploot Season' had no exact match, but sploot merch is crowded and a shop called 'Single Sploot' exists: never use 'Single Sploot'. TO DO before publishing: (1) tmsearch.uspto.gov for 'SPLOOT SEASON' (classes 25, 35, 18, 21); (2) Etsy exact-phrase search "sploot season" and note any seller with the same text; (3) confirm no tag uses 'sploot happens' or 'single sploot'. Fallback: 'Sploot: A Lifestyle.' flag (carried over from the design file)
+## 6. IP flag (carried over from the design file)
 
 CAUTION. Carried over: 'Sploot Happens' was rejected (saturated, named seller). 'Sploot Season' had no exact match, but sploot merch is crowded and a shop called 'Single Sploot' exists: never use 'Single Sploot'. TO DO before publishing: (1) tmsearch.uspto.gov for 'SPLOOT SEASON' (classes 25, 35, 18, 21); (2) Etsy exact-phrase search "sploot season" and note any seller with the same text; (3) confirm no tag uses 'sploot happens' or 'single sploot'. Fallback: 'Sploot: A Lifestyle.'
 

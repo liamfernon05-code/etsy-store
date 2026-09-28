@@ -42,7 +42,7 @@ Care: wash inside out in cold water, dry on low heat, no bleach, and keep the ir
 
 Sizing: the chart is in the listing photos (unisex, inches). Sizes run like a classic crewneck; order one size up for an oversized look. [Confirm chart with Printify.]
 
-PRODUCTION AND SHPASS (low confidence). Carried over: no hits on the phrase; the rejected original 'I can't get up, the cat is on my lap' is NOT used. Do NOT use 'Zoom' (trademark) anywhere in title/tags/description. Lowercase 'cat' only. TO DO before publishing: (1) tmsearch.uspto.gov for 'MEETING CANCELLED' and 'CAT HAS DECIDED' (classes 25, 35, 18, 21); (2) Etsy exact-phrase search "meeting cancelled" cat and "cat has decided"; (3) confirm no 'Zoom' term. Fallback: 'Call Ended. Cat Has Decided.'PING
+PRODUCTION AND SHIPPING
 Made to order. Production typically takes [2-5 business days] plus transit; US delivery estimate: [X-Y business days]. Confirm actual times with Printify before publishing and update this section. Shipping to the US is free on this listing (confirm your shipping profile).
 
 ABOUT HOW THIS IS MADE
@@ -97,7 +97,7 @@ Colors may vary slightly by screen. Thank you for shopping with us!
    - Note: Exact names.
 
 7. **Gift angle**
-   - Mockup instruction: Coworker gift wrap with a tag 'From HR (the cat)'... keep light
+   - Mockup instruction: Coworker gift wrap with a tag 'From the cat'
    - Note: Gift message at checkout.
 
 8. **Text card**
@@ -112,7 +112,7 @@ Colors may vary slightly by screen. Thank you for shopping with us!
    - Mockup instruction: Care icons.
    - Note: Confirm with Printify.
 
-## 6. PASS (low confidence). Carried over: no hits on the phrase; the rejected original 'I can't get up, the cat is on my lap' is NOT used. Do NOT use 'Zoom' (trademark) anywhere in title/tags/description. Lowercase 'cat' only. TO DO before publishing: (1) tmsearch.uspto.gov for 'MEETING CANCELLED' and 'CAT HAS DECIDED' (classes 25, 35, 18, 21); (2) Etsy exact-phrase search "meeting cancelled" cat and "cat has decided"; (3) confirm no 'Zoom' term. Fallback: 'Call Ended. Cat Has Decided.' flag (carried over from the design file)
+## 6. IP flag (carried over from the design file)
 
 PASS (low confidence). Carried over: no hits on the phrase; the rejected original 'I can't get up, the cat is on my lap' is NOT used. Do NOT use 'Zoom' (trademark) anywhere in title/tags/description. Lowercase 'cat' only. TO DO before publishing: (1) tmsearch.uspto.gov for 'MEETING CANCELLED' and 'CAT HAS DECIDED' (classes 25, 35, 18, 21); (2) Etsy exact-phrase search "meeting cancelled" cat and "cat has decided"; (3) confirm no 'Zoom' term. Fallback: 'Call Ended. Cat Has Decided.'
 

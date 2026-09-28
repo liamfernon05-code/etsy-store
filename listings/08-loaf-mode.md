@@ -42,7 +42,7 @@ Care: turn inside out, wash cold with like colors, dry low or line dry. Avoid ir
 
 Sizing: this is a unisex fit; please check the size chart in the photos before ordering, and size up if you like a slouchier sweatshirt. [Verify the chart against Printify's current sizing.]
 
-PRODUCTION AND SHPASS (low confidence). Carried over: cat-loaf designs are common but no exact 'Loaf Mode Engaged' mark found; search returned CAT (Caterpillar) trademark noise, so always write 'cat' in lowercase and avoid Caterpillar-style yellow/black logo looks. TO DO before publishing: (1) tmsearch.uspto.gov for 'LOAF MODE' (classes 25, 35, 18, 21, 30 bakery-adjacent); (2) Etsy exact-phrase search "loaf mode engaged" and "loaf mode"; (3) confirm no tag/title uses 'CAT' as a brand-style word. Fallback: 'Loaf Mode: Activated.'PING
+PRODUCTION AND SHIPPING
 Made to order. Production typically takes [2-5 business days] plus transit; US delivery estimate: [X-Y business days]. Confirm actual times with Printify before publishing and update this section. Shipping to the US is free on this listing (confirm your shipping profile).
 
 ABOUT HOW THIS IS MADE
@@ -112,7 +112,7 @@ Colors may vary slightly by screen. Thank you for shopping with us!
    - Mockup instruction: Care icons.
    - Note: Confirm with Printify.
 
-## 6. PASS (low confidence). Carried over: cat-loaf designs are common but no exact 'Loaf Mode Engaged' mark found; search returned CAT (Caterpillar) trademark noise, so always write 'cat' in lowercase and avoid Caterpillar-style yellow/black logo looks. TO DO before publishing: (1) tmsearch.uspto.gov for 'LOAF MODE' (classes 25, 35, 18, 21, 30 bakery-adjacent); (2) Etsy exact-phrase search "loaf mode engaged" and "loaf mode"; (3) confirm no tag/title uses 'CAT' as a brand-style word. Fallback: 'Loaf Mode: Activated.' flag (carried over from the design file)
+## 6. IP flag (carried over from the design file)
 
 PASS (low confidence). Carried over: cat-loaf designs are common but no exact 'Loaf Mode Engaged' mark found; search returned CAT (Caterpillar) trademark noise, so always write 'cat' in lowercase and avoid Caterpillar-style yellow/black logo looks. TO DO before publishing: (1) tmsearch.uspto.gov for 'LOAF MODE' (classes 25, 35, 18, 21, 30 bakery-adjacent); (2) Etsy exact-phrase search "loaf mode engaged" and "loaf mode"; (3) confirm no tag/title uses 'CAT' as a brand-style word. Fallback: 'Loaf Mode: Activated.'
 

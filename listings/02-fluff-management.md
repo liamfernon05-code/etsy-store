@@ -42,7 +42,7 @@ Care: turn inside out, wash cold with like colors, dry low or line dry. Avoid ir
 
 Sizing: this is a unisex fit; please check the size chart in the photos before ordering, and size up if you like a slouchier sweatshirt. [Verify the chart against Printify's current sizing.]
 
-PRODUCTION AND SHCAUTION. Carried over: a registered/claimed mark 'DOODLE DAD' (Tyler Toolan) was found and 'Doodle Mom' is heavily used, so 'Doodle Dad/Mom' must NOT appear in the title, tags, description or art headline. 'doodle' appears only as a small descriptor ('doodle household'). TO DO before publishing: (1) tmsearch.uspto.gov for 'FLUFF MANAGEMENT' and 'FULL-TIME JOB' combos (classes 25, 35, 18, 21, 44 grooming); (2) Etsy exact-phrase search for "fluff management" and "full time job" dog; (3) re-check that no tag reads 'doodle dad' or 'doodle mom'. Fallback: rename the small line to 'poodle mix crew'.PING
+PRODUCTION AND SHIPPING
 Made to order. Production typically takes [2-5 business days] plus transit; US delivery estimate: [X-Y business days]. Confirm actual times with Printify before publishing and update this section. Shipping to the US is free on this listing (confirm your shipping profile).
 
 ABOUT HOW THIS IS MADE
@@ -97,7 +97,7 @@ Colors may vary slightly by screen. Thank you for shopping with us!
    - Note: Use exact Printify color names.
 
 7. **Gift angle**
-   - Mockup instruction: Sweatshirt with a grooming brush in a gift bag; tag 'For the doodle household'... 
+   - Mockup instruction: Sweatshirt with a grooming brush in a gift bag; tag 'For the doodle household'
    - Note: Keep tag copy short.
 
 8. **Fluff humor graphic**
@@ -112,7 +112,7 @@ Colors may vary slightly by screen. Thank you for shopping with us!
    - Mockup instruction: Care icon strip.
    - Note: Confirm with Printify.
 
-## 6. CAUTION. Carried over: a registered/claimed mark 'DOODLE DAD' (Tyler Toolan) was found and 'Doodle Mom' is heavily used, so 'Doodle Dad/Mom' must NOT appear in the title, tags, description or art headline. 'doodle' appears only as a small descriptor ('doodle household'). TO DO before publishing: (1) tmsearch.uspto.gov for 'FLUFF MANAGEMENT' and 'FULL-TIME JOB' combos (classes 25, 35, 18, 21, 44 grooming); (2) Etsy exact-phrase search for "fluff management" and "full time job" dog; (3) re-check that no tag reads 'doodle dad' or 'doodle mom'. Fallback: rename the small line to 'poodle mix crew'. flag (carried over from the design file)
+## 6. IP flag (carried over from the design file)
 
 CAUTION. Carried over: a registered/claimed mark 'DOODLE DAD' (Tyler Toolan) was found and 'Doodle Mom' is heavily used, so 'Doodle Dad/Mom' must NOT appear in the title, tags, description or art headline. 'doodle' appears only as a small descriptor ('doodle household'). TO DO before publishing: (1) tmsearch.uspto.gov for 'FLUFF MANAGEMENT' and 'FULL-TIME JOB' combos (classes 25, 35, 18, 21, 44 grooming); (2) Etsy exact-phrase search for "fluff management" and "full time job" dog; (3) re-check that no tag reads 'doodle dad' or 'doodle mom'. Fallback: rename the small line to 'poodle mix crew'.
 
