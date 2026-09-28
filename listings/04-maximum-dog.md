@@ -1,45 +1,45 @@
-# Listing 07: Slow Walks
+# Listing 04: Maximum Dog
 
 > Status: DRAFT, nothing published. Rebuilt 2026-09-28 from designs/pet_collection_FINAL.md and pod/pet_sweatshirt_product.md. Keyword demand is UNVERIFIED throughout (no keyword tool or search-volume data was used). Launch wave: 2. Design score: 7.5.
 
-Final print text (line breaks = /): **SLOW WALKS. / SOFT BEDS. / GOOD DOG.**  Label pill: *senior dog parent.*
+Final print text (line breaks = /): **MAXIMUM DOG. / MINIMUM LEGS.**  Label pill: *est. every afternoon*
 
-## 1. Title (110/140 characters)
+## 1. Title (118/140 characters)
 
 ```
-Senior Dog Sweatshirt, Slow Walks Soft Beds Good Dog Crewneck, Old Dog Mom Dad Gift, Gentle Dog Lover Pullover
+Dachshund Sweatshirt, Maximum Dog Minimum Legs Crewneck, Funny Wiener Dog Mom Dad Gift, Doxie Owner Nap Lover Pullover
 ```
 
 Front-loaded keyword: first phrase of the title. No brand names, no banned phrases from the design file's IP notes.
 
 ## 2. Tags (13, each <=20 characters)
 
-1. senior dog sweater (18)
-2. senior dog mom (14)
-3. senior dog dad (14)
-4. old dog gift (12)
-5. dog lover sweatshirt (20)
-6. dog mom crewneck (16)
-7. good dog sweater (16)
-8. gift for dog mom (16)
-9. dog owner gift (14)
-10. dog walk sweatshirt (19)
-11. cozy dog mom sweater (20)
-12. senior pet gift (15)
-13. dog birthday gift (17)
+1. dachshund sweatshirt (20)
+2. dachshund mom gift (18)
+3. dachshund dad gift (18)
+4. wiener dog sweater (18)
+5. doxie mom crewneck (18)
+6. dachshund lover gift (20)
+7. funny dachshund gift (20)
+8. dog mom crewneck (16)
+9. dog lover sweatshirt (20)
+10. short leg dog gift (18)
+11. dog owner gift (14)
+12. gift for dog mom (16)
+13. dog nap sweatshirt (18)
 
 Duplicate check: none within this listing. No IP-flagged terms (no 'doodle dad/mom', 'long dog', 'grey muzzle', 'silver snout', 'zoom', Yellow Dog wording, standalone 'foster fail', all-caps CAT). Demand for every tag: UNVERIFIED; check against Etsy autocomplete before publishing.
 
 ## 3. Description (paste into Etsy)
 
 ```
-Shorter walks, softer beds, the same very good dog. A quiet sweatshirt for the slower chapter.
+Maximum dog. Minimum legs. A sweatshirt for the household with more dog per inch than the floor can handle.
 
 WHO IT'S FOR AND WHEN TO GIVE IT
-People who share their home with an older dog, and the friends who want to say 'you are doing a good job' without a speech. Good for birthdays, Christmas, adoption anniversaries, a dog's own birthday, or a gentle gift for a hard season.
+Dachshund and doxie owners, corgi-adjacent friends, and anyone with a low, long, professional napper at home. Good for birthdays, Valentine's Day, Christmas, adoption anniversaries, and spring gifts for the dog person who has to lift their dog onto the couch.
 
 THE DESIGN
-Three short lines, SLOW WALKS. / SOFT BEDS. / GOOD DOG., over a single looped leash ending in a heart-shaped tag, with a small line reading 'senior dog parent.' Charcoal and sage-green ink on a light gray sweatshirt.
+Wide two-line headline, MAXIMUM DOG. / MINIMUM LEGS., above a long, low, sleeping dog silhouette with short stubby legs, and a small line reading 'est. every afternoon'. Cream and orange ink on a deep green sweatshirt.
 
 PRODUCT DETAILS
 Unisex crewneck sweatshirt: Gildan 18000 Heavy Blend, 50% cotton / 50% polyester [confirm on Printify; composition can differ slightly by color, especially for heather and ash shades]. Medium-heavy fleece (roughly 8 oz, confirm), classic roomy unisex fit, ribbed collar, cuffs and hem. Sizes S-3XL [confirm which sizes and colors Printify currently offers for this exact blank].
@@ -61,8 +61,8 @@ Q: What if something is wrong with my order?
 A: If your sweatshirt arrives with a defect (print error, damage, wrong item), message us within 30 days of delivery with a photo and we will make it right with a replacement or refund per our shop policy. [Confirm the exact wording matches your Etsy return settings.]
 Q: How do I care for it?
 A: Cold wash inside out, low heat or hang dry, no direct ironing on the print [confirm on Printify].
-Q: Is this a memorial item?
-A: It is a gentle everyday sweatshirt about loving an older dog. It is not personalized and is not sold as a memorial product.
+Q: Does the print stretch across the chest?
+A: Yes, this is a wide layout (about 12 in wide by 8 in tall; confirm on the Printify mockup) rather than a tall one. Check the size chart if you are between sizes.
 
 Thank you for shopping with us. Colors on screens vary a little from the real thing.
 ```
@@ -72,10 +72,10 @@ Items in [brackets] must be confirmed or replaced before publishing. Nothing abo
 ## 4. Category, attributes, variations, pricing
 
 - Category path (TO CONFIRM in Etsy's category picker): Clothing > Gender-Neutral Adult Clothing > Tops & Tees > Sweatshirts (or the closest current equivalent).
-- Attributes (TO CONFIRM against what Etsy currently asks): Primary color = Ash; Secondary color = per the ink if the field exists; Occasion = Birthday / Christmas as fits; Style = casual; Neckline = crew; Sleeve = long; Holiday = leave blank; Who made it = I did (AI-assisted design disclosed); What is it = a finished product; When made = made to order; Production partner = Printify.
-- Ink strategy: charcoal text with a sage-green heart tag on a looped leash (outlined in charcoal on Sport Grey).
-- Primary color variation: Ash (unverified on Monster Digital).
-- Fallback color variation: Sport Grey (on list).
+- Attributes (TO CONFIRM against what Etsy currently asks): Primary color = Forest; Secondary color = per the ink if the field exists; Occasion = Birthday / Christmas as fits; Style = casual; Neckline = crew; Sleeve = long; Holiday = leave blank; Who made it = I did (AI-assisted design disclosed); What is it = a finished product; When made = made to order; Production partner = Printify.
+- Ink strategy: cream text with a warm orange nap-stripe accent on a low, stretched, sleeping dog silhouette.
+- Primary color variation: Forest (unverified on Monster Digital).
+- Fallback color variation: Black (on list).
   - If the primary blank is not on Monster Digital's Printify list (unverified for several colors), use the fallback as the primary color and rebuild the mockups. Re-check ink contrast on the real sample; do not sell a color you have not seen.
 - Sizes: S, M, L, XL (base price), 2XL (+$2), 3XL (+$3) [confirm sizes offered per color and the true Printify cost for 2XL/3XL].
 - Shipping profile: free US shipping (US only), guarantee applies at item price >= $35 [confirm current Etsy threshold]. Processing time: 3-5 days [confirm].
@@ -101,21 +101,21 @@ Base $15.24 (Printify Gildan 18000 from-price; Premium ignored; UNVERIFIED for y
 Same order in all 10 listings (shop-look rule): 1 hero on neutral backdrop, 2 design close-up, 3 size chart plus print note. Use only honest Printify mockups or your own sample photos; no fake customer photos or reviews.
 
 1. **Hero flat-lay or hanger**
-   - Mockup instruction: Printify front mockup on Ash, hanger or flat-lay on the shared neutral backdrop (same backdrop for all 10 listings), art centered about 3 in below the collar. Prefer a real sample photo once the sample arrives.
+   - Mockup instruction: Printify front mockup on Forest, hanger or flat-lay on the shared neutral backdrop (same backdrop for all 10 listings), art centered about 3 in below the collar. Prefer a real sample photo once the sample arrives.
 2. **Design close-up**
-   - Mockup instruction: Crop tight on the headline 'SLOW WALKS. SOFT BEDS. GOOD DOG.' and the illustration. Use a real sample photo after your sample arrives; do not retouch the print.
+   - Mockup instruction: Crop tight on the headline 'MAXIMUM DOG. MINIMUM LEGS.' and the illustration. Use a real sample photo after your sample arrives; do not retouch the print.
 3. **Size chart and print note**
    - Mockup instruction: Printify size chart for Gildan 18000, S-3XL in inches [confirm], plus the honest note 'soft, slightly vintage-look print; unisex, roomy fit; size up for oversized'. Same layout in all 10 listings.
 4. **Front view / on-model**
-   - Mockup instruction: Hanger mockup on Ash, calm and neutral, charcoal headline legible, leash-and-heart fully in frame.
+   - Mockup instruction: Hanger mockup on Forest showing the full wide layout; leave room so the bottom silhouette is not cropped.
 5. **Color options**
-   - Mockup instruction: Grid of the design on Ash and Sport Grey using each color's exact Printify name. Only show colors you actually offer and have confirmed in Printify.
+   - Mockup instruction: Grid of the design on Forest and Black using each color's exact Printify name. Only show colors you actually offer and have confirmed in Printify.
 6. **Real fabric and print detail**
    - Mockup instruction: After the sample arrives: photo of the collar, cuff and print edge, plus a before-and-after wash photo if it looks good. Until then use a Printify detail mockup and do not describe it as a real sample.
 7. **Gift angle**
-   - Mockup instruction: Folded sweatshirt with a leash coiled beside it and a soft dog blanket (your own props), tag: 'for a very good old dog's human'.
+   - Mockup instruction: Folded sweatshirt beside a small dog bed and a treat jar (your own props), tag: 'for the doxie parent'.
 8. **Design story graphic**
-   - Mockup instruction: Text graphic: 'Slow walks. Soft beds. Good dog.' plus three bullets (soft crewneck, made to order, US shipping). Fraunces 900 headline.
+   - Mockup instruction: Text graphic: 'Maximum dog. Minimum legs.' plus three bullets (soft crewneck, made to order, US shipping). Bowlby One headline.
 9. **Care and details strip**
    - Mockup instruction: Simple icon strip: cold wash, inside out, tumble low or hang dry, no iron on print. Confirm against Printify's care text; keep to verified claims.
 10. **Made to order and shipping**
@@ -124,15 +124,17 @@ Same order in all 10 listings (shop-look rule): 1 hero on neutral backdrop, 2 de
 ## 6. IP status and pre-publish checks
 
 - Status (from FINAL): **PASS (unverified)**. PASS never means cleared; nothing has been run through USPTO or Etsy exact-phrase search.
-- Notes: Never use 'Grey Muzzle' or 'Silver Snout' in title, tags, description or art (those are nonprofit names). No health or aging-care claims.
+- Notes: Never use 'Long Dog' as a title or tag phrase (Long Dog Apparel is a real dachshund shop; also excluded from tags here). If the two-line headline runs wider than 11.5 in, the design file drops to three lines; re-check the mockup.
 - USPTO tmsearch (tmsearch.uspto.gov), word-mark search in classes 25, 35, 18 and 21; record date and result:
-   - SLOW WALKS SOFT BEDS GOOD DOG
-   - SLOW WALKS SOFT BEDS
-   - SENIOR DOG PARENT
+   - MAXIMUM DOG
+   - MINIMUM LEGS
+   - MAXIMUM DOG MINIMUM LEGS
+   - EST EVERY AFTERNOON
 - Etsy exact-phrase search (quote the phrase on etsy.com; note the count and the lead listings):
-   - "slow walks soft beds"
-   - "slow walks" "soft beds" "good dog"
-   - "senior dog parent" (pill)
+   - "maximum dog" "minimum legs"
+   - "maximum dog" shirt or sweatshirt
+   - "est. every afternoon"
+   - "minimum legs" dachshund
 - Rule: if an exact phrase has more than a handful of listings, or a live mark covers apparel or pet goods, use the fallback wording and rebuild the design file, title, tags and images.
-- Fallback wording: Backup headline: SLOW WALKS. SOFT BEDS. / STILL A GOOD DOG. Pill swap: '[Name]'s human' (only with real personalization); or a 'GOOD CAT' version as a separate design.
+- Fallback wording: Headline fallback: SHORT LEGS. / LONG OPINIONS. or LOTS OF DOG. / NOT MUCH LEG. Pill fallback: 'naps scheduled daily'. Rebuild design file, title, tags and images if changed.
 - Also before publishing: re-read Etsy's trademark and Creativity Standards pages, confirm the AI-disclosure wording, and make sure no 'inspired by' tags were added (they do not protect against an IP notice).

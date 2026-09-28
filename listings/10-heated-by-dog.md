@@ -1,45 +1,45 @@
-# Listing 07: Slow Walks
+# Listing 10: Heated by Dog
 
-> Status: DRAFT, nothing published. Rebuilt 2026-09-28 from designs/pet_collection_FINAL.md and pod/pet_sweatshirt_product.md. Keyword demand is UNVERIFIED throughout (no keyword tool or search-volume data was used). Launch wave: 2. Design score: 7.5.
+> Status: DRAFT, nothing published. Rebuilt 2026-09-28 from designs/pet_collection_FINAL.md and pod/pet_sweatshirt_product.md. Keyword demand is UNVERIFIED throughout (no keyword tool or search-volume data was used). Launch wave: 1. Design score: 7.5.
 
-Final print text (line breaks = /): **SLOW WALKS. / SOFT BEDS. / GOOD DOG.**  Label pill: *senior dog parent.*
+Final print text (line breaks = /): **HEATED / BY DOG.**  Label pill: *warm feet. zero regrets.*
 
-## 1. Title (110/140 characters)
+## 1. Title (114/140 characters)
 
 ```
-Senior Dog Sweatshirt, Slow Walks Soft Beds Good Dog Crewneck, Old Dog Mom Dad Gift, Gentle Dog Lover Pullover
+Funny Dog Sweatshirt, Heated by Dog Crewneck, Warm Feet Winter Dog Mom Dad Gift, Cozy Dog Lover Christmas Pullover
 ```
 
 Front-loaded keyword: first phrase of the title. No brand names, no banned phrases from the design file's IP notes.
 
 ## 2. Tags (13, each <=20 characters)
 
-1. senior dog sweater (18)
-2. senior dog mom (14)
-3. senior dog dad (14)
-4. old dog gift (12)
-5. dog lover sweatshirt (20)
-6. dog mom crewneck (16)
-7. good dog sweater (16)
+1. dog mom sweatshirt (18)
+2. cozy winter sweater (19)
+3. dog lover gift (14)
+4. funny dog crewneck (18)
+5. dog dad gift (12)
+6. winter dog sweater (18)
+7. christmas dog gift (18)
 8. gift for dog mom (16)
-9. dog owner gift (14)
-10. dog walk sweatshirt (19)
-11. cozy dog mom sweater (20)
-12. senior pet gift (15)
-13. dog birthday gift (17)
+9. dog owner sweatshirt (20)
+10. warm feet gift (14)
+11. dog mom christmas (17)
+12. cold weather gift (17)
+13. funny dog sweater (17)
 
 Duplicate check: none within this listing. No IP-flagged terms (no 'doodle dad/mom', 'long dog', 'grey muzzle', 'silver snout', 'zoom', Yellow Dog wording, standalone 'foster fail', all-caps CAT). Demand for every tag: UNVERIFIED; check against Etsy autocomplete before publishing.
 
 ## 3. Description (paste into Etsy)
 
 ```
-Shorter walks, softer beds, the same very good dog. A quiet sweatshirt for the slower chapter.
+Your dog is a 60-pound heated blanket with opinions about where your feet go. Wear the appreciation.
 
 WHO IT'S FOR AND WHEN TO GIVE IT
-People who share their home with an older dog, and the friends who want to say 'you are doing a good job' without a speech. Good for birthdays, Christmas, adoption anniversaries, a dog's own birthday, or a gentle gift for a hard season.
+Dog people who spend winter with a warm dog on their feet, plus anyone shopping for them. This one is seasonal: a natural for Christmas, secret-santa swaps, winter birthdays and cold-snap self-gifting, and it stays cozy through the last of January.
 
 THE DESIGN
-Three short lines, SLOW WALKS. / SOFT BEDS. / GOOD DOG., over a single looped leash ending in a heart-shaped tag, with a small line reading 'senior dog parent.' Charcoal and sage-green ink on a light gray sweatshirt.
+Two huge lines, HEATED / BY DOG., with a pair of striped knit socks (a small paw print on each) and three simple snowflakes, plus a small line reading 'warm feet. zero regrets.' Cream and coral-red ink on a black sweatshirt.
 
 PRODUCT DETAILS
 Unisex crewneck sweatshirt: Gildan 18000 Heavy Blend, 50% cotton / 50% polyester [confirm on Printify; composition can differ slightly by color, especially for heather and ash shades]. Medium-heavy fleece (roughly 8 oz, confirm), classic roomy unisex fit, ribbed collar, cuffs and hem. Sizes S-3XL [confirm which sizes and colors Printify currently offers for this exact blank].
@@ -61,8 +61,8 @@ Q: What if something is wrong with my order?
 A: If your sweatshirt arrives with a defect (print error, damage, wrong item), message us within 30 days of delivery with a photo and we will make it right with a replacement or refund per our shop policy. [Confirm the exact wording matches your Etsy return settings.]
 Q: How do I care for it?
 A: Cold wash inside out, low heat or hang dry, no direct ironing on the print [confirm on Printify].
-Q: Is this a memorial item?
-A: It is a gentle everyday sweatshirt about loving an older dog. It is not personalized and is not sold as a memorial product.
+Q: Will it arrive before Christmas?
+A: [ORDER-BY DATE: fill in only after reading Printify's holiday cutoff pages after Oct 15. Working estimate Dec 5-8, unverified.] Orders after that date cannot be promised for Dec 24 delivery.
 
 Thank you for shopping with us. Colors on screens vary a little from the real thing.
 ```
@@ -72,10 +72,10 @@ Items in [brackets] must be confirmed or replaced before publishing. Nothing abo
 ## 4. Category, attributes, variations, pricing
 
 - Category path (TO CONFIRM in Etsy's category picker): Clothing > Gender-Neutral Adult Clothing > Tops & Tees > Sweatshirts (or the closest current equivalent).
-- Attributes (TO CONFIRM against what Etsy currently asks): Primary color = Ash; Secondary color = per the ink if the field exists; Occasion = Birthday / Christmas as fits; Style = casual; Neckline = crew; Sleeve = long; Holiday = leave blank; Who made it = I did (AI-assisted design disclosed); What is it = a finished product; When made = made to order; Production partner = Printify.
-- Ink strategy: charcoal text with a sage-green heart tag on a looped leash (outlined in charcoal on Sport Grey).
-- Primary color variation: Ash (unverified on Monster Digital).
-- Fallback color variation: Sport Grey (on list).
+- Attributes (TO CONFIRM against what Etsy currently asks): Primary color = Black; Secondary color = per the ink if the field exists; Occasion = Birthday / Christmas as fits; Style = casual; Neckline = crew; Sleeve = long; Holiday = Christmas only if Etsy allows and it is accurate; Who made it = I did (AI-assisted design disclosed); What is it = a finished product; When made = made to order; Production partner = Printify.
+- Ink strategy: cream text with coral-red striped socks (each with a small paw print) and three snowflakes.
+- Primary color variation: Black (on list; recommended).
+- Fallback color variation: Forest (unverified; optional second colorway).
   - If the primary blank is not on Monster Digital's Printify list (unverified for several colors), use the fallback as the primary color and rebuild the mockups. Re-check ink contrast on the real sample; do not sell a color you have not seen.
 - Sizes: S, M, L, XL (base price), 2XL (+$2), 3XL (+$3) [confirm sizes offered per color and the true Printify cost for 2XL/3XL].
 - Shipping profile: free US shipping (US only), guarantee applies at item price >= $35 [confirm current Etsy threshold]. Processing time: 3-5 days [confirm].
@@ -101,21 +101,21 @@ Base $15.24 (Printify Gildan 18000 from-price; Premium ignored; UNVERIFIED for y
 Same order in all 10 listings (shop-look rule): 1 hero on neutral backdrop, 2 design close-up, 3 size chart plus print note. Use only honest Printify mockups or your own sample photos; no fake customer photos or reviews.
 
 1. **Hero flat-lay or hanger**
-   - Mockup instruction: Printify front mockup on Ash, hanger or flat-lay on the shared neutral backdrop (same backdrop for all 10 listings), art centered about 3 in below the collar. Prefer a real sample photo once the sample arrives.
+   - Mockup instruction: Printify front mockup on Black, hanger or flat-lay on the shared neutral backdrop (same backdrop for all 10 listings), art centered about 3 in below the collar. Prefer a real sample photo once the sample arrives.
 2. **Design close-up**
-   - Mockup instruction: Crop tight on the headline 'SLOW WALKS. SOFT BEDS. GOOD DOG.' and the illustration. Use a real sample photo after your sample arrives; do not retouch the print.
+   - Mockup instruction: Crop tight on the headline 'HEATED BY DOG.' and the illustration. Use a real sample photo after your sample arrives; do not retouch the print.
 3. **Size chart and print note**
    - Mockup instruction: Printify size chart for Gildan 18000, S-3XL in inches [confirm], plus the honest note 'soft, slightly vintage-look print; unisex, roomy fit; size up for oversized'. Same layout in all 10 listings.
 4. **Front view / on-model**
-   - Mockup instruction: Hanger mockup on Ash, calm and neutral, charcoal headline legible, leash-and-heart fully in frame.
+   - Mockup instruction: Hanger mockup on Black; the two huge lines and the socks must read at thumbnail size.
 5. **Color options**
-   - Mockup instruction: Grid of the design on Ash and Sport Grey using each color's exact Printify name. Only show colors you actually offer and have confirmed in Printify.
+   - Mockup instruction: Grid of the design on Black and Forest using each color's exact Printify name. Only show colors you actually offer and have confirmed in Printify.
 6. **Real fabric and print detail**
    - Mockup instruction: After the sample arrives: photo of the collar, cuff and print edge, plus a before-and-after wash photo if it looks good. Until then use a Printify detail mockup and do not describe it as a real sample.
 7. **Gift angle**
-   - Mockup instruction: Folded sweatshirt with a leash coiled beside it and a soft dog blanket (your own props), tag: 'for a very good old dog's human'.
+   - Mockup instruction: Folded sweatshirt with a pair of cozy socks and a mug (your own props), tag: 'for the one whose dog keeps their feet warm'. Wrap in kraft paper.
 8. **Design story graphic**
-   - Mockup instruction: Text graphic: 'Slow walks. Soft beds. Good dog.' plus three bullets (soft crewneck, made to order, US shipping). Fraunces 900 headline.
+   - Mockup instruction: Text graphic: 'Heated by dog.' plus three bullets (soft crewneck, made to order, US shipping). Add the order-by date only once confirmed.
 9. **Care and details strip**
    - Mockup instruction: Simple icon strip: cold wash, inside out, tumble low or hang dry, no iron on print. Confirm against Printify's care text; keep to verified claims.
 10. **Made to order and shipping**
@@ -124,15 +124,14 @@ Same order in all 10 listings (shop-look rule): 1 hero on neutral backdrop, 2 de
 ## 6. IP status and pre-publish checks
 
 - Status (from FINAL): **PASS (unverified)**. PASS never means cleared; nothing has been run through USPTO or Etsy exact-phrase search.
-- Notes: Never use 'Grey Muzzle' or 'Silver Snout' in title, tags, description or art (those are nonprofit names). No health or aging-care claims.
+- Notes: No TV-show cues (never 'Heated Rivalry'), no hockey art, no 'rivalry' wording anywhere. Do not state delivery-by-Christmas dates until Printify's cutoff is confirmed. Seasonal: value falls after January.
 - USPTO tmsearch (tmsearch.uspto.gov), word-mark search in classes 25, 35, 18 and 21; record date and result:
-   - SLOW WALKS SOFT BEDS GOOD DOG
-   - SLOW WALKS SOFT BEDS
-   - SENIOR DOG PARENT
+   - HEATED BY DOG
+   - WARM FEET ZERO REGRETS
 - Etsy exact-phrase search (quote the phrase on etsy.com; note the count and the lead listings):
-   - "slow walks soft beds"
-   - "slow walks" "soft beds" "good dog"
-   - "senior dog parent" (pill)
+   - "heated by dog"
+   - "heated by dog" sweatshirt / shirt (Etsy)
+   - "warm feet zero regrets"
 - Rule: if an exact phrase has more than a handful of listings, or a live mark covers apparel or pet goods, use the fallback wording and rebuild the design file, title, tags and images.
-- Fallback wording: Backup headline: SLOW WALKS. SOFT BEDS. / STILL A GOOD DOG. Pill swap: '[Name]'s human' (only with real personalization); or a 'GOOD CAT' version as a separate design.
+- Fallback wording: Backup headline: WARM FEET / PROVIDED BY DOG. Or a 'HEATED BY CAT' / 'HEATED BY [BREED]' variant as separate designs.
 - Also before publishing: re-read Etsy's trademark and Creativity Standards pages, confirm the AI-disclosure wording, and make sure no 'inspired by' tags were added (they do not protect against an IP notice).

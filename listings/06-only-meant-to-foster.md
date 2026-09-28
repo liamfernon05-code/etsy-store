@@ -1,58 +1,58 @@
-# Listing 07: Slow Walks
+# Listing 06: Only Meant to Foster
 
-> Status: DRAFT, nothing published. Rebuilt 2026-09-28 from designs/pet_collection_FINAL.md and pod/pet_sweatshirt_product.md. Keyword demand is UNVERIFIED throughout (no keyword tool or search-volume data was used). Launch wave: 2. Design score: 7.5.
+> Status: DRAFT, nothing published. Rebuilt 2026-09-28 from designs/pet_collection_FINAL.md and pod/pet_sweatshirt_product.md. Keyword demand is UNVERIFIED throughout (no keyword tool or search-volume data was used). Launch wave: 1. Design score: 8.
 
-Final print text (line breaks = /): **SLOW WALKS. / SOFT BEDS. / GOOD DOG.**  Label pill: *senior dog parent.*
+Final print text (line breaks = /): **I ONLY MEANT / TO FOSTER.**  Label pill: *foster fail, officially.*
 
-## 1. Title (110/140 characters)
+## 1. Title (119/140 characters)
 
 ```
-Senior Dog Sweatshirt, Slow Walks Soft Beds Good Dog Crewneck, Old Dog Mom Dad Gift, Gentle Dog Lover Pullover
+Dog Adoption Sweatshirt, I Only Meant to Foster Crewneck, Funny Foster Dog Mom Gift, Rescue Dog or Cat Adopter Pullover
 ```
 
 Front-loaded keyword: first phrase of the title. No brand names, no banned phrases from the design file's IP notes.
 
 ## 2. Tags (13, each <=20 characters)
 
-1. senior dog sweater (18)
-2. senior dog mom (14)
-3. senior dog dad (14)
-4. old dog gift (12)
-5. dog lover sweatshirt (20)
-6. dog mom crewneck (16)
-7. good dog sweater (16)
-8. gift for dog mom (16)
-9. dog owner gift (14)
-10. dog walk sweatshirt (19)
-11. cozy dog mom sweater (20)
-12. senior pet gift (15)
-13. dog birthday gift (17)
+1. dog adoption gift (17)
+2. rescue dog mom (14)
+3. foster dog mom (14)
+4. adoption day gift (17)
+5. gotcha day gift (15)
+6. rescue dog sweater (18)
+7. dog adopter gift (16)
+8. shelter dog gift (16)
+9. cat rescue gift (15)
+10. dog mom crewneck (16)
+11. dog lover sweatshirt (20)
+12. pet adoption gift (17)
+13. gift for dog mom (16)
 
 Duplicate check: none within this listing. No IP-flagged terms (no 'doodle dad/mom', 'long dog', 'grey muzzle', 'silver snout', 'zoom', Yellow Dog wording, standalone 'foster fail', all-caps CAT). Demand for every tag: UNVERIFIED; check against Etsy autocomplete before publishing.
 
 ## 3. Description (paste into Etsy)
 
 ```
-Shorter walks, softer beds, the same very good dog. A quiet sweatshirt for the slower chapter.
+Just a few weeks. Just until a home turned up. Then the home turned out to be yours.
 
 WHO IT'S FOR AND WHEN TO GIVE IT
-People who share their home with an older dog, and the friends who want to say 'you are doing a good job' without a speech. Good for birthdays, Christmas, adoption anniversaries, a dog's own birthday, or a gentle gift for a hard season.
+Foster parents who kept one (or three), new adopters, shelter and rescue volunteers, and the friends who saw it coming. Good for adoption anniversaries and gotcha days, Christmas, birthdays, Mother's Day and Father's Day, or a thank-you to a volunteer.
 
 THE DESIGN
-Three short lines, SLOW WALKS. / SOFT BEDS. / GOOD DOG., over a single looped leash ending in a heart-shaped tag, with a small line reading 'senior dog parent.' Charcoal and sage-green ink on a light gray sweatshirt.
+Warm two-line serif headline, I ONLY MEANT / TO FOSTER., with a soft heart that has a small house cut into its center, and a small line reading 'foster fail, officially.' Blush-cream and pink ink on a deep maroon sweatshirt.
 
 PRODUCT DETAILS
-Unisex crewneck sweatshirt: Gildan 18000 Heavy Blend, 50% cotton / 50% polyester [confirm on Printify; composition can differ slightly by color, especially for heather and ash shades]. Medium-heavy fleece (roughly 8 oz, confirm), classic roomy unisex fit, ribbed collar, cuffs and hem. Sizes S-3XL [confirm which sizes and colors Printify currently offers for this exact blank].
-Care: machine wash cold, inside out, with similar colors; tumble dry low or hang dry; do not iron directly on the print [confirm against Printify's care text].
+Blank: Gildan 18000 Heavy Blend unisex crewneck, a 50% cotton / 50% polyester fleece [confirm on Printify]. Roomy classic fit that is not cropped or fitted. Ribbed trim at collar, cuffs and waist. Sizes S-3XL [confirm on Printify before publishing].
+To keep the print looking its best: cold wash, inside out, low heat or line dry, no direct ironing on the design [confirm care text on Printify].
 
-SIZE CHART: see the size chart photo (unisex sizing, in inches). If you are between sizes or like a roomier look, size up. [Verify the chart against Printify's current Gildan 18000 size guide before publishing.]
+SIZE GUIDE: unisex sizing in the photos, measured in inches. Between sizes? Go up one. [Confirm against the current Printify size guide before you publish.]
 
-ABOUT THE PRINT: direct-to-garment printing on a fleece surface gives a soft, lived-in finish, not a heavy raised ink. Screen colors vary, so the shirt may look slightly different in person.
+PRINT NOTE: the design is printed directly on the fabric. On fleece it has a soft, slightly vintage look rather than a thick screen-print feel. Colors on your screen may look a little different from the finished sweatshirt.
 
-HOW LONG IT TAKES: each order is printed on demand. Allow [PRODUCTION DAYS, confirm; store policy 2-5 business days] to make it plus [TRANSIT DAYS, confirm] in the mail. US shipping is free.
+MADE TO ORDER: your sweatshirt is printed after you order. Production: [PRODUCTION DAYS, confirm; store policy 2-5 business days]. US delivery afterwards: [TRANSIT DAYS, confirm]. Free US shipping.
 
-ABOUT PRODUCTION: printing and shipping are handled by our production partner Printify, via a US print provider [confirm provider name] who makes each order after you buy it.
-ABOUT THE DESIGN: designed by [Shop Name] using AI-assisted image tools, with the text, layout and final artwork set and edited by us. [CONFIRM the current Etsy wording for the AI-assisted disclosure in the listing form and Creativity Standards before publishing; replace this sentence with it.]
+HOW THIS IS MADE: this item is made to order and printed and shipped by our production partner, Printify (through a US print provider, [confirm provider name, e.g. Monster Digital]).
+DESIGN NOTE: original design by [Shop Name], made with the help of AI-assisted image tools, then redrawn, lettered and laid out by us. [CONFIRM the required Etsy wording at listing time and swap it in here.]
 
 FAQ
 Q: Which size should I order?
@@ -61,8 +61,10 @@ Q: What if something is wrong with my order?
 A: If your sweatshirt arrives with a defect (print error, damage, wrong item), message us within 30 days of delivery with a photo and we will make it right with a replacement or refund per our shop policy. [Confirm the exact wording matches your Etsy return settings.]
 Q: How do I care for it?
 A: Cold wash inside out, low heat or hang dry, no direct ironing on the print [confirm on Printify].
-Q: Is this a memorial item?
-A: It is a gentle everyday sweatshirt about loving an older dog. It is not personalized and is not sold as a memorial product.
+Q: Does it work for cats?
+A: The words fit any animal you meant to foster. The heart-and-house art is neutral (no dog or cat drawn in it).
+Q: Is this connected to a rescue organization?
+A: No. This is an independent design and is not affiliated with or endorsed by any shelter or rescue group.
 
 Thank you for shopping with us. Colors on screens vary a little from the real thing.
 ```
@@ -72,10 +74,10 @@ Items in [brackets] must be confirmed or replaced before publishing. Nothing abo
 ## 4. Category, attributes, variations, pricing
 
 - Category path (TO CONFIRM in Etsy's category picker): Clothing > Gender-Neutral Adult Clothing > Tops & Tees > Sweatshirts (or the closest current equivalent).
-- Attributes (TO CONFIRM against what Etsy currently asks): Primary color = Ash; Secondary color = per the ink if the field exists; Occasion = Birthday / Christmas as fits; Style = casual; Neckline = crew; Sleeve = long; Holiday = leave blank; Who made it = I did (AI-assisted design disclosed); What is it = a finished product; When made = made to order; Production partner = Printify.
-- Ink strategy: charcoal text with a sage-green heart tag on a looped leash (outlined in charcoal on Sport Grey).
-- Primary color variation: Ash (unverified on Monster Digital).
-- Fallback color variation: Sport Grey (on list).
+- Attributes (TO CONFIRM against what Etsy currently asks): Primary color = Maroon; Secondary color = per the ink if the field exists; Occasion = Birthday / Christmas as fits; Style = casual; Neckline = crew; Sleeve = long; Holiday = leave blank; Who made it = I did (AI-assisted design disclosed); What is it = a finished product; When made = made to order; Production partner = Printify.
+- Ink strategy: blush-cream text with a soft pink heart containing a house-shaped cutout.
+- Primary color variation: Maroon (unverified on Monster Digital).
+- Fallback color variation: Black (on list).
   - If the primary blank is not on Monster Digital's Printify list (unverified for several colors), use the fallback as the primary color and rebuild the mockups. Re-check ink contrast on the real sample; do not sell a color you have not seen.
 - Sizes: S, M, L, XL (base price), 2XL (+$2), 3XL (+$3) [confirm sizes offered per color and the true Printify cost for 2XL/3XL].
 - Shipping profile: free US shipping (US only), guarantee applies at item price >= $35 [confirm current Etsy threshold]. Processing time: 3-5 days [confirm].
@@ -101,21 +103,21 @@ Base $15.24 (Printify Gildan 18000 from-price; Premium ignored; UNVERIFIED for y
 Same order in all 10 listings (shop-look rule): 1 hero on neutral backdrop, 2 design close-up, 3 size chart plus print note. Use only honest Printify mockups or your own sample photos; no fake customer photos or reviews.
 
 1. **Hero flat-lay or hanger**
-   - Mockup instruction: Printify front mockup on Ash, hanger or flat-lay on the shared neutral backdrop (same backdrop for all 10 listings), art centered about 3 in below the collar. Prefer a real sample photo once the sample arrives.
+   - Mockup instruction: Printify front mockup on Maroon, hanger or flat-lay on the shared neutral backdrop (same backdrop for all 10 listings), art centered about 3 in below the collar. Prefer a real sample photo once the sample arrives.
 2. **Design close-up**
-   - Mockup instruction: Crop tight on the headline 'SLOW WALKS. SOFT BEDS. GOOD DOG.' and the illustration. Use a real sample photo after your sample arrives; do not retouch the print.
+   - Mockup instruction: Crop tight on the headline 'I ONLY MEANT TO FOSTER.' and the illustration. Use a real sample photo after your sample arrives; do not retouch the print.
 3. **Size chart and print note**
    - Mockup instruction: Printify size chart for Gildan 18000, S-3XL in inches [confirm], plus the honest note 'soft, slightly vintage-look print; unisex, roomy fit; size up for oversized'. Same layout in all 10 listings.
 4. **Front view / on-model**
-   - Mockup instruction: Hanger mockup on Ash, calm and neutral, charcoal headline legible, leash-and-heart fully in frame.
+   - Mockup instruction: Hanger mockup on Maroon (or Black if that is the launch blank), headline and heart-house icon fully in frame.
 5. **Color options**
-   - Mockup instruction: Grid of the design on Ash and Sport Grey using each color's exact Printify name. Only show colors you actually offer and have confirmed in Printify.
+   - Mockup instruction: Grid of the design on Maroon and Black using each color's exact Printify name. Only show colors you actually offer and have confirmed in Printify.
 6. **Real fabric and print detail**
    - Mockup instruction: After the sample arrives: photo of the collar, cuff and print edge, plus a before-and-after wash photo if it looks good. Until then use a Printify detail mockup and do not describe it as a real sample.
 7. **Gift angle**
-   - Mockup instruction: Folded sweatshirt with a leash coiled beside it and a soft dog blanket (your own props), tag: 'for a very good old dog's human'.
+   - Mockup instruction: Folded sweatshirt with a paper heart tag reading 'for the one who kept them' (your own props, no shelter logos).
 8. **Design story graphic**
-   - Mockup instruction: Text graphic: 'Slow walks. Soft beds. Good dog.' plus three bullets (soft crewneck, made to order, US shipping). Fraunces 900 headline.
+   - Mockup instruction: Text graphic: 'I only meant to foster.' plus three bullets (soft crewneck, made to order, US shipping). Fraunces 900 headline.
 9. **Care and details strip**
    - Mockup instruction: Simple icon strip: cold wash, inside out, tumble low or hang dry, no iron on print. Confirm against Printify's care text; keep to verified claims.
 10. **Made to order and shipping**
@@ -123,16 +125,16 @@ Same order in all 10 listings (shop-look rule): 1 hero on neutral backdrop, 2 de
 
 ## 6. IP status and pre-publish checks
 
-- Status (from FINAL): **PASS (unverified)**. PASS never means cleared; nothing has been run through USPTO or Etsy exact-phrase search.
-- Notes: Never use 'Grey Muzzle' or 'Silver Snout' in title, tags, description or art (those are nonprofit names). No health or aging-care claims.
+- Status (from FINAL): **PASS (unverified); label CAUTION-low**. PASS never means cleared; nothing has been run through USPTO or Etsy exact-phrase search.
+- Notes: 'Foster fail' appears only as the small print label, never as the lead phrase in title, tags or shop name (crowded on Etsy, Redbubble and Amazon). No shelter or rescue names or logos.
 - USPTO tmsearch (tmsearch.uspto.gov), word-mark search in classes 25, 35, 18 and 21; record date and result:
-   - SLOW WALKS SOFT BEDS GOOD DOG
-   - SLOW WALKS SOFT BEDS
-   - SENIOR DOG PARENT
+   - I ONLY MEANT TO FOSTER
+   - ONLY MEANT TO FOSTER
+   - FOSTER FAIL OFFICIALLY (pill only)
 - Etsy exact-phrase search (quote the phrase on etsy.com; note the count and the lead listings):
-   - "slow walks soft beds"
-   - "slow walks" "soft beds" "good dog"
-   - "senior dog parent" (pill)
+   - "i only meant to foster"
+   - "only meant to foster" (Etsy, sweatshirt/shirt/mug)
+   - "foster fail, officially" (pill only, small label)
 - Rule: if an exact phrase has more than a handful of listings, or a live mark covers apparel or pet goods, use the fallback wording and rebuild the design file, title, tags and images.
-- Fallback wording: Backup headline: SLOW WALKS. SOFT BEDS. / STILL A GOOD DOG. Pill swap: '[Name]'s human' (only with real personalization); or a 'GOOD CAT' version as a separate design.
+- Fallback wording: Backup headline: I WAS JUST / FOSTERING. Pill swaps: 'adopted [month year]', 'repeat offender', 'foster fail #2'. If the pill collides, use 'and then she stayed.'
 - Also before publishing: re-read Etsy's trademark and Creativity Standards pages, confirm the AI-disclosure wording, and make sure no 'inspired by' tags were added (they do not protect against an IP notice).
