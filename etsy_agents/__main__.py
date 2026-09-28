@@ -19,6 +19,9 @@ def main() -> None:
     sub.add_parser("agents", help="list the team")
     sub.add_parser("launch", help="CEO plans a full store launch")
     sub.add_parser("weekly", help="CEO runs the weekly routine")
+    deb = sub.add_parser("debate", help="agents research, argue, cross-examine, and a judge picks the niche")
+    deb.add_argument("--top", type=int, default=5, help="number of contending niches")
+    deb.add_argument("--focus", default="", help="extra guidance, e.g. 'avoid apparel'")
     ceo = sub.add_parser("ask", help="give the CEO any goal")
     ceo.add_argument("goal")
     one = sub.add_parser("run", help="talk to one specialist directly")
@@ -29,6 +32,10 @@ def main() -> None:
     if a.cmd == "agents":
         for s in [CEO, *SPECIALISTS]:
             print(f"{s.name:20} {s.description}")
+        return
+    if a.cmd == "debate":
+        from .debate import run_debate
+        print("\n" + run_debate(a.top, a.focus))
         return
     if a.cmd == "run":
         spec, task = next(s for s in SPECIALISTS if s.name == a.agent), a.task
