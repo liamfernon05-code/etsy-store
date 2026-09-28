@@ -93,7 +93,7 @@ Goal: every piece looks like a labeled item from a well-loved household (pet-car
 - Sweatshirt: Sand. Ink: #B8741A (gold), #4A2E12 (brown text), #C7D64A (ball).
 - Placement: full front, 11 in wide x 9 in tall, centered 3 in below collar. File: 3300 x 2700 px, 300 DPI, transparent PNG. Back neck: Well-Loved Household tag.
 - Image prompt: "Simple flat hand-cut linocut style illustration of a single tennis ball with a small bite mark and a dashed curved arrow that loops away and ends, thick uneven contour lines, flat colors only in mustard gold, brown and lime yellow, isolated on plain white background, centered, no shadow, no gradient, no text, no letters, no numbers, no watermark, no dog, no photorealism, screen-print style."
-- Variant: "LAB IN NAME ONLY"? No: use "LABRADOR: RETRIEVER IN NAME ONLY" or "GOLDENDOODLE: RETRIEVER IN NAME ONLY" swapping the label line; ball to duck decoy for Lab.
+- Variant: keep the headline and swap the label line ("lab household", "goldendoodle crew"); ball becomes a duck decoy for a Lab version.
 - IP check: PASS (low confidence). Web search for "retriever in name only" golden shirt returned no exact-phrase merch or trademark (results were generic golden retriever shirt listings). Not registry-checked. Fix if collision: "Retriever. Allegedly."
 
 ## 2. Fluff Management (sharpened)
