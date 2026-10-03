@@ -1,0 +1,28 @@
+[project]
+name = "local-seo-agent"
+version = "0.1.0"
+description = "Audit + plan + AI-visibility tracking for local businesses (Google local pack, organic, and AI assistants)"
+requires-python = ">=3.11"
+# Direct dependencies only; each has >5,000 GitHub stars (httpx 15.5k, pydantic 28.9k, Jinja2 11.8k).
+dependencies = ["httpx>=0.27", "pydantic>=2.6", "jinja2>=3.1"]
+
+[project.optional-dependencies]
+probe = ["openai>=1.40"]                 # openai-python 31.7k stars: OpenAI, Perplexity and Gemini via compatible endpoints
+draft = ["claude-agent-sdk>=0.1"]        # claude-agent-sdk-python 8.2k stars
+dev = ["pytest>=8"]                      # pytest 14.6k stars
+
+[project.scripts]
+local-seo-agent = "local_seo_agent.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["local_seo_agent*"]
+
+[tool.setuptools.package-data]
+local_seo_agent = ["templates/*.j2"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

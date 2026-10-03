@@ -1,0 +1,51 @@
+# Client profile. Everything the agent drafts is built ONLY from what you put here.
+[client]
+name = "Riverside Family Dental"
+website = "https://www.example-dental.com"
+phone = "(512) 555-0147"
+vertical = "dentist"            # dentist | lawyer | plumber | restaurant | salon | generic
+jurisdiction = "US"             # required: legal/compliance notes only cover the US
+primary_city = "Austin"
+service_area_business = false   # true if the street address is hidden on Google (plumbers etc.)
+locations = 1
+target_services = ["dentist", "emergency dentist", "teeth whitening", "dental implants"]
+service_areas = []              # e.g. ["Round Rock", "Cedar Park"]
+brand_aliases = []              # other names people use
+same_as = []                    # official profile URLs (Facebook, Instagram, Yelp...)
+# Facts the agent may use in drafts. Anything not listed here will not be claimed.
+facts = [
+  "Family-owned practice serving Austin since 2011",
+  "Same-day emergency appointments weekdays",
+  "Accepts most major insurance plans",
+]
+
+[client.hours]
+"Mon-Fri" = "08:00-17:00"
+
+[address]
+street = "123 Main St"
+city = "Austin"
+region = "TX"
+postal_code = "78701"
+country = "US"
+
+# Google Business Profile facts you read off the profile by hand (the GBP API needs Google approval).
+[gbp]
+primary_category = "Dentist"
+rating = 4.7
+review_count = 64
+competitor_review_counts = [210, 180, 95]
+verified = true
+name_matches_signage = true
+hours_set = true
+special_hours_set = false
+has_booking_or_menu_link = true
+description_set = true
+services_listed = true
+photo_count = 18
+primary_phone_is_tracking_number = false
+
+# Optional competitors to watch (names only; we never scrape their review sites).
+[[competitors]]
+name = "Downtown Smiles"
+website = "https://www.example-competitor.com"

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Local Visibility Report: {{ profile.name }}</title>
+<style>
+:root{--bg:#fff;--fg:#1b1f24;--muted:#5b6670;--line:#e3e7eb;--card:#f6f8fa;--err:#b42318;--warn:#b54708;--info:#175cd3;--unk:#667085;--ok:#067647}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1317;--fg:#e8ecef;--muted:#9aa5b1;--line:#27303a;--card:#171d24;--err:#f97066;--warn:#fdb022;--info:#84adff;--unk:#98a2b3;--ok:#47cd89}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+main{max-width:920px;margin:0 auto;padding:24px 16px 64px}h1{font-size:1.7rem;margin:.2em 0}h2{font-size:1.25rem;margin:2em 0 .6em;border-bottom:1px solid var(--line);padding-bottom:.3em}
+.muted{color:var(--muted)}.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:10px 0}
+.caveat{border-left:4px solid var(--warn)}.pill{display:inline-block;font-size:.72rem;font-weight:600;padding:1px 8px;border-radius:99px;border:1px solid currentColor;margin-right:6px;vertical-align:middle}
+.ERROR{color:var(--err)}.WARN{color:var(--warn)}.INFO{color:var(--info)}.UNKNOWN{color:var(--unk)}
+table{width:100%;border-collapse:collapse;font-size:.92rem;display:block;overflow-x:auto}th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+small{color:var(--muted)}ul{padding-left:1.2em;margin:.4em 0}
+</style>
+</head>
+<body>
+<main>
+<h1>Local Visibility Report</h1>
+<p class="muted">{{ profile.name }} &middot; {{ profile.website }} &middot; {{ profile.city }} &middot; generated {{ generated }}</p>
+
+<div class="card caveat"><strong>Read this first.</strong>
+<ul>
+<li>No one can guarantee a #1 Google ranking or a first mention in ChatGPT, Claude, Perplexity or Gemini. Results vary by searcher location, personalisation and over time. This report lists what to fix, in priority order.</li>
+<li>Findings are tagged by evidence: <em>official</em> (stated by the platform), <em>evidence</em> (studies), <em>heuristic</em> (our tripwires, not violations), <em>vendor</em> (summaries not yet read from the primary source).</li>
+<li>Nothing here is published or sent automatically. Every change needs your approval.</li>
+{% if jurisdiction_warning %}<li><strong>{{ jurisdiction_warning }}</strong></li>{% endif %}
+{% if update_note %}<li>{{ update_note }}</li>{% endif %}
+</ul></div>
+
+<h2>Summary</h2>
+<div class="card">
+{% for sev in ['ERROR','WARN','UNKNOWN','INFO'] %}<span class="pill {{ sev }}">{{ sev }} {{ counts[sev] }}</span>{% endfor %}
+<p class="muted" style="margin-bottom:0">Audit crawled {{ pages }} page(s). UNKNOWN means we could not determine it (no data, blocked, or needs API access); it is not a failure.</p>
+</div>
+
+<h2>Findings</h2>
+{% for f in findings %}
+<div class="card">
+<span class="pill {{ f.severity.value }}">{{ f.severity.value }}</span><strong>{{ f.title }}</strong>
+<small> &middot; {{ f.category }} &middot; {{ f.confidence.value }}{% if f.verified_on %} &middot; verified {{ f.verified_on }}{% endif %}</small>
+{% if f.detail %}<div>{{ f.detail }}</div>{% endif %}
+{% if f.evidence %}<div><small>Evidence: {{ f.evidence }}</small></div>{% endif %}
+{% if f.fix %}<div><strong>Fix:</strong> {{ f.fix }}</div>{% endif %}
+{% if f.source_url %}<div><small>Source: {{ f.source_url }}</small></div>{% endif %}
+</div>
+{% endfor %}
+
+<h2>30 / 60 / 90-day plan</h2>
+{% for phase, tasks in phases.items() %}{% if tasks %}
+<h3>By day {{ phase }}</h3>
+<table><thead><tr><th>Task</th><th>Score</th><th>Notes</th></tr></thead><tbody>
+{% for t in tasks %}<tr><td><strong>{{ t.title }}</strong>{% if t.why %}<br><small>{{ t.why }}</small>{% endif %}
+{% if t.how %}<ul>{% for h in t.how %}<li>{{ h }}</li>{% endfor %}</ul>{% endif %}</td>
+<td>{{ t.score }}<br><small>impact {{ t.impact }} / effort {{ t.effort }}</small></td>
+<td><small>{{ t.confidence.value }}{% if t.manual %} &middot; manual{% endif %}{% if t.needs_approval %} &middot; needs approval{% endif %}</small></td></tr>{% endfor %}
+</tbody></table>
+{% endif %}{% endfor %}
+<p class="muted">Score = impact x evidence weight / effort. Weights are a heuristic, not calibrated against outcomes.</p>
+
+{% if probes %}
+<h2>AI visibility (API-sampled)</h2>
+{% for s in probes %}
+<div class="card"><strong>Wave: {{ s.wave }}</strong><br><small>{{ s.metric }}</small>
+{% for prov, p in s.providers.items() %}
+<h3>{{ prov }} <small>models: {{ p.models_seen|join(', ') }}</small></h3>
+<ul>
+<li>Valid runs: {{ p.valid_runs }} (failed: {{ p.failed_runs }}) &middot; <em>{{ p.validity }}</em></li>
+<li>Mention rate: <strong>{{ '%.0f'|format(p.mention_rate*100) }}%</strong>, 95% interval (prompt-clustered) {{ '%.0f'|format(p.mention_rate_ci_clustered[0]*100) }}&ndash;{{ '%.0f'|format(p.mention_rate_ci_clustered[1]*100) }}%</li>
+<li>Verified mentions (domain / phone / address): {{ '%.0f'|format(p.verified_mention_rate*100) }}% &middot; Client domain cited: {{ '%.0f'|format(p.citation_rate*100) }}%</li>
+<li>Smallest change detectable between two equal waves: ~{{ '%.0f'|format(p.min_detectable_diff_vs_equal_wave*100) }} percentage points</li>
+</ul>
+<table><thead><tr><th>Most-named businesses</th><th>Runs</th><th>Most-cited domains</th><th>Runs</th></tr></thead><tbody>
+{% for i in range(10) %}{% set e = p.top_named_entities[i] if i < p.top_named_entities|length else None %}{% set d = p.top_cited_domains[i] if i < p.top_cited_domains|length else None %}
+{% if e or d %}<tr><td>{{ e[0] if e else '' }}</td><td>{{ e[1] if e else '' }}</td><td>{{ d[0] if d else '' }}</td><td>{{ d[1] if d else '' }}</td></tr>{% endif %}{% endfor %}
+</tbody></table>
+{% endfor %}
+</div>
+{% endfor %}
+<div class="card caveat"><strong>Not measured</strong><ul>{% for n in not_measured %}<li>{{ n }}</li>{% endfor %}</ul></div>
+{% endif %}
+
+<h2>Reference facts used (with verification dates)</h2>
+<table><thead><tr><th>Fact</th><th>Evidence</th><th>Verified</th></tr></thead><tbody>
+{% for f in facts %}<tr><td>{{ f.text }}<br><small>{{ f.source }}</small></td><td>{{ f.confidence.value }}</td><td>{{ f.verified_on }}{% if f.stale %} <strong>(stale: re-verify)</strong>{% endif %}</td></tr>{% endfor %}
+</tbody></table>
+<p class="muted">AI-visibility numbers come from API samples, which differ from consumer apps. Whitespark percentages are expert opinion about Google's local pack, not AI-assistant weights.</p>
+</main>
+</body>
+</html>
