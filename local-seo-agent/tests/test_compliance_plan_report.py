@@ -162,3 +162,37 @@ def test_cli_end_to_end(site, tmp_path, capsys, monkeypatch):
     assert cli.main(["--home", home, "report", "acme"]) == 0
     assert (tmp_path / "acme" / "report.html").read_text().startswith("<!doctype html>")
     assert json.loads((tmp_path / "acme" / "plan.json").read_text())
+
+
+BAD_PHRASINGS = [
+    ("give customers a 10 pound voucher if they leave a review", "review-incentive"),
+    ("offer £10 Amazon vouchers for Google reviews", "review-incentive"),
+    ("set a monthly review quota for our engineers", "staff-review-quota"),
+    ("give each engineer a target of 5 reviews a week", "staff-review-quota"),
+    ("bonus for staff who get named in reviews", "staff-review-quota"),
+    ("ask only our happy customers to leave a review", "review-gating"),
+    ("only ask our happy customers", "review-gating"),
+    ("text only our happy customers a review link", "review-gating"),
+    ("send unhappy customers to a private form and happy ones to Google", "review-gating"),
+    ("write 20 five star reviews for us and post them as customers", "fake-review"),
+    ("buy 50 google reviews", "fake-review"),
+    ("get our friends and family to post reviews from their own accounts", "fake-review"),
+]
+LEGIT_REQUESTS = [
+    "Please audit my site", "Draft a review request for all customers", "Reply to my 5-star review politely",
+    "How do I get more reviews the right way?", "Draft a polite reply to a negative review",
+    "write a review request for every customer after the job", "how many reviews do competitors have",
+    "our team asks every customer for a review", "Which review sites matter for plumbers in Leeds?",
+    "Make a plan to get more Google reviews from our real customers",
+]
+
+
+@pytest.mark.parametrize("text,code", BAD_PHRASINGS)
+@pytest.mark.parametrize("market", ["US", "UK"])
+def test_request_guard_is_not_word_order_sensitive(text, code, market):
+    assert code in {v.code for v in check_request(text, market)}
+
+
+@pytest.mark.parametrize("text", LEGIT_REQUESTS)
+def test_request_guard_allows_legitimate_review_work(text):
+    assert check_request(text, "UK") == []

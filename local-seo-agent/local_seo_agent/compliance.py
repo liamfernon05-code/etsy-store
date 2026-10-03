@@ -53,6 +53,38 @@ _REQUEST_RULES: list[tuple[str, str, re.Pattern]] = [
      re.compile(r"\b(sockpuppet|astroturf|pretend to be (a )?(customer|user))\b", re.I)),
 ]
 
+# Sentence-level concept rules: EVERY group must match somewhere in the same sentence, in any order. Far less brittle than a
+# single regex for natural phrasing ("ask only our happy customers" / "only ask happy customers"; "10 pound voucher").
+_REV = r"\b(?:reviews?|ratings?|testimonials?|feedback|google|trustpilot|checkatrade|yell|tripadvisor)\b"
+_SENTENCE_RULES: list[tuple[str, str, list[str]]] = [
+    ("review-incentive",
+     "Incentivised reviews are banned by Google, Trustpilot, Checkatrade and Yell, and are lawful in the UK only if the incentive is prominently disclosed; this tool never proposes them.",
+     [r"\breviews?\b|\bratings?\b|\btestimonials?\b",
+      r"\b(?:vouchers?|discounts?|gifts?|free (?!to\b)\w+|cash|rewards?|prizes?|raffles?|credit|refund|bonus|incentiv\w*|bribe\w*|"
+      r"in exchange|(?:pay|paying|paid)\b)|[£$]\s?\d|\b\d+\s*(?:pounds?|quid|dollars?|bucks|%\s*off|off)\b"]),
+    ("staff-review-quota",
+     "Staff review quotas, leaderboards, bonuses and scripts naming staff in reviews are banned by Google (reported 2026-04 policy update: verify).",
+     [r"\breviews?\b",
+      r"\b(?:staff|employees?|engineers?|technicians?|team|plumbers?|electricians?|installers?|workers?|drivers?|stylists?|dentists?|receptionists?)\b",
+      r"\b(?:quota|targets?|leaderboard|bonus|commission|minimum|must get|each (?:week|month)|per (?:week|month|day)|compet(?:e|ition)|incentive)\b"]),
+    ("review-gating",
+     "Review gating (asking only happy customers, or routing unhappy ones elsewhere) violates Google and Trustpilot policy. Invite everyone the same way, or an impartial sample.",
+     [_REV,
+      r"\b(?:only|just|filter\w*|screen\w*|exclude\w*|except|skip|avoid|not (?:ask|send)|don'?t (?:ask|send))\b",
+      r"\b(?:happy|satisfied|positive|5[- ]star|five[- ]star|good experience|unhappy|dissatisfied|negative|complain\w*)\b",
+      r"\b(?:ask|request|send|invite|email|text|sms|message|contact|link)\b"]),
+    ("review-gating",
+     "Review gating (asking only happy customers, or routing unhappy ones elsewhere) violates Google and Trustpilot policy. Invite everyone the same way, or an impartial sample.",
+     [r"\b(?:unhappy|dissatisfied|angry|negative)\b", r"\b(?:private|internal|separate)\b", r"\b(?:happy|satisfied|positive)\b",
+      r"\b(?:google|public|review|trustpilot)\b"]),
+    ("fake-review",
+     "Writing, buying or posting fake reviews is prohibited (US: FTC 16 CFR 465; UK: DMCC Act 2024; and every platform's policy).",
+     [r"\b(?:reviews?|testimonials?|ratings?)\b",
+      r"\b(?:fake|fabricat\w*|bogus|made[- ]up|invent\w*|pretend\w*|pose as|as (?:a )?customers?|ai[- ]generated|bulk|buy|bought|purchase\w*|"
+      r"multiple accounts|sock\w*|our own accounts|their own accounts|friends (?:and|or|&) family|family (?:and|or|&) friends|"
+      r"relatives|from (?:our|my) (?:own )?(?:accounts|staff|family|friends))\b"]),
+]
+
 _DRAFT_RULES: list[tuple[str, str, re.Pattern]] = [
     ("guarantee", "Draft contains a ranking/recommendation guarantee.",
      re.compile(r"guarantee[sd]?\b.{0,30}(#\s*1|number one|first page|top (spot|rank)|rank)", re.I | re.S)),
@@ -92,6 +124,14 @@ def check_request(text: str, market: str = "US") -> list[Violation]:
         if m and code not in seen:
             seen.add(code)
             out.append(Violation(code, msg, m.group(0)[:80]))
+    for code, msg, groups in _SENTENCE_RULES:
+        if code in seen:
+            continue
+        for sentence in re.split(r"(?<=[.!?;\n])\s+|\n", text):
+            if all(re.search(g, sentence, re.I) for g in groups):
+                seen.add(code)
+                out.append(Violation(code, msg, sentence.strip()[:80]))
+                break
     return out
 
 

@@ -129,3 +129,37 @@ def test_psi_flags_slow_lcp_and_cls_scaling():
                                                "CUMULATIVE_LAYOUT_SHIFT_SCORE": {"percentile": 5}}}}
     f = {x.id for x in psi_findings(data)}
     assert "psi.lcp" in f and "psi.cls" not in f         # CLS 5 == 0.05 which is good
+
+
+# ---------------- basic-SEO weaknesses ----------------
+def test_generic_title_thin_home_and_missing_service_pages(site, profile):
+    base, pages = site
+    pages["/"] = (200, "text/html", "<html lang=en><head><title>Home</title></head><body><p>We do dentistry. Call us.</p>"
+                  "<a href='/contact'>Contact</a></body></html>")
+    profile.website = base
+    f = {x.id: x for x in run_all(profile, _crawl(base))}
+    assert f["tech.title-generic"].severity.value == "WARN" and f["tech.title-generic"].evidence == "Home"
+    assert f["content.thin-home"].severity.value == "INFO" and f["content.thin-home"].confidence.value == "heuristic"
+    assert "dentist" in f["content.service-pages"].evidence and f["content.service-pages"].severity.value == "WARN"
+
+
+def test_service_pages_found_when_a_page_targets_the_service(site, profile):
+    base, pages = site
+    pages["/"] = (200, "text/html", "<html><head><title>Riverside Dental in Austin</title></head><body><h1>Dentist Austin</h1>"
+                  "<a href='/emergency-dentist'>x</a></body></html>")
+    pages["/emergency-dentist"] = (200, "text/html", "<html><head><title>Emergency dentist Austin</title></head><body><h1>Emergency dentist</h1></body></html>")
+    profile.website = base
+    got = {x.id for x in run_all(profile, _crawl(base))}
+    assert "content.service-pages" not in got and "tech.title-generic" not in got
+
+
+def test_jsonld_hours_use_valid_day_names_and_place_areas(profile):
+    from local_seo_agent.checks.schema import expand_days
+
+    profile.hours = {"Mon-Fri": "08:00-17:30", "Weekends": "09:00-12:00", "Sat": "09:00-12:00"}
+    profile.service_areas = ["Headingley"]
+    node = generate_local_business_jsonld(profile)
+    specs = node["openingHoursSpecification"]
+    assert specs[0]["dayOfWeek"] == ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"] and len(specs) == 2   # 'Weekends' skipped, never invalid
+    assert node["areaServed"] == [{"@type": "Place", "name": "Headingley"}]
+    assert expand_days("Sat-Mon") == ["Saturday", "Sunday", "Monday"] and expand_days("Weekdays") == []

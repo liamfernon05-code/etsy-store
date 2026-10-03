@@ -136,7 +136,7 @@ def generate_local_business_jsonld(profile: ClientProfile) -> dict:
     if profile.vat_number:
         node["vatID"] = profile.vat_number
     if profile.service_areas:
-        node["areaServed"] = [{"@type": "City", "name": c} for c in profile.service_areas]
+        node["areaServed"] = [{"@type": "Place", "name": c} for c in profile.service_areas]  # suburbs/neighbourhoods are not cities
     if profile.same_as:
         node["sameAs"] = profile.same_as
     if profile.hours:
@@ -144,10 +144,33 @@ def generate_local_business_jsonld(profile: ClientProfile) -> dict:
         for days, rng in profile.hours.items():
             if "-" in rng and rng.count(":") == 2:
                 opens, closes = (x.strip() for x in rng.split("-", 1))
-                specs.append({"@type": "OpeningHoursSpecification", "dayOfWeek": days, "opens": opens, "closes": closes})
+                dow = expand_days(days)
+                if dow:  # skip rather than emit invalid markup
+                    specs.append({"@type": "OpeningHoursSpecification", "dayOfWeek": dow, "opens": opens, "closes": closes})
         if specs:
             node["openingHoursSpecification"] = specs
     return node
+
+
+_DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+_ABBR = {d[:3].lower(): d for d in _DAYS}
+
+
+def expand_days(spec: str) -> list[str]:
+    """'Mon-Fri' / 'Mon,Wed,Sat' / 'Sunday' -> full schema.org DayOfWeek names ([] when unparseable)."""
+    out: list[str] = []
+    for part in re.split(r"[,&/]|\band\b", spec or "", flags=re.I):
+        part = part.strip().lower()
+        if not part:
+            continue
+        if "-" in part or "–" in part:
+            a, b = (x.strip()[:3] for x in re.split(r"[-–]", part, maxsplit=1))
+            if a in _ABBR and b in _ABBR:
+                i, j = _DAYS.index(_ABBR[a]), _DAYS.index(_ABBR[b])
+                out += [_DAYS[(i + k) % 7] for k in range(((j - i) % 7) + 1)]
+        elif part[:3] in _ABBR:
+            out.append(_ABBR[part[:3]])
+    return list(dict.fromkeys(out))
 
 
 def jsonld_script(node: dict) -> str:

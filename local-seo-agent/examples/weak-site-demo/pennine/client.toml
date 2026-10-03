@@ -1,0 +1,41 @@
+[client]
+name = "Pennine Plumbing & Heating Ltd"
+website = "http://www.pennine-plumbing-heating.example"
+phone = "07700 900123"
+vertical = "heating_engineer"
+jurisdiction = "UK"
+primary_city = "Leeds"
+service_area_business = true
+sells_gas_services = true
+company_number = "01234567"
+target_services = ["heating engineer", "boiler repair", "boiler installation", "emergency plumber"]
+service_areas = ["Headingley", "Chapel Allerton", "Roundhay", "Horsforth"]
+facts = [
+  "Family-run heating and plumbing business covering north Leeds",
+  "Gas Safe registered business",
+  "Same-day call-outs for no-heat emergencies",
+]
+
+[client.hours]
+"Mon-Fri" = "08:00-17:30"
+
+[address]
+street = "12 Example Road"
+city = "Leeds"
+region = "West Yorkshire"
+postal_code = "LS6 1AA"
+
+# What the owner read off their Google Business Profile by hand
+[gbp]
+primary_category = "Plumber"
+rating = 4.4
+review_count = 9
+competitor_review_counts = [214, 167, 96]
+verified = true
+name_matches_signage = false
+hours_set = false
+special_hours_set = false
+description_set = false
+services_listed = false
+photo_count = 3
+primary_phone_is_tracking_number = false

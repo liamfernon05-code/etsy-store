@@ -1,0 +1,945 @@
+[
+ {
+  "id": "fix.crawl.blocked.OAI-SearchBot",
+  "title": "robots.txt blocks OAI-SearchBot (ChatGPT search index)",
+  "why": "Search/answer bots must be allowed to be recommended.",
+  "how": [
+   "Allow OAI-SearchBot in robots.txt (e.g. 'User-agent: OAI-SearchBot' / 'Allow: /')."
+  ],
+  "category": "crawlability",
+  "impact": 5,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "crawl.blocked.OAI-SearchBot",
+  "score": 5.0
+ },
+ {
+  "id": "fix.crawl.blocked.PerplexityBot",
+  "title": "robots.txt blocks PerplexityBot (Perplexity index)",
+  "why": "Search/answer bots must be allowed to be recommended.",
+  "how": [
+   "Allow PerplexityBot in robots.txt (e.g. 'User-agent: PerplexityBot' / 'Allow: /')."
+  ],
+  "category": "crawlability",
+  "impact": 5,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "crawl.blocked.PerplexityBot",
+  "score": 5.0
+ },
+ {
+  "id": "fix.crawl.waf-unknown",
+  "title": "CDN/WAF bot blocking cannot be detected from outside",
+  "why": "Cloudflare blocks AI bots by default on domains created since 2025-07-01. A spoofed user-agent test is unreliable because WAFs verify bots by IP.",
+  "how": [
+   "Check Cloudflare 'AI Crawl Control' / WAF settings and server logs for real OAI-SearchBot, PerplexityBot, Claude-SearchBot hits."
+  ],
+  "category": "crawlability",
+  "impact": 4,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": true,
+  "source": "crawl.waf-unknown",
+  "score": 4.0
+ },
+ {
+  "id": "fix.gbp.name-stuffed",
+  "title": "GBP name does not match real-world signage",
+  "why": "Keyword-stuffed names can rank short-term but violate Google's guidelines and risk suspension.",
+  "how": [
+   "Use the exact legal/signage name."
+  ],
+  "category": "gbp",
+  "impact": 4,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "gbp.name-stuffed",
+  "score": 4.0
+ },
+ {
+  "id": "fix.tech.viewport",
+  "title": "No mobile viewport meta tag",
+  "why": "",
+  "how": [
+   "Add <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">."
+  ],
+  "category": "technical",
+  "impact": 4,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "tech.viewport",
+  "score": 4.0
+ },
+ {
+  "id": "fix.uk.gas-safe-id-missing",
+  "title": "Gas work offered but no Gas Safe ID supplied",
+  "why": "",
+  "how": [
+   "Gas work must be done by a Gas Safe registered business: supply the ID."
+  ],
+  "category": "uk-compliance",
+  "impact": 4,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.gas-safe-id-missing",
+  "score": 4.0
+ },
+ {
+  "id": "fix.tech.city-in-title",
+  "title": "'Leeds' not in homepage title or H1",
+  "why": "Local relevance: make the service area explicit where users and crawlers look first.",
+  "how": [
+   "Work 'Leeds' and the primary service into the title and H1 naturally."
+  ],
+  "category": "technical",
+  "impact": 4,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "tech.city-in-title",
+  "score": 3.2
+ },
+ {
+  "id": "fix.tech.title-generic",
+  "title": "Homepage title is generic or a single word",
+  "why": "The title is the strongest on-page signal and the headline in search results.",
+  "how": [
+   "Use a unique title with the primary service, the place and the brand, e.g. 'Heating engineer in Leeds | Brand'."
+  ],
+  "category": "technical",
+  "impact": 4,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "tech.title-generic",
+  "score": 3.2
+ },
+ {
+  "id": "pb.homepage-local",
+  "title": "Make the homepage unmistakably local",
+  "why": "City + primary service in title/H1, visible NAP, tap-to-call, hours and a map are cheap relevance and conversion wins.",
+  "how": [
+   "Title/H1 contain primary service + city.",
+   "Phone as tel: link; hours visible; embed the map.",
+   "Link prominently to each core service page."
+  ],
+  "category": "playbook",
+  "impact": 4,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "playbook",
+  "score": 3.2
+ },
+ {
+  "id": "pb.uk-identity",
+  "title": "Show the legally required business details on the website",
+  "why": "Limited companies must show registered name, company number, place of registration and registered office (SI 2015/17); E-Commerce Regulations reg 6 add an email address and VAT number if registered.",
+  "how": [
+   "Footer/legal page with those details, plus a privacy policy and cookie information."
+  ],
+  "category": "playbook",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "playbook",
+  "score": 3.0
+ },
+ {
+  "id": "fix.tech.cwv-unknown",
+  "title": "Core Web Vitals field data not collected in this run",
+  "why": "Run with --psi and a PageSpeed API key to read CrUX field data. Small sites often have no field data.",
+  "how": [],
+  "category": "technical",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": true,
+  "source": "tech.cwv-unknown",
+  "score": 2.0
+ },
+ {
+  "id": "fix.tech.https",
+  "title": "Site is not served over HTTPS",
+  "why": "",
+  "how": [
+   "Install a certificate and redirect all HTTP URLs to HTTPS."
+  ],
+  "category": "technical",
+  "impact": 4,
+  "effort": 2,
+  "confidence": "official",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "tech.https",
+  "score": 2.0
+ },
+ {
+  "id": "fix.uk.ch.no-key",
+  "title": "Companies House status not checked",
+  "why": "Set COMPANIES_HOUSE_API_KEY (free) so the audit can confirm the company is active.",
+  "how": [],
+  "category": "uk-register",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": true,
+  "source": "uk.ch.no-key",
+  "score": 2.0
+ },
+ {
+  "id": "pb.gbp-core",
+  "title": "Claim, verify and fully complete the Google Business Profile",
+  "why": "GBP signals are the largest local-pack factor group in the 2026 expert survey (opinion, not Google's weights) and feed Maps, Gemini and AI Overviews.",
+  "how": [
+   "Pick the most specific PRIMARY category by comparing the top 3 competitors' primary categories.",
+   "Use the exact signage name: no keywords added (suspension risk).",
+   "Complete hours + special hours, services with descriptions, booking/menu link, attributes, accurate description.",
+   "Add real, recent photos regularly. Do not geotag or fake locations."
+  ],
+  "category": "playbook",
+  "impact": 5,
+  "effort": 2,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": true,
+  "source": "playbook",
+  "score": 2.0
+ },
+ {
+  "id": "pb.sab",
+  "title": "Configure as a service-area business correctly",
+  "why": "Hidden-address businesses must not publish a fake storefront; proximity works from the service location.",
+  "how": [
+   "Hide the address on GBP; list up to 20 service areas (about a 2-hour drive).",
+   "Create genuinely useful area pages only where you serve customers.",
+   "Geo-grid rank checks need a paid API; do not scrape Maps."
+  ],
+  "category": "playbook",
+  "impact": 4,
+  "effort": 2,
+  "confidence": "official",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": true,
+  "source": "playbook",
+  "score": 2.0
+ },
+ {
+  "id": "pb.ai-baseline",
+  "title": "Take two AI-visibility baseline waves before changing anything",
+  "why": "Assistant answers vary run to run; a defensible change claim needs >=200 valid runs/platform/period and two baselines.",
+  "how": [
+   "python -m local_seo_agent probe <client> --wave baseline1 / baseline2 (set a budget cap).",
+   "Manually sample Google AI Overviews / AI Mode for ~10 queries (not measurable by API)."
+  ],
+  "category": "playbook",
+  "impact": 3,
+  "effort": 2,
+  "confidence": "official",
+  "phase": 30,
+  "needs_approval": false,
+  "manual": false,
+  "source": "playbook",
+  "score": 1.5
+ },
+ {
+  "id": "pb.analytics",
+  "title": "Set up measurement: Search Console, Bing Webmaster Tools, GA4 events, AI-referral channel",
+  "why": "You cannot prove results without baselines. Bing Webmaster Tools has the only first-party AI-citation report found.",
+  "how": [
+   "Verify Search Console + Bing Webmaster Tools; enable BigQuery export if available.",
+   "GA4 events for calls, form fills, direction clicks; custom 'AI Assistants' channel (many AI visits arrive as Direct).",
+   "Call tracking via dynamic number swap without changing the GBP/schema primary number."
+  ],
+  "category": "playbook",
+  "impact": 3,
+  "effort": 2,
+  "confidence": "official",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": true,
+  "source": "playbook",
+  "score": 1.5
+ },
+ {
+  "id": "pb.review-engine",
+  "title": "Run a compliant review programme: ask EVERY customer, reply to ALL reviews",
+  "why": "Reviews are the second-largest pack factor group and a major input to AI answers (review text, recency, response rate).",
+  "how": [
+   "Invite ALL recent customers the same neutral way (or an impartial sample, e.g. every nth). Excluding customers with open complaints is not impartial.",
+   "No incentives of any kind: lawful in the UK only if prominently disclosed, but banned by Google, Trustpilot, Checkatrade and Yell; this tool never proposes them. No staff quotas or scripts naming staff.",
+   "Show on your own site only ratings computed from ALL genuine reviews, naming the source (DMCC Act 2024).",
+   "Sending by email/SMS may be direct marketing under PECR: use consent or soft opt-in, identify the sender and include an opt-out. QR codes and in-person asks are lowest risk. [LAWYER] if unsure.",
+   "Draft (never auto-post) replies; healthcare/legal replies must not confirm a patient/client relationship.",
+   "Track velocity with weekly snapshots (the Places API returns only 5 reviews)."
+  ],
+  "category": "playbook",
+  "impact": 5,
+  "effort": 3,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "playbook",
+  "score": 1.33
+ },
+ {
+  "id": "pb.uk-apple-bing",
+  "title": "Claim Apple Business (formerly Business Connect) and Bing Places",
+  "why": "Apple Maps/Siri and Bing/Copilot are separate data sources from Google; UK iPhone use is high.",
+  "how": [
+   "Use the same NAP, hours and categories as GBP.",
+   "Add bank-holiday special hours for the right nation (gov.uk/bank-holidays.json has england-and-wales, scotland, northern-ireland)."
+  ],
+  "category": "playbook",
+  "impact": 3,
+  "effort": 2,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": true,
+  "source": "playbook",
+  "score": 1.2
+ },
+ {
+  "id": "pb.uk-registers",
+  "title": "Align official registers: Companies House and your regulator/trade-body listings",
+  "why": "Assistants and Google match entities against official records, and AI answers have recommended firms that no longer trade.",
+  "how": [
+   "Companies House: status 'active', registered name, number and registered office match the website footer (the registered office may differ from the trading/GBP address: keep them as separate fields).",
+   "Regulator/scheme registers relevant to the vertical (e.g. TrustMark, Gas Safe Register): verify, never just claim a badge.",
+   "Run `resolve` (postcodes.io) and set COMPANIES_HOUSE_API_KEY (free) so `audit` checks company status automatically."
+  ],
+  "category": "playbook",
+  "impact": 3,
+  "effort": 2,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": true,
+  "source": "playbook",
+  "score": 1.2
+ },
+ {
+  "id": "fix.gbp.review-gap",
+  "title": "Fewer reviews than the median competitor",
+  "why": "Prominence signals include review count, rating, recency and response rate. Close the gap with a compliant ask-everyone process (no gating, no incentives).",
+  "how": [],
+  "category": "gbp",
+  "impact": 4,
+  "effort": 3,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "gbp.review-gap",
+  "score": 1.07
+ },
+ {
+  "id": "pb.nap-directories",
+  "title": "Fix NAP consistency across core directories (claim listings manually)",
+  "why": "Consistent name/address/phone lets machines confirm the entity; Bing Places, Apple Business Connect and Yelp feed other assistants.",
+  "how": [
+   "Use the SAME primary static number everywhere; tracking numbers only as secondary.",
+   "Claim/verify: Google Business Profile, Bing Places, Apple Business, Which? Trusted Trader, TrustMark, Gas Safe Register, Trustpilot, Facebook, Yell",
+   "Do not buy bulk citation blasts; prefer 8-15 accurate, relevant listings."
+  ],
+  "category": "playbook",
+  "impact": 4,
+  "effort": 3,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": true,
+  "source": "playbook",
+  "score": 1.07
+ },
+ {
+  "id": "fix.nap.directories-manual",
+  "title": "Directory NAP consistency requires manual verification",
+  "why": "We do not scrape directories (ToS). See the manual checklist in the plan.",
+  "how": [],
+  "category": "nap",
+  "impact": 3,
+  "effort": 3,
+  "confidence": "official",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": true,
+  "source": "nap.directories-manual",
+  "score": 1.0
+ },
+ {
+  "id": "fix.content.service-pages",
+  "title": "No page targets 4 of 4 core services",
+  "why": "Intent-matched pages are how a local business earns organic traffic and gives AI assistants something specific to cite.",
+  "how": [
+   "Create one useful page per core service (own title, H1, price guidance, process, FAQs, local proof). Do not mass-produce near-duplicate area pages."
+  ],
+  "category": "technical",
+  "impact": 4,
+  "effort": 4,
+  "confidence": "heuristic",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "content.service-pages",
+  "score": 0.5
+ },
+ {
+  "id": "fix.gbp.hours",
+  "title": "Business hours not set",
+  "why": "",
+  "how": [],
+  "category": "gbp",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "gbp.hours",
+  "score": 3.0
+ },
+ {
+  "id": "fix.nap.name-not-on-site",
+  "title": "Business name not found in page text",
+  "why": "",
+  "how": [
+   "Use the exact business name consistently in header, footer and contact page."
+  ],
+  "category": "nap",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "nap.name-not-on-site",
+  "score": 3.0
+ },
+ {
+  "id": "fix.tech.h1-missing",
+  "title": "Homepage has no <h1>",
+  "why": "",
+  "how": [],
+  "category": "technical",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "tech.h1-missing",
+  "score": 3.0
+ },
+ {
+  "id": "fix.tech.sitemap-missing",
+  "title": "No readable XML sitemap found",
+  "why": "",
+  "how": [
+   "Publish /sitemap.xml and reference it from robots.txt."
+  ],
+  "category": "technical",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "tech.sitemap-missing",
+  "score": 3.0
+ },
+ {
+  "id": "fix.uk.badge-gas_safe",
+  "title": "'Gas Safe' claimed on the site but no registration ID supplied",
+  "why": "CAP 3.50: trust marks need authorisation. Verify on the public register; this tool cannot.",
+  "how": [
+   "Add the Gas Safe registration number to client.toml [client.regulator_ids] and show it on the page."
+  ],
+  "category": "uk-compliance",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.badge-gas_safe",
+  "score": 3.0
+ },
+ {
+  "id": "fix.uk.company-number-on-site",
+  "title": "Company number not found on the crawled pages",
+  "why": "Limited companies must show their registered name, number, place of registration and registered office on the website (SI 2015/17). Image-only footers are not detected.",
+  "how": [
+   "Add a footer or legal page: registered name, company number, 'Registered in <nation>', registered office."
+  ],
+  "category": "uk-compliance",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.company-number-on-site",
+  "score": 3.0
+ },
+ {
+  "id": "fix.uk.privacy-policy",
+  "title": "No privacy policy link found",
+  "why": "UK GDPR requires a privacy notice where personal data is collected (forms, calls, tracking).",
+  "how": [],
+  "category": "uk-compliance",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.privacy-policy",
+  "score": 3.0
+ },
+ {
+  "id": "fix.gbp.services",
+  "title": "Services/products not listed on GBP",
+  "why": "",
+  "how": [],
+  "category": "gbp",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "gbp.services",
+  "score": 2.4
+ },
+ {
+  "id": "fix.nap.click-to-call",
+  "title": "No tap-to-call (tel:) link with the primary number",
+  "why": "Mobile local searchers frequently call directly.",
+  "how": [
+   "Make the phone number a tel: link."
+  ],
+  "category": "nap",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "nap.click-to-call",
+  "score": 2.4
+ },
+ {
+  "id": "fix.tech.canonical-missing",
+  "title": "Homepage has no canonical link",
+  "why": "",
+  "how": [
+   "Add <link rel=\"canonical\"> pointing at the preferred URL."
+  ],
+  "category": "technical",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "tech.canonical-missing",
+  "score": 2.0
+ },
+ {
+  "id": "fix.tech.meta-desc",
+  "title": "Homepage has no meta description",
+  "why": "",
+  "how": [
+   "Write a unique, accurate description with city, services and a call to action."
+  ],
+  "category": "technical",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "tech.meta-desc",
+  "score": 2.0
+ },
+ {
+  "id": "fix.uk.email-missing",
+  "title": "No email address found on the site",
+  "why": "E-Commerce Regulations 2002 reg 6: an email address (not just a contact form) should be easily accessible.",
+  "how": [],
+  "category": "uk-compliance",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.email-missing",
+  "score": 2.0
+ },
+ {
+  "id": "pb.schema",
+  "title": "Add LocalBusiness JSON-LD (generated from facts; no aggregateRating)",
+  "why": "Hygiene that confirms entity facts. Controlled tests show no citation uplift by itself.",
+  "how": [
+   "python -m local_seo_agent schema <client>",
+   "Keep values identical to GBP and the visible page."
+  ],
+  "category": "playbook",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "playbook",
+  "score": 1.6
+ },
+ {
+  "id": "fix.schema.no-localbusiness",
+  "title": "No LocalBusiness-type structured data found",
+  "why": "Structured data is hygiene that helps machines confirm name, address, phone and hours. Controlled tests show no citation uplift by itself, so do not expect it to rank you.",
+  "how": [
+   "Add JSON-LD using the most specific type (HVACBusiness). Run `python -m local_seo_agent schema <client>` to generate it from your facts."
+  ],
+  "category": "schema",
+  "impact": 3,
+  "effort": 2,
+  "confidence": "evidence",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "schema.no-localbusiness",
+  "score": 1.2
+ },
+ {
+  "id": "pb.uk-consent",
+  "title": "Check cookie/consent set-up for analytics, ads and call tracking (PECR)",
+  "why": "From 5 Feb 2026 PECR fines can reach GBP 17.5m or 4% of turnover; GA4 in default configuration likely does not meet the statistical exemption; call-tracking scripts set cookies too.",
+  "how": [
+   "Equal-prominence accept/reject; no non-essential tags before consent; privacy policy lists each tag.",
+   "Call recording needs a lawful basis and a caller notice."
+  ],
+  "category": "playbook",
+  "impact": 3,
+  "effort": 2,
+  "confidence": "evidence",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": true,
+  "source": "playbook",
+  "score": 1.2
+ },
+ {
+  "id": "fix.uk.hardcoded-stars",
+  "title": "Star rating shown without a link to the review source",
+  "why": "DMCC Act 2024: displayed ratings must come from all genuine reviews and name their source. Hard-coded or cherry-picked ratings are risky.",
+  "how": [
+   "Show the live rating from the named platform, with a link."
+  ],
+  "category": "uk-compliance",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "heuristic",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.hardcoded-stars",
+  "score": 1.0
+ },
+ {
+  "id": "pb.lsa",
+  "title": "Evaluate Local Services Ads (paid, above the local pack)",
+  "why": "For this vertical LSAs can sit above the organic pack, which affects what '#1' means.",
+  "how": [
+   "Check availability/licensing requirements for the vertical and area; compare cost per lead."
+  ],
+  "category": "playbook",
+  "impact": 3,
+  "effort": 3,
+  "confidence": "official",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": true,
+  "source": "playbook",
+  "score": 1.0
+ },
+ {
+  "id": "pb.service-pages",
+  "title": "One strong page per core service (and per area only where genuinely distinct)",
+  "why": "Intent-matched pages win organic and give AI assistants something specific to cite. Templated city pages are doorway-page spam.",
+  "how": [
+   "Write from client-supplied facts: pricing ranges, process, credentials, FAQs from real customer questions.",
+   "No invented statistics, awards or quotes. Cap near-duplicate location pages; each needs unique, useful content.",
+   "Answer-first structure (summary in first paragraph), clear headings, NAP and CTA."
+  ],
+  "category": "playbook",
+  "impact": 4,
+  "effort": 4,
+  "confidence": "evidence",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "playbook",
+  "score": 0.8
+ },
+ {
+  "id": "fix.uk.tracking-tags",
+  "title": "Analytics/advertising tags observed and no cookie/consent wording found",
+  "why": "PECR (UK): non-essential tags (ads, remarketing, call tracking; GA4 in default configuration likely does not meet the statistical exemption) generally need prior opt-in. This crawl cannot tell whether tags fire before consent; observed only. [LAWYER] for consent design.",
+  "how": [],
+  "category": "uk-compliance",
+  "impact": 3,
+  "effort": 2,
+  "confidence": "heuristic",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.tracking-tags",
+  "score": 0.75
+ },
+ {
+  "id": "pb.uk-trades-directories",
+  "title": "Decide on Checkatrade / MyBuilder / TrustATrader using YOUR probe data",
+  "why": "One agency study found ChatGPT citing Checkatrade in 78 of 80 trades answers (and Checkatrade has a ChatGPT app), but another study of Google AI Mode found the business's own site dominates: directional evidence only. Rated People is now a Checkatrade-owned brand and its memberships were not transferred.",
+  "how": [
+   "Run the probe first: if Checkatrade/MyBuilder appear in the cited domains for your prompts, a paid profile is more defensible.",
+   "Memberships are paid: compare cost per lead; never buy reviews or incentivise reviews on any of them."
+  ],
+  "category": "playbook",
+  "impact": 3,
+  "effort": 2,
+  "confidence": "heuristic",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": true,
+  "source": "playbook",
+  "score": 0.75
+ },
+ {
+  "id": "pb.uk-ai-surfaces",
+  "title": "Sample Google AI Mode / AI Overviews by hand and read the Search Console AI report",
+  "why": "AI Mode is live in the UK (since 2025-07-29). Search Console's Generative AI report reaches more sites over time; check it is available for your property.",
+  "how": [
+   "Run `sheet-export` for a worksheet, observe on a real phone in the client's area, then `sheet-import`."
+  ],
+  "category": "playbook",
+  "impact": 2,
+  "effort": 2,
+  "confidence": "vendor",
+  "phase": 60,
+  "needs_approval": false,
+  "manual": false,
+  "source": "playbook",
+  "score": 0.5
+ },
+ {
+  "id": "fix.gbp.description",
+  "title": "GBP description empty",
+  "why": "",
+  "how": [],
+  "category": "gbp",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "gbp.description",
+  "score": 1.6
+ },
+ {
+  "id": "fix.gbp.special-hours",
+  "title": "Special/holiday hours not set",
+  "why": "",
+  "how": [],
+  "category": "gbp",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "gbp.special-hours",
+  "score": 1.6
+ },
+ {
+  "id": "fix.uk.registered-in",
+  "title": "'Registered in England and Wales / Scotland / Northern Ireland' not found",
+  "why": "",
+  "how": [],
+  "category": "uk-compliance",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.registered-in",
+  "score": 1.6
+ },
+ {
+  "id": "fix.gbp.photos",
+  "title": "Few photos on GBP",
+  "why": "",
+  "how": [],
+  "category": "gbp",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "heuristic",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "gbp.photos",
+  "score": 1.0
+ },
+ {
+  "id": "fix.gbp.vertical-24-7-hours-accuracy",
+  "title": "Verify on GBP: 24/7 hours accuracy",
+  "why": "",
+  "how": [],
+  "category": "gbp",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "heuristic",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "gbp.vertical-24-7-hours-accuracy",
+  "score": 1.0
+ },
+ {
+  "id": "fix.gbp.vertical-gas-safe-id-shown",
+  "title": "Verify on GBP: Gas Safe ID shown",
+  "why": "",
+  "how": [],
+  "category": "gbp",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "heuristic",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "gbp.vertical-gas-safe-id-shown",
+  "score": 1.0
+ },
+ {
+  "id": "fix.gbp.vertical-service-areas-set-max-20",
+  "title": "Verify on GBP: Service areas set (max 20)",
+  "why": "",
+  "how": [],
+  "category": "gbp",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "heuristic",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "gbp.vertical-service-areas-set-max-20",
+  "score": 1.0
+ },
+ {
+  "id": "pb.local-mentions",
+  "title": "Earn genuine local mentions and links",
+  "why": "Brand mentions across independent sources correlate with AI visibility (observational, mostly large brands) and prominence.",
+  "how": [
+   "Chamber of commerce, local associations, sponsorships, suppliers/partners, local press and 'best of' lists.",
+   "Original local data or a useful local resource others cite. Disclose any paid placement. No link schemes."
+  ],
+  "category": "playbook",
+  "impact": 4,
+  "effort": 4,
+  "confidence": "evidence",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "playbook",
+  "score": 0.8
+ },
+ {
+  "id": "pb.third-party-lists",
+  "title": "Win inclusion on the third-party lists AI assistants actually cite",
+  "why": "The probe reports which domains are cited for your prompts; those are the pages to earn a place on.",
+  "how": [
+   "Review 'top cited domains' in the AI visibility section; pursue legitimate inclusion (real merits, disclosed).",
+   "No astroturfing on Reddit/forums/Wikipedia; participate openly or not at all."
+  ],
+  "category": "playbook",
+  "impact": 4,
+  "effort": 3,
+  "confidence": "heuristic",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "playbook",
+  "score": 0.67
+ },
+ {
+  "id": "fix.content.thin-home",
+  "title": "Very little text on the homepage",
+  "why": "Not a ranking rule, but a page needs enough substance to answer what the business does, where and for whom.",
+  "how": [
+   "Say what you do, where you work, who it is for, how to book and why to trust you, using real details."
+  ],
+  "category": "technical",
+  "impact": 3,
+  "effort": 3,
+  "confidence": "heuristic",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "content.thin-home",
+  "score": 0.5
+ },
+ {
+  "id": "fix.tech.alt-text",
+  "title": "Many images lack alt text",
+  "why": "",
+  "how": [],
+  "category": "technical",
+  "impact": 2,
+  "effort": 2,
+  "confidence": "heuristic",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "tech.alt-text",
+  "score": 0.5
+ }
+]

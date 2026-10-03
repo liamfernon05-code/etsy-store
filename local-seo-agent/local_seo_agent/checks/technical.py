@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from collections import Counter
 from urllib.parse import urlsplit
 
@@ -9,6 +10,14 @@ from ..facts import VERIFIED
 from ..models import ClientProfile, Confidence, CrawlResult, Finding, Severity
 
 CWV_DOC = "https://web.dev/articles/vitals"
+
+
+GENERIC_TITLES = {"home", "homepage", "home page", "welcome", "untitled", "index", "main", "new page"}
+_STOP = {"the", "and", "for", "near", "best", "in", "of", "a", "an"}
+
+
+def _service_words(term: str) -> list[str]:
+    return [w for w in re.findall(r"[a-z0-9]+", term.lower()) if w not in _STOP and len(w) > 2]
 
 
 def _mk(id_, sev, title, **kw) -> Finding:
@@ -40,6 +49,11 @@ def check_technical(profile: ClientProfile, crawl: CrawlResult) -> list[Finding]
     if not home.title:
         out.append(_mk("tech.title-missing", Severity.ERROR, "Homepage has no <title>", impact=5, effort=1,
                        fix="Add a unique title with primary service + city."))
+    elif home.title.strip().lower() in GENERIC_TITLES or len(home.title.split()) < 2:
+        out.append(_mk("tech.title-generic", Severity.WARN, "Homepage title is generic or a single word",
+                       evidence=home.title, impact=4, effort=1, confidence=Confidence.EVIDENCE,
+                       detail="The title is the strongest on-page signal and the headline in search results.",
+                       fix="Use a unique title with the primary service, the place and the brand, e.g. 'Heating engineer in Leeds | Brand'."))
     elif len(home.title) > 70:
         out.append(_mk("tech.title-long", Severity.INFO, "Homepage title is long and may be truncated",
                        evidence=f"{len(home.title)} chars", impact=1, effort=1, confidence=Confidence.HEURISTIC,
@@ -108,6 +122,25 @@ def check_technical(profile: ClientProfile, crawl: CrawlResult) -> list[Finding]
         out.append(_mk("tech.html-size", Severity.INFO, "Very large HTML document",
                        evidence=f"{big[0].url}: {big[0].bytes} bytes", impact=1, effort=3,
                        detail="Googlebot reads the first 2 MB of uncompressed HTML; rarely an issue unless inline base64/JSON bloats the page."))
+
+    # thin homepage (heuristic: Google denies word-count thresholds, so INFO only)
+    if 0 < home.word_count < 150 and not (home.word_count < 50 and home.scripts >= 3):
+        out.append(_mk("content.thin-home", Severity.INFO, "Very little text on the homepage", evidence=f"{home.word_count} words",
+                       impact=3, effort=3, confidence=Confidence.HEURISTIC,
+                       detail="Not a ranking rule, but a page needs enough substance to answer what the business does, where and for whom.",
+                       fix="Say what you do, where you work, who it is for, how to book and why to trust you, using real details."))
+
+    # does any crawled page actually target each service? (skip when the crawl hit its page cap: it may have missed some)
+    if profile.target_services and len(crawl.pages) < 25:
+        blobs = [(p.title + " " + " ".join(p.h1) + " " + urlsplit(p.final_url or p.url).path).lower() for p in crawl.pages if p.status == 200]
+        missing = [t for t in profile.target_services if _service_words(t) and
+                   not any(all(w in b for w in _service_words(t)) for b in blobs)]
+        if missing:
+            out.append(_mk("content.service-pages", Severity.WARN, f"No page targets {len(missing)} of {len(profile.target_services)} core services",
+                           evidence=", ".join(missing[:4]), impact=4, effort=4, confidence=Confidence.HEURISTIC,
+                           detail="Intent-matched pages are how a local business earns organic traffic and gives AI assistants something specific to cite.",
+                           fix="Create one useful page per core service (own title, H1, price guidance, process, FAQs, local proof). "
+                               "Do not mass-produce near-duplicate area pages."))
 
     out.append(_mk("tech.cwv-unknown", Severity.UNKNOWN, "Core Web Vitals field data not collected in this run",
                    detail="Run with --psi and a PageSpeed API key to read CrUX field data. Small sites often have no field data.",
