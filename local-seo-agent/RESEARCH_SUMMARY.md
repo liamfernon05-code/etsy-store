@@ -122,3 +122,13 @@ legal and platform claims come from multiple search summaries; the API contracts
 - The Business Profile API needs Google approval (verified listing 60+ days old); until then use the Places API.
 - Google AI Overviews / AI Mode, consumer apps and voice assistants remain manual or vendor-collected samples.
 - Not built: vets / funeral / estate-agent / childcare packs, Law Society of Scotland / Northern Ireland rules, Welsh-language probes, OAuth refresh-token and service-account flows (only a bearer token from the environment), an orchestrator.
+
+## BBL / Scotland round (2 researchers, 2 critics; see `research/bbl/`)
+
+Critics changed the build as follows:
+- The first-draft claims patterns flagged compliant text ("non-surgical Brazilian butt lift", "reduce fat intake") and missed real claims; `checks/claims.py` was rewritten with REFUSE/ERROR/WARN tiers and negation handling.
+- Disputed CAP rule numbers were removed rather than cited; unresolved items (licensing scope for cavitation/vacuum devices, the "Body contouring service" GBP category) are stated as unverified.
+- Scotland is handled as its own regime (Healthcare Improvement Scotland, not CQC); the 2026 non-surgical procedures licensing is described as **not yet in force and of unclear scope**, and the agent never tells a client a service is "licensed".
+- A profile accepted a few days ago is treated as new: freeze name/address, ownership, reviews without incentives or gating, and the Business Profile API is not available until the listing is old enough.
+- Personal identifiers from public listings in the research (individual name, phone, email, address) are redacted from the repo.
+- Everything here was checked only against search summaries; nothing was run against live services and the client's real site could not be fetched.

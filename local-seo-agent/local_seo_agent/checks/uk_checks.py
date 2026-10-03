@@ -14,6 +14,7 @@ from ..facts import VERIFIED
 from ..markets import market_for
 from ..models import ClientProfile, Confidence, CrawlResult, Finding, Severity
 from ..verticals import canonical_vertical
+from . import claims
 from .schema import digits
 
 POM_BRANDS = re.compile(r"\b(botox|dysport|azzalure|bocouture|vistabel|botulinum)\b|#botox", re.I)
@@ -166,6 +167,8 @@ def check_uk(profile: ClientProfile, crawl: CrawlResult) -> list[Finding]:
         out += _dentist(profile, pages, text, low, nation)
     elif vkey == "restaurant":
         out += _restaurant(pages, low, nation)
+    elif vkey in ("body_contouring", "cosmetic_surgery"):
+        out += _contouring(profile, pages, text, low, nation, vkey)
     return out
 
 
@@ -238,4 +241,86 @@ def _restaurant(pages, low, nation) -> list[Finding]:
     if "allerg" not in low:
         out.append(_mk("allergens", Severity.WARN, "No allergen information or notice found", impact=3, effort=1,
                        confidence=Confidence.OFFICIAL, detail="Menus/online ordering should point to allergen information (14 allergens). Never claim 'allergen-free'."))
+    return out
+
+
+_MEDICAL_CUES = re.compile(r"\b(nurse|doctor|dr\.?|prescriber|injectables?|filler|botox|dermal|fat[\s-]transfer|surgeon|surgery|clinic)\b", re.I)
+
+
+def _contouring(profile, pages, text, low, nation, vkey) -> list[Finding]:
+    """Cosmetic-surgery / non-surgical body-contouring pack. Rules: research/bbl (B1) and its critique. [LAWYER] items flagged."""
+    out: list[Finding] = []
+    tt = profile.treatment_type
+    if not tt:
+        out.append(_mk("treatment-type-unknown", Severity.UNKNOWN, "Treatment type not stated: it decides which rules apply",
+                       detail="Set treatment_type to non_surgical_device, injectable or surgical, and delivered_by (beauty therapist / nurse / doctor). "
+                              "Surgical and injectable services are regulated healthcare in Scotland (Healthcare Improvement Scotland) and England (CQC); "
+                              "purely non-medical device services are not (today), but advertising rules apply to all of them.",
+                       impact=4, effort=1, confidence=Confidence.OFFICIAL))
+    # clinician / medical wording on a business that says it is non-surgical, non-medical
+    if tt == "non_surgical_device" and (profile.delivered_by or "").lower() not in ("nurse", "doctor", "prescriber"):
+        m = _MEDICAL_CUES.search(text)
+        if m:
+            out.append(_mk("medical-wording", Severity.WARN, "Medical or surgical wording on a non-surgical, non-medical service",
+                           evidence=m.group(0), impact=3, effort=1, confidence=Confidence.HEURISTIC,
+                           detail="Words like clinic/doctor/nurse/surgery imply regulated healthcare. If clinicians deliver any part, Healthcare Improvement "
+                                  "Scotland registration may be required [LAWYER/HIS]; if not, remove the wording so readers are not misled."))
+    if (profile.delivered_by or "").lower() in ("nurse", "doctor", "prescriber") or tt in ("surgical", "injectable"):
+        reg = "his" if nation == "SCO" else "cqc"
+        if not profile.regulator_ids.get(reg):
+            out.append(_mk("registration-missing", Severity.WARN,
+                           f"No {'Healthcare Improvement Scotland' if reg == 'his' else 'CQC'} registration supplied for a clinician-delivered or surgical service",
+                           detail="Do not publish copy for this service until the registration number is on file and shown. [LAWYER/regulator]",
+                           impact=5, effort=1, confidence=Confidence.OFFICIAL))
+    # marketing-claim scan (hints, in context; corrected patterns from the B1 critique)
+    surgical = tt in ("surgical", "injectable") or vkey == "cosmetic_surgery"
+    by_cat: dict[str, list[claims.Hit]] = {}
+    for p in pages:
+        for h in claims.scan_claims(p.title + ". " + p.meta_description + ". " + p.text, p.final_url or p.url, surgical):
+            by_cat.setdefault(h.category, []).append(h)
+        for h in claims.bbl_clarity_hits(p.title, p.h1, p.meta_description, p.text, p.final_url or p.url):
+            by_cat.setdefault("bbl_clarity", []).append(h)
+    impact_map = {"cellulite": 5, "fat_inch": 5, "safest_absolute": 5, "permanent": 4, "fake_urgency": 4, "medical_claim_by_nonmedical": 4,
+                  "safe_bare": 3, "skin_tighten": 4, "surg_equiv_volume": 4, "detox_lymphatic": 3, "medicinal_claim": 4, "time_pressure": 3,
+                  "price_inducement": 3, "finance_promo": 3, "body_image": 3, "before_after_cues": 3, "surgery_abroad": 4, "bbl_clarity": 4}
+    for cat, hits in by_cat.items():
+        live = [h for h in hits if not h.negated]
+        use = live or hits
+        sev = "WARN" if cat == "bbl_clarity" and live else claims.severity_for(cat, tt, not live)
+        ref, fix = claims.RULE_REFS[cat]
+        extra = " Examples: " + " | ".join(h.snippet[:70] for h in use[1:3]) if len(use) > 1 else ""
+        out.append(Finding(id=f"uk.claim.{cat}", category="claims", severity=Severity[sev], confidence=Confidence.EVIDENCE, verified_on=VERIFIED,
+                           title=f"Marketing claim to review: {cat.replace('_', ' ')} ({len(use)} found)",
+                           evidence=use[0].snippet, impact=impact_map.get(cat, 2), effort=1,
+                           detail=f"Rule family: {ref}. A hint to review in context, not a legal finding.{extra}", fix=fix))
+    # honest-information checks (heuristic)
+    if vkey == "body_contouring":
+        if not re.search(r"contraindicat|suitab|pregnan|pacemaker|medical history|consultation|patch test", low):
+            out.append(_mk("suitability-info", Severity.WARN, "No suitability / contraindication information found",
+                           detail="Device treatments have contraindications (e.g. pregnancy, pacemakers or metal implants, clotting disorders). Say who should not have "
+                                  "the treatment and that suitability is assessed first. [CLINICIAN] for the definitive list.",
+                           impact=4, effort=1, confidence=Confidence.HEURISTIC))
+        if not re.search(r"\b(insur\w*|qualified|trained|certified|accredited)\b", low):
+            out.append(_mk("practitioner-info", Severity.INFO, "No practitioner training or insurance information found", impact=2, effort=1,
+                           confidence=Confidence.HEURISTIC))
+    if not re.search(r"\b18\s*\+|over\s*18|aged?\s*18|18\s*(?:years|and over)", low):
+        out.append(_mk("age-statement", Severity.INFO, "No 18+ age statement found",
+                       detail="CAP 12.25: cosmetic interventions must not be targeted at under-18s. Scotland's Non-surgical Procedures Act 2026 bans some under-18 procedures.",
+                       impact=2, effort=1, confidence=Confidence.EVIDENCE))
+    # Scottish regulatory watch (planning, not a finding of fault)
+    if nation == "SCO" and tt in ("non_surgical_device", "injectable", ""):
+        out.append(_mk("scot-licensing-watch", Severity.INFO, "Scotland: new non-surgical procedure rules and council licensing are coming",
+                       detail="The Non-surgical Procedures and Functions of Medical Reviewers (Scotland) Act 2026 (Royal Assent 2026-05-12) and a council licensing order are "
+                              "reported to start no earlier than 2027-09-06. Summaries describe the licensing order as covering procedures that pierce or penetrate the "
+                              "skin, so whether skin-surface devices (cavitation, vacuum, RF) are covered is UNCLEAR: do not tell the client 'licensable' or 'exempt'. "
+                              "Ask North Lanarkshire Council licensing and Healthcare Improvement Scotland in writing and keep the reply. Note that the Act uses "
+                              "'non-surgical BBL' for filler procedures. [LAWYER]", impact=3, effort=1, confidence=Confidence.VENDOR))
+    # franchise / brand domain
+    if profile.brand_domain:
+        host = (re.sub(r"^https?://(www\.)?", "", profile.website.lower()).split("/")[0])
+        if profile.brand_domain.lower().removeprefix("www.") == host:
+            out.append(_mk("brand-domain", Severity.INFO, "The local page lives on the franchisor's domain",
+                           detail="You share the site with every branch: you cannot control its claims or templates, near-duplicate branch content is possible, and "
+                                  "the advertiser may be held responsible for claims on the page it links to. Audit the brand pages too and agree rules with the franchisor in writing. [LAWYER]",
+                           impact=3, effort=2, confidence=Confidence.HEURISTIC))
     return out

@@ -113,6 +113,11 @@ def _playbook(profile: ClientProfile) -> list[Task]:
     ]
     if is_uk:
         tasks.extend(_uk_playbook(profile, vert))
+    age = profile.gbp_age_days()
+    if age is not None and 0 <= age < 90:
+        tasks.extend(_new_profile_playbook(profile, age))
+    if vert.get("key") in ("body_contouring", "cosmetic_surgery"):
+        tasks.extend(_contouring_playbook(profile, vert, is_uk))
     if profile.service_area_business or vert["sab_default"]:
         tasks.append(P(id="pb.sab", title="Configure as a service-area business correctly",
                        why="Hidden-address businesses must not publish a fake storefront; proximity works from the service location.",
@@ -221,6 +226,88 @@ def _uk_playbook(profile: ClientProfile, vert: dict) -> list[Task]:
     if profile.is_aesthetics or key == "salon":
         tasks.append(P(id="pb.uk-aesthetics", title="Aesthetics: no prescription-only medicine brands in public copy; age checks; consented before/afters",
                        how=["Use 'anti-wrinkle consultation', not 'Botox/Dysport' (CAP 12.12), including titles, alt text, GBP text and hashtags.",
-                            "Do not target under-18s; keep signed consent for before/after photos (CAP 3.45)."],
+                            "Do not target under-18s; keep signed, dated consent for before/after photos and the unretouched originals."],
                        impact=3, effort=1, confidence=Confidence.OFFICIAL, phase=30))
+    return tasks
+
+
+def _new_profile_playbook(profile: ClientProfile, age: int) -> list[Task]:
+    """Google Business Profile that has JUST been verified. 'Accepted' means verification passed, NOT that Google endorsed the name,
+    categories or content: those stay subject to later automated and manual review (research/bbl B2 + critique)."""
+    P = Task
+    return [
+        P(id="pb.np-freeze-name", title="Days 0-7: freeze the business name and prove it",
+          why="Verification does not protect a name that is a service plus a place; competitor reports and automated re-review can still hit it. Google cross-checks the name against signage, website and stationery.",
+          how=["Compare the GBP name with the shop-front sign, the website/branch page, Facebook, Instagram, invoices and the booking engine. Check the SPELLING matches everywhere (e.g. bootlift / bootylift / booty lift).",
+               "If they differ, do NOT edit the GBP name in a hurry: agree the canonical trading name with the owner and (for a franchise) the franchisor in writing, then make the sign and every profile match.",
+               "Check for an existing or duplicate profile for the same premises or under the trading name you actually use BEFORE any edit.",
+               "Build a name evidence pack: photos of signage, the franchise licence or permitted trading name, a recent invoice, the lease/rates/utility bill, the HMRC or Companies House record for the trading entity."],
+          impact=5, effort=2, confidence=Confidence.EVIDENCE, phase=30, manual=True),
+        P(id="pb.np-ownership", title="Days 0-7: lock down ownership, access and contact details",
+          why="Profile ownership disputes and recovery problems are expensive. The business, not the franchisor or the agency, should own the profile.",
+          how=["Owner = a business-controlled Google account (not a personal mailbox that one person can lose); add the agency/franchisor as managers, not owners; record the recovery email and phone.",
+               "Pick ONE primary phone and ONE email per the franchise agreement and use the same details on the website, Facebook, Instagram, citations and the GBP (public listings sometimes show different numbers and emails for the same branch).",
+               "Add UTM parameters to the website and booking links so GBP traffic is measurable."],
+          impact=4, effort=1, confidence=Confidence.EVIDENCE, phase=30, manual=True),
+        P(id="pb.np-completeness", title="Days 8-30: complete the profile accurately (one change at a time)",
+          why="The primary category is the most influential single field; accuracy matters more than volume.",
+          how=["Primary category: the most specific accurate one from the dashboard list (for a non-medical device studio often 'Beauty salon'). Do not add medical, surgical or weight-loss categories to a non-medical business.",
+               "Services with plain descriptions and NO efficacy claims; hours incl. bank holidays; booking link; appointment-only attribute if true; exterior photo with signage (matches the verification evidence), interior, equipment, team.",
+               "Before/after photos only with signed dated consent and ASA-compliant presentation (no Google GBP-specific rule was found; the ASA rules apply).",
+               "Description about 750 characters, factual, no offers or prices, no outcome promises.",
+               "Never change name, address and category together."],
+          impact=4, effort=2, confidence=Confidence.EVIDENCE, phase=30, manual=True),
+        P(id="pb.np-reviews", title="Days 8-60: build reviews steadily and compliantly",
+          why="A new profile starts with none; Google reportedly filters new profiles' reviews more aggressively, and bans staff quotas, incentives, gating and kiosks.",
+          how=["Invite every client the same neutral way after treatment (QR code, link): no discounts, no gifts, no 'only happy clients', no staff targets, no asking clients to name a staff member.",
+               "Do not ask friends, family or staff to post. Do not post spikes of reviews on one day.",
+               "Reply to every review without confirming a person was a client or giving treatment details (privacy)."],
+          impact=5, effort=3, confidence=Confidence.EVIDENCE, phase=60),
+        P(id="pb.np-api-wait", title="Day 60+: the Business Profile API becomes possible (not before)",
+          why="Google's API prerequisites need a verified profile active for 60+ days and a website; access is approved per Cloud project and can take weeks.",
+          how=[f"Profile age today: {age} days. Until day 60 use the dashboard, Search Console, and the Places API for competitor and rating data."],
+          impact=2, effort=2, confidence=Confidence.OFFICIAL, phase=60, needs_approval=False),
+    ]
+
+
+def _contouring_playbook(profile: ClientProfile, vert: dict, is_uk: bool) -> list[Task]:
+    P = Task
+    tt = profile.treatment_type
+    tasks = [
+        P(id="pb.bc-claims", title="Audit and rewrite every efficacy and safety claim before promoting anything",
+          why="UK advertising rules are the biggest risk for this service. ASA's published position is that there is no convincing evidence devices treat or remove cellulite, and absolute safety claims were ruled against as trivialising risk. SEO traffic to a page with non-compliant claims is a liability, not an asset.",
+          how=["Replace outcome claims ('erase cellulite', 'tighten loose skin', 'safest', 'permanent', 'instant') with factual descriptions of what the programme involves, unless the client holds product-specific human-trial evidence for the device and body area.",
+               "Keep an evidence file: trials for each claim, signed dated consent and unretouched originals for before/after images, proof testimonials are genuine.",
+               "Say plainly near the first mention: non-surgical, no injections, no fat transfer, results not comparable to surgery. Avoid 'non-surgical BBL' in titles and descriptions."],
+          impact=5, effort=2, confidence=Confidence.EVIDENCE, phase=30),
+        P(id="pb.bc-suitability", title="Add suitability, contraindication, session and complaints information",
+          why="Honest information protects clients and is what a trustworthy page looks like to both people and AI assistants.",
+          how=["Who should NOT have the treatment (e.g. pregnancy, pacemakers or metal implants, clotting disorders): have a clinician confirm the list.",
+               "Number of sessions, what results are and are not expected, patch/consultation steps, practitioner training and insurance, complaints route, 18+ statement."],
+          impact=4, effort=2, confidence=Confidence.HEURISTIC, phase=30),
+        P(id="pb.bc-differentiate", title="Make the page match what people actually search (and not mislead them)",
+          why="'BBL' usually means fat-transfer surgery and 'non-surgical BBL' is used by regulators for filler procedures. People searching those terms are often researching surgery.",
+          how=["Target honest terms: 'body contouring', 'booty lift treatment', 'cellulite treatment' (describe, don't promise), plus town names across Lanarkshire.",
+               "Add an explanatory section: how this differs from surgical BBL and from filler procedures, and what it can't do."],
+          impact=4, effort=3, confidence=Confidence.EVIDENCE, phase=60),
+    ]
+    if is_uk and profile.nation == "SCO":
+        tasks.append(P(id="pb.bc-scot-regulation", title="Scotland: ask the regulators in writing and keep the answers",
+                       why="Scotland's 2026 non-surgical procedures legislation and council licensing are phased in from no earlier than 2027-09-06; the scope for skin-surface devices is unclear.",
+                       how=["Ask Healthcare Improvement Scotland whether any part of the service is registrable (especially if a nurse or doctor is involved).",
+                            "Ask the local council (e.g. North Lanarkshire licensing) what licences or premises standards apply now and from 2027; keep insurance specific to the devices used.",
+                            "Do not tell clients the service is 'licensed', 'approved' or 'exempt' unless you hold a document that says so. [LAWYER]"],
+                       impact=3, effort=1, confidence=Confidence.VENDOR, phase=30, manual=True))
+    if profile.franchise_brand or profile.brand_domain:
+        tasks.append(P(id="pb.bc-franchise", title="Franchise: agree in writing who controls the page, the claims and the profile",
+                       why="A branch page on the brand's domain is a shared asset: branches share templates (near-duplicate content), you cannot fix its claims, and the ASA looks at who is responsible for content.",
+                       how=["Ask the franchisor for the permitted trading name, written permission to run your own Google profile (and check whether they created one), and whether you may run your own domain.",
+                            "Audit the brand pages your local page links to as well as your own; do not copy brand claims you cannot evidence.",
+                            "Do not mark up the brand's Trustpilot score as the branch's rating; brand-level reviews are not local reviews."],
+                       impact=3, effort=2, confidence=Confidence.HEURISTIC, phase=60, manual=True))
+    if tt in ("surgical", "injectable") or (profile.delivered_by or "").lower() in ("nurse", "doctor", "prescriber"):
+        tasks.append(P(id="pb.bc-registration", title="Regulated service: registration, named practitioners and risk information first",
+                       how=["Registration number (HIS in Scotland / CQC in England) on file and shown; named clinicians with GMC/NMC numbers verifiable on the register.",
+                            "No time-limited offers, prizes, multi-buy or deadline pricing for cosmetic surgery or injectables; people need time to reflect. [LAWYER]"],
+                       impact=5, effort=2, confidence=Confidence.OFFICIAL, phase=30, manual=True))
     return tasks

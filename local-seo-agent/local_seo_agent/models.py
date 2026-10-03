@@ -131,6 +131,10 @@ class ClientProfile(BaseModel):
     longitude: float | None = None
     language: str = "en"
     is_aesthetics: bool = False         # clinic/salon offering injectables etc. (UK CAP 12.12 checks)
+    treatment_type: str = ""            # "non_surgical_device" | "injectable" | "surgical" | "" (sets which regulatory regime applies)
+    delivered_by: str = ""              # e.g. "beauty therapist", "nurse", "doctor": clinicians change the regime
+    franchise_brand: str = ""           # e.g. the franchisor's brand name
+    brand_domain: str = ""              # franchisor's website domain when the local page lives there
     sells_gas_services: bool = False
 
     @field_validator("website")

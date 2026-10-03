@@ -1,0 +1,1242 @@
+[
+ {
+  "id": "fix.crawl.waf-unknown",
+  "title": "CDN/WAF bot blocking cannot be detected from outside",
+  "why": "Cloudflare blocks AI bots by default on domains created since 2025-07-01. A spoofed user-agent test is unreliable because WAFs verify bots by IP.",
+  "how": [
+   "Check Cloudflare 'AI Crawl Control' / WAF settings and server logs for real OAI-SearchBot, PerplexityBot, Claude-SearchBot hits."
+  ],
+  "category": "crawlability",
+  "impact": 4,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": true,
+  "source": "crawl.waf-unknown",
+  "score": 4.0
+ },
+ {
+  "id": "fix.nap.address-not-on-site",
+  "title": "Street address not found in crawled page text",
+  "why": "",
+  "how": [
+   "Show the full address exactly as it appears on GBP."
+  ],
+  "category": "nap",
+  "impact": 4,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "nap.address-not-on-site",
+  "score": 4.0
+ },
+ {
+  "id": "fix.tech.viewport",
+  "title": "No mobile viewport meta tag",
+  "why": "",
+  "how": [
+   "Add <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">."
+  ],
+  "category": "technical",
+  "impact": 4,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "tech.viewport",
+  "score": 4.0
+ },
+ {
+  "id": "fix.uk.claim.cellulite",
+  "title": "Marketing claim to review: cellulite (1 found)",
+  "why": "Rule family: ASA/CAP: no convincing evidence that devices or cosmetic treatments treat, remove or reduce cellulite or its appearance (any wording). A hint to review in context, not a legal finding.",
+  "how": [
+   "Remove the claim unless you hold product-specific human-trial evidence; describe what the treatment involves, not an outcome."
+  ],
+  "category": "claims",
+  "impact": 5,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.claim.cellulite",
+  "score": 4.0
+ },
+ {
+  "id": "fix.uk.claim.safest_absolute",
+  "title": "Marketing claim to review: safest absolute (1 found)",
+  "why": "Rule family: CAP 3.1/3.7: 'safest', 'risk-free' and guarantees are absolute or comparative claims needing proof; ASA 2025 rulings held absolute safety claims trivialise risk. A hint to review in context, not a legal finding.",
+  "how": [
+   "Remove. If you say 'safe', qualify it and tie it to risk screening; never 'the safest'."
+  ],
+  "category": "claims",
+  "impact": 5,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.claim.safest_absolute",
+  "score": 4.0
+ },
+ {
+  "id": "fix.gbp.name-stuffing-risk",
+  "title": "GBP name looks like a service keyword plus a place",
+  "why": "If this is not exactly the name on your signage, website and invoices, Google may treat it as keyword stuffing even though the profile was accepted.",
+  "how": [
+   "Confirm the permitted trading name with the owner/franchisor, make signage, website, Facebook and invoices match, and do NOT edit the GBP name in a hurry."
+  ],
+  "category": "gbp",
+  "impact": 4,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "gbp.name-stuffing-risk",
+  "score": 3.2
+ },
+ {
+  "id": "fix.tech.city-in-title",
+  "title": "'Wishaw' not in homepage title or H1",
+  "why": "Local relevance: make the service area explicit where users and crawlers look first.",
+  "how": [
+   "Work 'Wishaw' and the primary service into the title and H1 naturally."
+  ],
+  "category": "technical",
+  "impact": 4,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "tech.city-in-title",
+  "score": 3.2
+ },
+ {
+  "id": "fix.uk.claim.fake_urgency",
+  "title": "Marketing claim to review: fake urgency (2 found)",
+  "why": "Rule family: CAP 1.3 (ASA rulings April 2025 on cosmetic-intervention ads) and DMCC Act unfair practices (false urgency). A hint to review in context, not a legal finding. Examples: 20% THIS MONTH. Only 4 slots left, offer ends tonight! Real results ga",
+  "how": [
+   "Remove countdowns, 'last slots' and deadline pressure."
+  ],
+  "category": "claims",
+  "impact": 4,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.claim.fake_urgency",
+  "score": 3.2
+ },
+ {
+  "id": "fix.uk.claim.medical_claim_by_nonmedical",
+  "title": "Marketing claim to review: medical claim by nonmedical (1 found)",
+  "why": "Rule family: CAP 3.1/12.1: registration, approval and 'proven' claims must be true and evidenced. A hint to review in context, not a legal finding.",
+  "how": [
+   "Remove unless you can evidence it; never imply NHS/regulator approval."
+  ],
+  "category": "claims",
+  "impact": 4,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.claim.medical_claim_by_nonmedical",
+  "score": 3.2
+ },
+ {
+  "id": "fix.uk.claim.permanent",
+  "title": "Marketing claim to review: permanent (1 found)",
+  "why": "Rule family: CAP 3.7/12.1: permanence of non-invasive results is unlikely to be substantiable. A hint to review in context, not a legal finding.",
+  "how": [
+   "Remove 'permanent'/'lifetime' result claims; say results vary and may need maintenance."
+  ],
+  "category": "claims",
+  "impact": 4,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.claim.permanent",
+  "score": 3.2
+ },
+ {
+  "id": "fix.uk.claim.skin_tighten",
+  "title": "Marketing claim to review: skin tighten (2 found)",
+  "why": "Rule family: CAP 3.7/12.1: tightening/lifting claims need human-trial evidence for the specific device and body area. A hint to review in context, not a legal finding. Examples: t your curves, erase cellulite and tighten loose skin using the latest",
+  "how": [
+   "Say what the programme involves; avoid outcome claims without evidence."
+  ],
+  "category": "claims",
+  "impact": 4,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.claim.skin_tighten",
+  "score": 3.2
+ },
+ {
+  "id": "fix.uk.claim.surg_equiv_volume",
+  "title": "Marketing claim to review: surg equiv volume (1 found)",
+  "why": "Rule family: CAP 3.1: implying surgical-equivalent results or added volume from a surface device is likely misleading. A hint to review in context, not a legal finding.",
+  "how": [
+   "State that it is not comparable to surgery and does not add volume; avoid 'alternative to BBL' without a clear qualifier."
+  ],
+  "category": "claims",
+  "impact": 4,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.claim.surg_equiv_volume",
+  "score": 3.2
+ },
+ {
+  "id": "pb.homepage-local",
+  "title": "Make the homepage unmistakably local",
+  "why": "City + primary service in title/H1, visible NAP, tap-to-call, hours and a map are cheap relevance and conversion wins.",
+  "how": [
+   "Title/H1 contain primary service + city.",
+   "Phone as tel: link; hours visible; embed the map.",
+   "Link prominently to each core service page."
+  ],
+  "category": "playbook",
+  "impact": 4,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "playbook",
+  "score": 3.2
+ },
+ {
+  "id": "pb.np-ownership",
+  "title": "Days 0-7: lock down ownership, access and contact details",
+  "why": "Profile ownership disputes and recovery problems are expensive. The business, not the franchisor or the agency, should own the profile.",
+  "how": [
+   "Owner = a business-controlled Google account (not a personal mailbox that one person can lose); add the agency/franchisor as managers, not owners; record the recovery email and phone.",
+   "Pick ONE primary phone and ONE email per the franchise agreement and use the same details on the website, Facebook, Instagram, citations and the GBP (public listings sometimes show different numbers and emails for the same branch).",
+   "Add UTM parameters to the website and booking links so GBP traffic is measurable."
+  ],
+  "category": "playbook",
+  "impact": 4,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": true,
+  "source": "playbook",
+  "score": 3.2
+ },
+ {
+  "id": "pb.uk-identity",
+  "title": "Show the legally required business details on the website",
+  "why": "Limited companies must show registered name, company number, place of registration and registered office (SI 2015/17); E-Commerce Regulations reg 6 add an email address and VAT number if registered.",
+  "how": [
+   "Footer/legal page with those details, plus a privacy policy and cookie information."
+  ],
+  "category": "playbook",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "playbook",
+  "score": 3.0
+ },
+ {
+  "id": "fix.tech.cwv-unknown",
+  "title": "Core Web Vitals field data not collected in this run",
+  "why": "Run with --psi and a PageSpeed API key to read CrUX field data. Small sites often have no field data.",
+  "how": [],
+  "category": "technical",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": true,
+  "source": "tech.cwv-unknown",
+  "score": 2.0
+ },
+ {
+  "id": "fix.uk.suitability-info",
+  "title": "No suitability / contraindication information found",
+  "why": "Device treatments have contraindications (e.g. pregnancy, pacemakers or metal implants, clotting disorders). Say who should not have the treatment and that suitability is assessed first. [CLINICIAN] for the definitive list.",
+  "how": [],
+  "category": "uk-compliance",
+  "impact": 4,
+  "effort": 1,
+  "confidence": "heuristic",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.suitability-info",
+  "score": 2.0
+ },
+ {
+  "id": "pb.bc-claims",
+  "title": "Audit and rewrite every efficacy and safety claim before promoting anything",
+  "why": "UK advertising rules are the biggest risk for this service. ASA's published position is that there is no convincing evidence devices treat or remove cellulite, and absolute safety claims were ruled against as trivialising risk. SEO traffic to a page with non-compliant claims is a liability, not an asset.",
+  "how": [
+   "Replace outcome claims ('erase cellulite', 'tighten loose skin', 'safest', 'permanent', 'instant') with factual descriptions of what the programme involves, unless the client holds product-specific human-trial evidence for the device and body area.",
+   "Keep an evidence file: trials for each claim, signed dated consent and unretouched originals for before/after images, proof testimonials are genuine.",
+   "Say plainly near the first mention: non-surgical, no injections, no fat transfer, results not comparable to surgery. Avoid 'non-surgical BBL' in titles and descriptions."
+  ],
+  "category": "playbook",
+  "impact": 5,
+  "effort": 2,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "playbook",
+  "score": 2.0
+ },
+ {
+  "id": "pb.gbp-core",
+  "title": "Claim, verify and fully complete the Google Business Profile",
+  "why": "GBP signals are the largest local-pack factor group in the 2026 expert survey (opinion, not Google's weights) and feed Maps, Gemini and AI Overviews.",
+  "how": [
+   "Pick the most specific PRIMARY category by comparing the top 3 competitors' primary categories.",
+   "Use the exact signage name: no keywords added (suspension risk).",
+   "Complete hours + special hours, services with descriptions, booking/menu link, attributes, accurate description.",
+   "Add real, recent photos regularly. Do not geotag or fake locations."
+  ],
+  "category": "playbook",
+  "impact": 5,
+  "effort": 2,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": true,
+  "source": "playbook",
+  "score": 2.0
+ },
+ {
+  "id": "pb.np-freeze-name",
+  "title": "Days 0-7: freeze the business name and prove it",
+  "why": "Verification does not protect a name that is a service plus a place; competitor reports and automated re-review can still hit it. Google cross-checks the name against signage, website and stationery.",
+  "how": [
+   "Compare the GBP name with the shop-front sign, the website/branch page, Facebook, Instagram, invoices and the booking engine. Check the SPELLING matches everywhere (e.g. bootlift / bootylift / booty lift).",
+   "If they differ, do NOT edit the GBP name in a hurry: agree the canonical trading name with the owner and (for a franchise) the franchisor in writing, then make the sign and every profile match.",
+   "Check for an existing or duplicate profile for the same premises or under the trading name you actually use BEFORE any edit.",
+   "Build a name evidence pack: photos of signage, the franchise licence or permitted trading name, a recent invoice, the lease/rates/utility bill, the HMRC or Companies House record for the trading entity."
+  ],
+  "category": "playbook",
+  "impact": 5,
+  "effort": 2,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": true,
+  "source": "playbook",
+  "score": 2.0
+ },
+ {
+  "id": "pb.np-completeness",
+  "title": "Days 8-30: complete the profile accurately (one change at a time)",
+  "why": "The primary category is the most influential single field; accuracy matters more than volume.",
+  "how": [
+   "Primary category: the most specific accurate one from the dashboard list (for a non-medical device studio often 'Beauty salon'). Do not add medical, surgical or weight-loss categories to a non-medical business.",
+   "Services with plain descriptions and NO efficacy claims; hours incl. bank holidays; booking link; appointment-only attribute if true; exterior photo with signage (matches the verification evidence), interior, equipment, team.",
+   "Before/after photos only with signed dated consent and ASA-compliant presentation (no Google GBP-specific rule was found; the ASA rules apply).",
+   "Description about 750 characters, factual, no offers or prices, no outcome promises.",
+   "Never change name, address and category together."
+  ],
+  "category": "playbook",
+  "impact": 4,
+  "effort": 2,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": true,
+  "source": "playbook",
+  "score": 1.6
+ },
+ {
+  "id": "pb.ai-baseline",
+  "title": "Take two AI-visibility baseline waves before changing anything",
+  "why": "Assistant answers vary run to run; a defensible change claim needs >=200 valid runs/platform/period and two baselines.",
+  "how": [
+   "python -m local_seo_agent probe <client> --wave baseline1 / baseline2 (set a budget cap).",
+   "Manually sample Google AI Overviews / AI Mode for ~10 queries (not measurable by API)."
+  ],
+  "category": "playbook",
+  "impact": 3,
+  "effort": 2,
+  "confidence": "official",
+  "phase": 30,
+  "needs_approval": false,
+  "manual": false,
+  "source": "playbook",
+  "score": 1.5
+ },
+ {
+  "id": "pb.analytics",
+  "title": "Set up measurement: Search Console, Bing Webmaster Tools, GA4 events, AI-referral channel",
+  "why": "You cannot prove results without baselines. Bing Webmaster Tools has the only first-party AI-citation report found.",
+  "how": [
+   "Verify Search Console + Bing Webmaster Tools; enable BigQuery export if available.",
+   "GA4 events for calls, form fills, direction clicks; custom 'AI Assistants' channel (many AI visits arrive as Direct).",
+   "Call tracking via dynamic number swap without changing the GBP/schema primary number."
+  ],
+  "category": "playbook",
+  "impact": 3,
+  "effort": 2,
+  "confidence": "official",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": true,
+  "source": "playbook",
+  "score": 1.5
+ },
+ {
+  "id": "pb.bc-scot-regulation",
+  "title": "Scotland: ask the regulators in writing and keep the answers",
+  "why": "Scotland's 2026 non-surgical procedures legislation and council licensing are phased in from no earlier than 2027-09-06; the scope for skin-surface devices is unclear.",
+  "how": [
+   "Ask Healthcare Improvement Scotland whether any part of the service is registrable (especially if a nurse or doctor is involved).",
+   "Ask the local council (e.g. North Lanarkshire licensing) what licences or premises standards apply now and from 2027; keep insurance specific to the devices used.",
+   "Do not tell clients the service is 'licensed', 'approved' or 'exempt' unless you hold a document that says so. [LAWYER]"
+  ],
+  "category": "playbook",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "vendor",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": true,
+  "source": "playbook",
+  "score": 1.5
+ },
+ {
+  "id": "pb.review-engine",
+  "title": "Run a compliant review programme: ask EVERY customer, reply to ALL reviews",
+  "why": "Reviews are the second-largest pack factor group and a major input to AI answers (review text, recency, response rate).",
+  "how": [
+   "Invite ALL recent customers the same neutral way (or an impartial sample, e.g. every nth). Excluding customers with open complaints is not impartial.",
+   "No incentives of any kind: lawful in the UK only if prominently disclosed, but banned by Google, Trustpilot, Checkatrade and Yell; this tool never proposes them. No staff quotas or scripts naming staff.",
+   "Show on your own site only ratings computed from ALL genuine reviews, naming the source (DMCC Act 2024).",
+   "Sending by email/SMS may be direct marketing under PECR: use consent or soft opt-in, identify the sender and include an opt-out. QR codes and in-person asks are lowest risk. [LAWYER] if unsure.",
+   "Draft (never auto-post) replies; healthcare/legal replies must not confirm a patient/client relationship.",
+   "Track velocity with weekly snapshots (the Places API returns only 5 reviews)."
+  ],
+  "category": "playbook",
+  "impact": 5,
+  "effort": 3,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "playbook",
+  "score": 1.33
+ },
+ {
+  "id": "pb.uk-apple-bing",
+  "title": "Claim Apple Business (formerly Business Connect) and Bing Places",
+  "why": "Apple Maps/Siri and Bing/Copilot are separate data sources from Google; UK iPhone use is high.",
+  "how": [
+   "Use the same NAP, hours and categories as GBP.",
+   "Add bank-holiday special hours for the right nation (gov.uk/bank-holidays.json has england-and-wales, scotland, northern-ireland)."
+  ],
+  "category": "playbook",
+  "impact": 3,
+  "effort": 2,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": true,
+  "source": "playbook",
+  "score": 1.2
+ },
+ {
+  "id": "pb.uk-registers",
+  "title": "Align official registers: Companies House and your regulator/trade-body listings",
+  "why": "Assistants and Google match entities against official records, and AI answers have recommended firms that no longer trade.",
+  "how": [
+   "Companies House: status 'active', registered name, number and registered office match the website footer (the registered office may differ from the trading/GBP address: keep them as separate fields).",
+   "Regulator/scheme registers relevant to the vertical (e.g. ): verify, never just claim a badge.",
+   "Run `resolve` (postcodes.io) and set COMPANIES_HOUSE_API_KEY (free) so `audit` checks company status automatically."
+  ],
+  "category": "playbook",
+  "impact": 3,
+  "effort": 2,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": true,
+  "source": "playbook",
+  "score": 1.2
+ },
+ {
+  "id": "pb.nap-directories",
+  "title": "Fix NAP consistency across core directories (claim listings manually)",
+  "why": "Consistent name/address/phone lets machines confirm the entity; Bing Places, Apple Business Connect and Yelp feed other assistants.",
+  "how": [
+   "Use the SAME primary static number everywhere; tracking numbers only as secondary.",
+   "Claim/verify: Google Business Profile, Bing Places, Apple Business, Facebook, Trustpilot, Yell",
+   "Do not buy bulk citation blasts; prefer 8-15 accurate, relevant listings."
+  ],
+  "category": "playbook",
+  "impact": 4,
+  "effort": 3,
+  "confidence": "evidence",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": true,
+  "source": "playbook",
+  "score": 1.07
+ },
+ {
+  "id": "fix.nap.directories-manual",
+  "title": "Directory NAP consistency requires manual verification",
+  "why": "We do not scrape directories (ToS). See the manual checklist in the plan.",
+  "how": [],
+  "category": "nap",
+  "impact": 3,
+  "effort": 3,
+  "confidence": "official",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": true,
+  "source": "nap.directories-manual",
+  "score": 1.0
+ },
+ {
+  "id": "pb.bc-suitability",
+  "title": "Add suitability, contraindication, session and complaints information",
+  "why": "Honest information protects clients and is what a trustworthy page looks like to both people and AI assistants.",
+  "how": [
+   "Who should NOT have the treatment (e.g. pregnancy, pacemakers or metal implants, clotting disorders): have a clinician confirm the list.",
+   "Number of sessions, what results are and are not expected, patch/consultation steps, practitioner training and insurance, complaints route, 18+ statement."
+  ],
+  "category": "playbook",
+  "impact": 4,
+  "effort": 2,
+  "confidence": "heuristic",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "playbook",
+  "score": 1.0
+ },
+ {
+  "id": "fix.content.service-pages",
+  "title": "No page targets 2 of 3 core services",
+  "why": "Intent-matched pages are how a local business earns organic traffic and gives AI assistants something specific to cite.",
+  "how": [
+   "Create one useful page per core service (own title, H1, price guidance, process, FAQs, local proof). Do not mass-produce near-duplicate area pages."
+  ],
+  "category": "technical",
+  "impact": 4,
+  "effort": 4,
+  "confidence": "heuristic",
+  "phase": 30,
+  "needs_approval": true,
+  "manual": false,
+  "source": "content.service-pages",
+  "score": 0.5
+ },
+ {
+  "id": "fix.gbp.hours",
+  "title": "Business hours not set",
+  "why": "",
+  "how": [],
+  "category": "gbp",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "gbp.hours",
+  "score": 3.0
+ },
+ {
+  "id": "fix.nap.name-not-on-site",
+  "title": "Business name not found in page text",
+  "why": "",
+  "how": [
+   "Use the exact business name consistently in header, footer and contact page."
+  ],
+  "category": "nap",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "nap.name-not-on-site",
+  "score": 3.0
+ },
+ {
+  "id": "fix.tech.sitemap-missing",
+  "title": "No readable XML sitemap found",
+  "why": "",
+  "how": [
+   "Publish /sitemap.xml and reference it from robots.txt."
+  ],
+  "category": "technical",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "tech.sitemap-missing",
+  "score": 3.0
+ },
+ {
+  "id": "fix.uk.privacy-policy",
+  "title": "No privacy policy link found",
+  "why": "UK GDPR requires a privacy notice where personal data is collected (forms, calls, tracking).",
+  "how": [],
+  "category": "uk-compliance",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.privacy-policy",
+  "score": 3.0
+ },
+ {
+  "id": "fix.gbp.services",
+  "title": "Services/products not listed on GBP",
+  "why": "",
+  "how": [],
+  "category": "gbp",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "gbp.services",
+  "score": 2.4
+ },
+ {
+  "id": "fix.nap.click-to-call",
+  "title": "No tap-to-call (tel:) link with the primary number",
+  "why": "Mobile local searchers frequently call directly.",
+  "how": [
+   "Make the phone number a tel: link."
+  ],
+  "category": "nap",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "nap.click-to-call",
+  "score": 2.4
+ },
+ {
+  "id": "fix.uk.claim.before_after_cues",
+  "title": "Marketing claim to review: before after cues (2 found)",
+  "why": "Rule family: ASA/CAP before-and-after guidance; CAP section 3 testimonial rules (numbering differs between editions: verify); UK GDPR for photos. A hint to review in context, not a legal finding. Examples: ends tonight! Real results gallery Before and after photos of our clie",
+  "how": [
+   "Hold signed dated consent and unretouched originals; same lighting/pose; state sessions and interval."
+  ],
+  "category": "claims",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.claim.before_after_cues",
+  "score": 2.4
+ },
+ {
+  "id": "fix.uk.claim.detox_lymphatic",
+  "title": "Marketing claim to review: detox lymphatic (1 found)",
+  "why": "Rule family: CAP section 12: detox and medicinal-type claims need evidence. A hint to review in context, not a legal finding.",
+  "how": [
+   "Remove detox/toxin claims; describe massage or lymphatic techniques factually."
+  ],
+  "category": "claims",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.claim.detox_lymphatic",
+  "score": 2.4
+ },
+ {
+  "id": "fix.uk.claim.price_inducement",
+  "title": "Marketing claim to review: price inducement (1 found)",
+  "why": "Rule family: CAP 1.3 / GMC guidance on inducements (surgery); DMCC price rules. A hint to review in context, not a legal finding.",
+  "how": [
+   "Be careful with %-off, multi-buy and prize offers; state the total price clearly. Not for surgery or injectables."
+  ],
+  "category": "claims",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.claim.price_inducement",
+  "score": 2.4
+ },
+ {
+  "id": "fix.uk.claim.safe_bare",
+  "title": "Marketing claim to review: safe bare (2 found)",
+  "why": "Rule family: ASA 2025 rulings: 'safe', 'no downtime', 'painless' can trivialise risk; acceptable only as qualified, evidenced statements. A hint to review in context, not a legal finding. Examples: ough in body contouring. Painless, no downtime and permanent results.",
+  "how": [
+   "Describe what to expect honestly, including side effects and recovery."
+  ],
+  "category": "claims",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.claim.safe_bare",
+  "score": 2.4
+ },
+ {
+  "id": "fix.uk.claim.time_pressure",
+  "title": "Marketing claim to review: time pressure (2 found)",
+  "why": "Rule family: CAP 1.3 (documented for liquid-BBL/injectable ads) and consumer law; stricter for surgery and injectables. A hint to review in context, not a legal finding. Examples: 20% THIS MONTH. Only 4 slots left, offer ends tonight! Real results ga",
+  "how": [
+   "Avoid pressure tactics; give people time to decide."
+  ],
+  "category": "claims",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.claim.time_pressure",
+  "score": 2.4
+ },
+ {
+  "id": "fix.tech.canonical-missing",
+  "title": "Homepage has no canonical link",
+  "why": "",
+  "how": [
+   "Add <link rel=\"canonical\"> pointing at the preferred URL."
+  ],
+  "category": "technical",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "tech.canonical-missing",
+  "score": 2.0
+ },
+ {
+  "id": "fix.tech.meta-desc",
+  "title": "Homepage has no meta description",
+  "why": "",
+  "how": [
+   "Write a unique, accurate description with city, services and a call to action."
+  ],
+  "category": "technical",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "tech.meta-desc",
+  "score": 2.0
+ },
+ {
+  "id": "fix.uk.email-missing",
+  "title": "No email address found on the site",
+  "why": "E-Commerce Regulations 2002 reg 6: an email address (not just a contact form) should be easily accessible.",
+  "how": [],
+  "category": "uk-compliance",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "official",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.email-missing",
+  "score": 2.0
+ },
+ {
+  "id": "pb.schema",
+  "title": "Add LocalBusiness JSON-LD (generated from facts; no aggregateRating)",
+  "why": "Hygiene that confirms entity facts. Controlled tests show no citation uplift by itself.",
+  "how": [
+   "python -m local_seo_agent schema <client>",
+   "Keep values identical to GBP and the visible page."
+  ],
+  "category": "playbook",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "playbook",
+  "score": 1.6
+ },
+ {
+  "id": "pb.np-reviews",
+  "title": "Days 8-60: build reviews steadily and compliantly",
+  "why": "A new profile starts with none; Google reportedly filters new profiles' reviews more aggressively, and bans staff quotas, incentives, gating and kiosks.",
+  "how": [
+   "Invite every client the same neutral way after treatment (QR code, link): no discounts, no gifts, no 'only happy clients', no staff targets, no asking clients to name a staff member.",
+   "Do not ask friends, family or staff to post. Do not post spikes of reviews on one day.",
+   "Reply to every review without confirming a person was a client or giving treatment details (privacy)."
+  ],
+  "category": "playbook",
+  "impact": 5,
+  "effort": 3,
+  "confidence": "evidence",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "playbook",
+  "score": 1.33
+ },
+ {
+  "id": "fix.schema.no-localbusiness",
+  "title": "No LocalBusiness-type structured data found",
+  "why": "Structured data is hygiene that helps machines confirm name, address, phone and hours. Controlled tests show no citation uplift by itself, so do not expect it to rank you.",
+  "how": [
+   "Add JSON-LD using the most specific type (HealthAndBeautyBusiness). Run `python -m local_seo_agent schema <client>` to generate it from your facts."
+  ],
+  "category": "schema",
+  "impact": 3,
+  "effort": 2,
+  "confidence": "evidence",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "schema.no-localbusiness",
+  "score": 1.2
+ },
+ {
+  "id": "pb.uk-consent",
+  "title": "Check cookie/consent set-up for analytics, ads and call tracking (PECR)",
+  "why": "From 5 Feb 2026 PECR fines can reach GBP 17.5m or 4% of turnover; GA4 in default configuration likely does not meet the statistical exemption; call-tracking scripts set cookies too.",
+  "how": [
+   "Equal-prominence accept/reject; no non-essential tags before consent; privacy policy lists each tag.",
+   "Call recording needs a lawful basis and a caller notice."
+  ],
+  "category": "playbook",
+  "impact": 3,
+  "effort": 2,
+  "confidence": "evidence",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": true,
+  "source": "playbook",
+  "score": 1.2
+ },
+ {
+  "id": "pb.bc-differentiate",
+  "title": "Make the page match what people actually search (and not mislead them)",
+  "why": "'BBL' usually means fat-transfer surgery and 'non-surgical BBL' is used by regulators for filler procedures. People searching those terms are often researching surgery.",
+  "how": [
+   "Target honest terms: 'body contouring', 'booty lift treatment', 'cellulite treatment' (describe, don't promise), plus town names across Lanarkshire.",
+   "Add an explanatory section: how this differs from surgical BBL and from filler procedures, and what it can't do."
+  ],
+  "category": "playbook",
+  "impact": 4,
+  "effort": 3,
+  "confidence": "evidence",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "playbook",
+  "score": 1.07
+ },
+ {
+  "id": "pb.np-api-wait",
+  "title": "Day 60+: the Business Profile API becomes possible (not before)",
+  "why": "Google's API prerequisites need a verified profile active for 60+ days and a website; access is approved per Cloud project and can take weeks.",
+  "how": [
+   "Profile age today: 4 days. Until day 60 use the dashboard, Search Console, and the Places API for competitor and rating data."
+  ],
+  "category": "playbook",
+  "impact": 2,
+  "effort": 2,
+  "confidence": "official",
+  "phase": 60,
+  "needs_approval": false,
+  "manual": false,
+  "source": "playbook",
+  "score": 1.0
+ },
+ {
+  "id": "pb.service-pages",
+  "title": "One strong page per core service (and per area only where genuinely distinct)",
+  "why": "Intent-matched pages win organic and give AI assistants something specific to cite. Templated city pages are doorway-page spam.",
+  "how": [
+   "Write from client-supplied facts: pricing ranges, process, credentials, FAQs from real customer questions.",
+   "No invented statistics, awards or quotes. Cap near-duplicate location pages; each needs unique, useful content.",
+   "Answer-first structure (summary in first paragraph), clear headings, NAP and CTA."
+  ],
+  "category": "playbook",
+  "impact": 4,
+  "effort": 4,
+  "confidence": "evidence",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "playbook",
+  "score": 0.8
+ },
+ {
+  "id": "fix.uk.tracking-tags",
+  "title": "Analytics/advertising tags observed and no cookie/consent wording found",
+  "why": "PECR (UK): non-essential tags (ads, remarketing, call tracking; GA4 in default configuration likely does not meet the statistical exemption) generally need prior opt-in. This crawl cannot tell whether tags fire before consent; observed only. [LAWYER] for consent design.",
+  "how": [],
+  "category": "uk-compliance",
+  "impact": 3,
+  "effort": 2,
+  "confidence": "heuristic",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.tracking-tags",
+  "score": 0.75
+ },
+ {
+  "id": "pb.bc-franchise",
+  "title": "Franchise: agree in writing who controls the page, the claims and the profile",
+  "why": "A branch page on the brand's domain is a shared asset: branches share templates (near-duplicate content), you cannot fix its claims, and the ASA looks at who is responsible for content.",
+  "how": [
+   "Ask the franchisor for the permitted trading name, written permission to run your own Google profile (and check whether they created one), and whether you may run your own domain.",
+   "Audit the brand pages your local page links to as well as your own; do not copy brand claims you cannot evidence.",
+   "Do not mark up the brand's Trustpilot score as the branch's rating; brand-level reviews are not local reviews."
+  ],
+  "category": "playbook",
+  "impact": 3,
+  "effort": 2,
+  "confidence": "heuristic",
+  "phase": 60,
+  "needs_approval": true,
+  "manual": true,
+  "source": "playbook",
+  "score": 0.75
+ },
+ {
+  "id": "pb.uk-ai-surfaces",
+  "title": "Sample Google AI Mode / AI Overviews by hand and read the Search Console AI report",
+  "why": "AI Mode is live in the UK (since 2025-07-29). Search Console's Generative AI report reaches more sites over time; check it is available for your property.",
+  "how": [
+   "Run `sheet-export` for a worksheet, observe on a real phone in the client's area, then `sheet-import`."
+  ],
+  "category": "playbook",
+  "impact": 2,
+  "effort": 2,
+  "confidence": "vendor",
+  "phase": 60,
+  "needs_approval": false,
+  "manual": false,
+  "source": "playbook",
+  "score": 0.5
+ },
+ {
+  "id": "fix.gbp.description",
+  "title": "GBP description empty",
+  "why": "",
+  "how": [],
+  "category": "gbp",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "gbp.description",
+  "score": 1.6
+ },
+ {
+  "id": "fix.gbp.special-hours",
+  "title": "Special/holiday hours not set",
+  "why": "",
+  "how": [],
+  "category": "gbp",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "gbp.special-hours",
+  "score": 1.6
+ },
+ {
+  "id": "fix.uk.age-statement",
+  "title": "No 18+ age statement found",
+  "why": "CAP 12.25: cosmetic interventions must not be targeted at under-18s. Scotland's Non-surgical Procedures Act 2026 bans some under-18 procedures.",
+  "how": [],
+  "category": "uk-compliance",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.age-statement",
+  "score": 1.6
+ },
+ {
+  "id": "fix.uk.claim.revolutionary_novelty",
+  "title": "Marketing claim to review: revolutionary novelty (1 found)",
+  "why": "Rule family: CAP 3.7: novelty claims need evidence. A hint to review in context, not a legal finding.",
+  "how": [
+   "Remove or substantiate."
+  ],
+  "category": "claims",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "evidence",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.claim.revolutionary_novelty",
+  "score": 1.6
+ },
+ {
+  "id": "fix.gbp.new-profile",
+  "title": "Profile verified 4 days ago: protect it, do not 'optimise' yet",
+  "why": "Do not change name, address and category together or in a hurry (re-review/suspension trigger reported by practitioners). The Business Profile API needs a verified listing 60+ days old: earliest application about 2026-11-28. Until then use the dashboard, Search Console and the Places API.",
+  "how": [],
+  "category": "gbp",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "vendor",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "gbp.new-profile",
+  "score": 1.5
+ },
+ {
+  "id": "fix.uk.scot-licensing-watch",
+  "title": "Scotland: new non-surgical procedure rules and council licensing are coming",
+  "why": "The Non-surgical Procedures and Functions of Medical Reviewers (Scotland) Act 2026 (Royal Assent 2026-05-12) and a council licensing order are reported to start no earlier than 2027-09-06. Summaries describe the licensing order as covering procedures that pierce or penetrate the skin, so whether skin-surface devices (cavitation, vacuum, RF) are covered is UNCLEAR: do not tell the client 'licensabl",
+  "how": [],
+  "category": "uk-compliance",
+  "impact": 3,
+  "effort": 1,
+  "confidence": "vendor",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.scot-licensing-watch",
+  "score": 1.5
+ },
+ {
+  "id": "fix.gbp.photos",
+  "title": "Few photos on GBP",
+  "why": "",
+  "how": [],
+  "category": "gbp",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "heuristic",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "gbp.photos",
+  "score": 1.0
+ },
+ {
+  "id": "fix.gbp.vertical-booking-link",
+  "title": "Verify on GBP: Booking link",
+  "why": "",
+  "how": [],
+  "category": "gbp",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "heuristic",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "gbp.vertical-booking-link",
+  "score": 1.0
+ },
+ {
+  "id": "fix.gbp.vertical-contraindication-information-shown",
+  "title": "Verify on GBP: Contraindication information shown",
+  "why": "",
+  "how": [],
+  "category": "gbp",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "heuristic",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "gbp.vertical-contraindication-information-shown",
+  "score": 1.0
+ },
+ {
+  "id": "fix.gbp.vertical-opening-hours-incl-bank-holidays",
+  "title": "Verify on GBP: Opening hours incl. bank holidays",
+  "why": "",
+  "how": [],
+  "category": "gbp",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "heuristic",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "gbp.vertical-opening-hours-incl-bank-holidays",
+  "score": 1.0
+ },
+ {
+  "id": "fix.gbp.vertical-services-and-prices",
+  "title": "Verify on GBP: Services and prices",
+  "why": "",
+  "how": [],
+  "category": "gbp",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "heuristic",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "gbp.vertical-services-and-prices",
+  "score": 1.0
+ },
+ {
+  "id": "fix.uk.practitioner-info",
+  "title": "No practitioner training or insurance information found",
+  "why": "",
+  "how": [],
+  "category": "uk-compliance",
+  "impact": 2,
+  "effort": 1,
+  "confidence": "heuristic",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.practitioner-info",
+  "score": 1.0
+ },
+ {
+  "id": "pb.local-mentions",
+  "title": "Earn genuine local mentions and links",
+  "why": "Brand mentions across independent sources correlate with AI visibility (observational, mostly large brands) and prominence.",
+  "how": [
+   "Chamber of commerce, local associations, sponsorships, suppliers/partners, local press and 'best of' lists.",
+   "Original local data or a useful local resource others cite. Disclose any paid placement. No link schemes."
+  ],
+  "category": "playbook",
+  "impact": 4,
+  "effort": 4,
+  "confidence": "evidence",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "playbook",
+  "score": 0.8
+ },
+ {
+  "id": "fix.gbp.new-profile-reviews",
+  "title": "Very few reviews: build them steadily, compliantly",
+  "why": "Invite every customer the same neutral way. Avoid sudden spikes (Google filters new profiles' reviews more aggressively, per vendors), never incentivise, gate, or set staff quotas.",
+  "how": [],
+  "category": "gbp",
+  "impact": 3,
+  "effort": 2,
+  "confidence": "vendor",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "gbp.new-profile-reviews",
+  "score": 0.75
+ },
+ {
+  "id": "fix.uk.brand-domain",
+  "title": "The local page lives on the franchisor's domain",
+  "why": "You share the site with every branch: you cannot control its claims or templates, near-duplicate branch content is possible, and the advertiser may be held responsible for claims on the page it links to. Audit the brand pages too and agree rules with the franchisor in writing. [LAWYER]",
+  "how": [],
+  "category": "uk-compliance",
+  "impact": 3,
+  "effort": 2,
+  "confidence": "heuristic",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "uk.brand-domain",
+  "score": 0.75
+ },
+ {
+  "id": "pb.third-party-lists",
+  "title": "Win inclusion on the third-party lists AI assistants actually cite",
+  "why": "The probe reports which domains are cited for your prompts; those are the pages to earn a place on.",
+  "how": [
+   "Review 'top cited domains' in the AI visibility section; pursue legitimate inclusion (real merits, disclosed).",
+   "No astroturfing on Reddit/forums/Wikipedia; participate openly or not at all."
+  ],
+  "category": "playbook",
+  "impact": 4,
+  "effort": 3,
+  "confidence": "heuristic",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "playbook",
+  "score": 0.67
+ },
+ {
+  "id": "fix.content.thin-home",
+  "title": "Very little text on the homepage",
+  "why": "Not a ranking rule, but a page needs enough substance to answer what the business does, where and for whom.",
+  "how": [
+   "Say what you do, where you work, who it is for, how to book and why to trust you, using real details."
+  ],
+  "category": "technical",
+  "impact": 3,
+  "effort": 3,
+  "confidence": "heuristic",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "content.thin-home",
+  "score": 0.5
+ },
+ {
+  "id": "fix.tech.alt-text",
+  "title": "Many images lack alt text",
+  "why": "",
+  "how": [],
+  "category": "technical",
+  "impact": 2,
+  "effort": 2,
+  "confidence": "heuristic",
+  "phase": 90,
+  "needs_approval": true,
+  "manual": false,
+  "source": "tech.alt-text",
+  "score": 0.5
+ }
+]

@@ -1,0 +1,40 @@
+[client]
+name = "brazilian bootlift lanarkshire"
+website = "https://www.brazilianbootylift.example/stores/brazilian-bootylift-lanarkshire/"
+phone = "07700 900123"
+vertical = "body_contouring"
+jurisdiction = "UK"
+primary_city = "Wishaw"
+treatment_type = "non_surgical_device"
+delivered_by = "beauty therapist"
+franchise_brand = "Brazilian Booty Lift"
+brand_domain = "www.brazilianbootylift.example"
+service_area_business = false
+target_services = ["booty lift", "body contouring", "cellulite treatment"]
+service_areas = ["Wishaw", "Motherwell", "Hamilton", "Airdrie", "Coatbridge", "East Kilbride"]
+facts = [
+  "Non-surgical body contouring using devices; no surgery, no injections, no fat transfer",
+  "Appointments with a trained therapist after a consultation",
+]
+
+[client.hours]
+"Mon-Fri" = "09:00-17:00"
+
+[address]
+street = "1 Example Road"
+city = "Wishaw"
+region = "North Lanarkshire"
+council_area = "North Lanarkshire"
+postal_code = "ML2 9ZZ"
+
+# Google Business Profile facts (INVENTED for the demo): profile accepted four days ago, nothing done yet
+[gbp]
+primary_category = "Beauty salon"
+verified = true
+verified_on = "2026-09-29"
+review_count = 0
+hours_set = false
+special_hours_set = false
+description_set = false
+services_listed = false
+photo_count = 1

@@ -115,6 +115,18 @@ VERTICALS: dict[str, dict] = {
         "gbp_checks": ["Surgeon credentials shown", "Consultation booking link", "Hours", "Accurate procedure list"],
         "lsa": False,
     },
+    "body_contouring": {
+        "label": "Non-surgical body contouring studio",
+        "schema_types": ["HealthAndBeautyBusiness", "BeautySalon", "LocalBusiness"],
+        "preferred_schema": "HealthAndBeautyBusiness",
+        "sab_default": False,
+        "directories": [("Fresha / Booksy / Vagaro", "Booking marketplaces"), ("Instagram", "Portfolio"), ("Facebook", "")],
+        "probe_terms": ["body contouring", "cellulite treatment", "body sculpting", "booty lift"],
+        "singular": "body contouring studio",
+        "compliance": ["asa_cap", "before_after", "device_claims"],
+        "gbp_checks": ["Booking link", "Services and prices", "Contraindication information"],
+        "lsa": False,
+    },
     "generic": {
         "label": "Local business (generic)",
         "schema_types": ["LocalBusiness"],
@@ -130,7 +142,8 @@ VERTICALS: dict[str, dict] = {
 }
 
 
-ALIASES = {"bbl": "cosmetic_surgery", "cosmetic_surgeon": "cosmetic_surgery", "plastic_surgery": "cosmetic_surgery",
+ALIASES = {"booty_lift": "body_contouring", "non_surgical_bbl": "body_contouring", "body_sculpting": "body_contouring",
+           "body_contouring_studio": "body_contouring", "bbl": "cosmetic_surgery", "cosmetic_surgeon": "cosmetic_surgery", "plastic_surgery": "cosmetic_surgery",
            "plastic_surgeon": "cosmetic_surgery", "cosmetic_surgery_clinic": "cosmetic_surgery", "aesthetic_surgery": "cosmetic_surgery",
            "solicitor": "lawyer", "attorney": "lawyer", "law_firm": "lawyer", "trades": "plumber", "dental": "dentist",
            "hairdresser": "salon", "barber": "salon", "beauty": "salon", "takeaway": "restaurant", "cafe": "restaurant",
@@ -222,6 +235,16 @@ UK_OVERLAY: dict[str, dict] = {
         "directory_names": ["Google Business Profile", "Bing Places", "Apple Business", "Treatwell", "Fresha", "Booksy", "Facebook", "Yell"],
         "compliance": ["aesthetics_pom", "before_after", "asa_cap"],
         "gbp_checks": ["Booking link", "Services and prices", "Portfolio photos"],
+        "lsa": False,
+    },
+    "body_contouring": {
+        "label": "Non-surgical body contouring studio (UK)",
+        "probe_terms": ["booty lift", "non surgical BBL", "Brazilian booty lift", "body contouring", "cellulite treatment",
+                        "body sculpting", "non surgical bum lift"],
+        "singular": "body contouring studio",
+        "directory_names": ["Google Business Profile", "Bing Places", "Apple Business", "Treatwell", "Fresha", "Booksy", "Facebook", "Trustpilot", "Yell"],
+        "compliance": ["asa_cap", "before_after", "device_claims", "no_inducements"],
+        "gbp_checks": ["Booking link", "Services and prices", "Contraindication information shown", "Opening hours incl. bank holidays"],
         "lsa": False,
     },
     "cosmetic_surgery": {

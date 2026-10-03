@@ -116,8 +116,14 @@ export GOOGLE_ACCESS_TOKEN=$(gcloud auth application-default print-access-token)
 | "Update freeze" was static | **Fixed**: `status` / `report --live-status` read the Search Status Dashboard (fail-open; schema inferred, take one live fixture first). |
 | Research not checked against primary sources | **Tooling fixed, verification not**: `verify-facts` re-reads each primary page, records a content hash and flags drift. It must be run from an open network (the build sandbox blocked those hosts). |
 | Provider/connector code never run live | **Not fixable offline**: contracts were verified from Google discovery docs, vendor SDKs and OpenAPI specs and are covered by mock-transport tests, but not run against live services (no credentials, egress blocked). Run each command once with a tiny budget first. |
+| Body contouring / BBL vertical, Scotland, brand-new Google profile | **Built**: `body_contouring` and `cosmetic_surgery` verticals (aliases `bbl`, `booty_lift`, `non_surgical_bbl`), an ASA/CAP claims scanner with REFUSE/ERROR/WARN tiers, a GBP name-risk check (service + place), a first-90-days plan for profiles under 60 days old, franchise (brand-domain) checks and a Scottish regime note (Healthcare Improvement Scotland, 2026 non-surgical procedures legislation, licensing not yet in force and **unresolved for cavitation/vacuum devices**). Not legal advice; research in `research/bbl/`. |
 | Welsh-language probes | **Not built** (Welsh Language Standards bind public bodies, not private businesses). |
 | Orchestrator / subagents | **Deliberately not built** (the critique showed a deterministic pipeline is safer and cheaper). |
+
+## Demo: a new BBL (non-surgical) franchise branch in Scotland
+
+`python examples/bbl_lanarkshire_demo.py` runs the real audit, plan, report, schema and guardrails against an **illustrative** local site
+(invented details; one sentence of real public-listing wording is quoted to show how it is treated). Output: `examples/bbl-lanarkshire-demo/`.
 
 ## Dependencies: the >5k-star rule
 

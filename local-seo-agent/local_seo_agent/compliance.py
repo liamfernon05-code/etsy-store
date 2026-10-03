@@ -49,6 +49,14 @@ _REQUEST_RULES: list[tuple[str, str, re.Pattern]] = [
      re.compile(r"\bguarantee[sd]?\b.{0,30}\b(win|results?|outcome|approval|cure|success)\b", re.I | re.S)),
     ("pom-advertising", "UK: prescription-only medicines (e.g. Botox/Dysport/Azzalure) cannot be advertised to the public (CAP 12.12). Offer an 'anti-wrinkle consultation' instead.",
      re.compile(r"\b(botox|dysport|azzalure|bocouture|vistabel|botulinum)\b", re.I)),
+    ("cellulite-claim", "UK: claims that a device or treatment erases, removes or reduces cellulite, fat or inches from a body area are not accepted by the ASA without rigorous human-trial evidence (CAP 13.9 and the ASA cellulite position).",
+     re.compile(r"\b(?:erase|remove|eliminate|get rid of|banish|melt|dissolve)\w*\b.{0,25}\b(?:cellulite|stubborn fat|fat cells?)\b|\bcellulite\b.{0,25}\b(?:gone|removal|elimination|reduction|disappear\w*)\b|\binch(?:es)?\s+loss\b|\bspot\s+reduction\b", re.I | re.S)),
+    ("absolute-safety", "'Safest', 'risk-free' and 'no risks' are absolute or comparative safety claims; the ASA treats them as needing proof and as trivialising risk for cosmetic interventions.",
+     re.compile(r"\b(?:safest|risk[\s-]?free|no\s+risks?|zero\s+risk|100\s?%\s+safe|completely\s+safe)\b", re.I)),
+    ("fake-urgency", "False urgency (countdowns, 'last slots', deadline pricing) is socially irresponsible under CAP 1.3 for cosmetic interventions and an unfair practice under consumer law.",
+     re.compile(r"\b(?:countdown|last\s+(?:chance|few\s+slots?)|only\s+\d+\s+(?:slots?|spaces?|appointments?)\s+left|offer\s+ends\s+(?:today|tonight|midnight)|fake\s+(?:scarcity|urgency))\b", re.I)),
+    ("target-minors", "Cosmetic interventions must not be targeted at under-18s (CAP 12.25), and Scotland's 2026 Act bans some under-18 non-surgical procedures.",
+     re.compile(r"\b(?:target|advertis\w*|promot\w*|market\w*|ads?)\b.{0,60}\b(?:teen\w*|under[\s-]?18|under[\s-]?16|school\w*|prom\b|1[0-7][\s-]?(?:year|yr)s?[\s-]?old)|\b(?:teen\w*|under[\s-]?18|school\w*)\b.{0,60}\b(?:target|advertis\w*|promot\w*|ads?)\b", re.I | re.S)),
     ("astroturf", "Undisclosed astroturfing on Reddit/forums/Wikipedia is prohibited.",
      re.compile(r"\b(sockpuppet|astroturf|pretend to be (a )?(customer|user))\b", re.I)),
 ]
@@ -118,8 +126,8 @@ def check_request(text: str, market: str = "US") -> list[Violation]:
     seen: set[str] = set()
     out: list[Violation] = []
     for code, msg, pat in _REQUEST_RULES:
-        if code == "pom-advertising" and market != "UK":
-            continue  # POM brand advertising is a UK (CAP/MHRA) rule; US rules differ and are not encoded
+        if code in ("pom-advertising", "cellulite-claim", "target-minors") and market != "UK":
+            continue  # these are UK ASA/CAP/MHRA rules; US rules differ and are not encoded
         m = pat.search(text)
         if m and code not in seen:
             seen.add(code)
@@ -163,6 +171,17 @@ def check_draft(text: str, profile: ClientProfile, kind: str = "generic", extra_
             out.append(Violation("unsupported-number", "Draft contains a number that is not in the client's supplied facts.", n))
             break
 
+    if vertical_for(profile).get("key") in ("body_contouring", "cosmetic_surgery") and uk_market:
+        from .checks import claims as _claims
+
+        surgical = profile.treatment_type in ("surgical", "injectable") or vertical_for(profile).get("key") == "cosmetic_surgery"
+        seen_claims: set[str] = set()
+        for h in _claims.scan_claims(text, surgical=surgical):
+            if h.negated or h.category in seen_claims:
+                continue
+            if _claims.severity_for(h.category, profile.treatment_type, False) == "ERROR":
+                seen_claims.add(h.category)
+                out.append(Violation(f"claim-{h.category}", _claims.RULE_REFS[h.category][0][:160], h.snippet[:80]))
     flags = vertical_for(profile)["compliance"]
     if kind == "review-reply" and ({"hipaa_replies", "confidentiality_replies", "confidential_replies"} & set(flags)) \
             and _HEALTH_REPLY.search(text):
@@ -188,8 +207,12 @@ def jurisdiction_warning(profile: ClientProfile) -> str:
         return oos
     m = market_for(profile)
     if m.is_uk:
-        return ("UK: guidance reflects research on the DMCC Act 2024, the ASA/CAP Code, UK GDPR/PECR and sector regulators "
-                "(see Reference facts); it is not legal advice. Items tagged [LAWYER] need a qualified UK solicitor. "
-                "Scotland, Northern Ireland and some sectors (vets, funerals, estate agents, childcare) have rules not "
-                "built into this tool.")
+        base = ("UK: guidance reflects research on the DMCC Act 2024, the ASA/CAP Code, UK GDPR/PECR and sector regulators "
+                "(see Reference facts); it is not legal advice. Items tagged [LAWYER] need a qualified UK solicitor. ")
+        if profile.nation == "SCO":
+            return base + ("Scotland: covered here are Healthcare Improvement Scotland registration, the 2026 non-surgical procedures legislation "
+                           "(not yet in force), FHIS and Scottish nation checks. NOT covered: Law Society of Scotland rules, Scottish "
+                           "defamation law, council-specific licences, and sectors such as vets, funerals, estate agents and childcare.")
+        return base + ("Northern Ireland, Scotland and some sectors (vets, funerals, estate agents, childcare) have rules not "
+                       "built into this tool.")
     return ""

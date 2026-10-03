@@ -10,6 +10,7 @@ import re
 from ..facts import VERIFIED
 from ..models import ClientProfile, Confidence, CrawlResult, Finding, Severity
 from ..markets import market_for
+from .. import uk
 from ..verticals import vertical_for
 from .schema import digits
 
@@ -85,6 +86,7 @@ def check_gbp(profile: ClientProfile) -> list[Finding]:
         out.append(Finding(id=f"gbp.{id_}", category="gbp", severity=sev, title=title,
                            verified_on=VERIFIED, **kw))
 
+    out += _name_and_age(profile, vert, g)
     if not any([g.primary_category, g.review_count is not None, g.verified is not None]):
         mk("no-inputs", Severity.UNKNOWN, "No GBP details supplied",
            detail="The GBP API requires Google approval (0 quota until approved), so enter facts in client.toml [gbp].",
@@ -93,6 +95,15 @@ def check_gbp(profile: ClientProfile) -> list[Finding]:
     if g.verified is False:
         mk("unverified", Severity.ERROR, "Google Business Profile is not verified", impact=5, effort=2,
            confidence=Confidence.OFFICIAL, fix="Complete Google's verification.")
+    risky = {"medical spa", "medical spa clinic", "weight loss service", "plastic surgeon", "cosmetic surgeon", "cosmetic surgery clinic",
+             "plastic surgery clinic", "cosmetic dermatology clinic", "doctor", "physician"}
+    if g.primary_category.strip().lower() in risky and profile.treatment_type in ("non_surgical_device", "") \
+            and (profile.delivered_by or "").lower() not in ("nurse", "doctor", "prescriber"):
+        mk("category-implies-medical", Severity.WARN, "GBP category implies a medical, surgical or weight-loss service",
+           evidence=g.primary_category, impact=4, effort=1,
+           detail="For a non-medical device service these categories misrepresent the business (ASA and suspension risk) and 'Weight loss service' invites efficacy claims. "
+                  "Pick the most specific accurate category from the dashboard list (often 'Beauty salon'); do not assume a 'Body contouring service' category exists.",
+           fix="Change categories one at a time, with evidence, after the first weeks.")
     if not g.primary_category:
         mk("category-missing", Severity.WARN, "Primary GBP category not recorded", impact=5, effort=1,
            detail="Primary category is consistently rated the top local-pack factor by expert surveys.",
@@ -131,4 +142,53 @@ def check_gbp(profile: ClientProfile) -> list[Finding]:
     for item in vert["gbp_checks"]:
         mk(f"vertical-{re.sub('[^a-z0-9]+', '-', item.lower()).strip('-')}", Severity.INFO,
            f"Verify on GBP: {item}", impact=2, effort=1, confidence=Confidence.HEURISTIC)
+    return out
+
+
+_REGION_WORDS = {"lanarkshire", "ayrshire", "fife", "lothian", "lothians", "yorkshire", "lancashire", "cheshire", "kent", "essex", "surrey",
+                 "devon", "cornwall", "midlands", "highlands", "borders", "tayside", "grampian", "merseyside", "tyneside", "teesside", "scotland",
+                 "wales", "england", "ulster", "uk", "britain", "glasgow", "edinburgh"}
+_GENERIC_NAME_WORDS = {"the", "and", "ltd", "limited", "llp", "plc", "co", "of", "services", "service", "group", "uk", "studio", "clinic"}
+
+
+def _name_and_age(profile, vert, g) -> list[Finding]:
+    """(1) a business name made of a service keyword plus a place is a classic Google-guidelines trap; (2) new-profile guidance."""
+    out: list[Finding] = []
+
+    def mk(id_, sev, title, **kw):
+        kw.setdefault("confidence", Confidence.EVIDENCE)
+        out.append(Finding(id=f"gbp.{id_}", category="gbp", severity=sev, title=title, verified_on=VERIFIED, **kw))
+
+    words = [w for w in re.findall(r"[a-z0-9]+", profile.name.lower()) if w not in _GENERIC_NAME_WORDS]
+    place_words = {w for src in (profile.city, profile.address.region, profile.address.county, profile.address.council_area, *profile.service_areas)
+                   for w in re.findall(r"[a-z]+", (src or "").lower()) if len(w) > 3} | _REGION_WORDS
+    place_words |= {w for loc in uk.UK_LOCATIONS.values() for w in re.findall(r"[a-z]+", (loc["city"] + " " + loc["region"]).lower()) if len(w) > 3}
+    service_words = {w for t in [*vert["probe_terms"], vert["singular"], *profile.target_services] for w in re.findall(r"[a-z]+", t.lower()) if len(w) > 3}
+    service_words |= {"lift", "booty", "plumber", "plumbing", "dentist", "solicitor", "electrician", "boiler", "heating"}
+    has_place = any(w in place_words for w in words)
+    has_service = any(any(sw in w or (len(w) > 4 and w in sw) for sw in service_words) for w in words if w not in place_words)
+    if has_place and has_service and len(words) >= 2:
+        if g.name_matches_signage is True:
+            mk("name-evidence", Severity.INFO, "GBP name is a service plus a place: keep the evidence pack ready",
+               detail="Google requires the name to match real-world signage/website/stationery; keywords or locations that are not part of the official name can "
+                      "trigger edits, re-verification or suspension, including after verification and on competitor reports. Acceptance does not protect the name.",
+               impact=3, effort=1, fix="Keep photos of signage, the franchise licence/permitted trading name, a recent invoice, and the HMRC/Companies House record for the trading entity.")
+        else:
+            mk("name-stuffing-risk", Severity.WARN, "GBP name looks like a service keyword plus a place",
+               evidence=profile.name, impact=4, effort=1,
+               detail="If this is not exactly the name on your signage, website and invoices, Google may treat it as keyword stuffing even though the profile was accepted.",
+               fix="Confirm the permitted trading name with the owner/franchisor, make signage, website, Facebook and invoices match, and do NOT edit the GBP name in a hurry.")
+    age = profile.gbp_age_days()
+    if age is not None and 0 <= age < 90:
+        from datetime import date, timedelta
+
+        api_date = (date.fromisoformat(g.verified_on) + timedelta(days=60)).isoformat()
+        mk("new-profile", Severity.INFO, f"Profile verified {age} days ago: protect it, do not 'optimise' yet",
+           detail=f"Do not change name, address and category together or in a hurry (re-review/suspension trigger reported by practitioners). "
+                  f"The Business Profile API needs a verified listing 60+ days old: earliest application about {api_date}. Until then use the dashboard, Search Console and the Places API.",
+           impact=3, effort=1, confidence=Confidence.VENDOR)
+        if (g.review_count or 0) < 5:
+            mk("new-profile-reviews", Severity.INFO, "Very few reviews: build them steadily, compliantly",
+               detail="Invite every customer the same neutral way. Avoid sudden spikes (Google filters new profiles' reviews more aggressively, per vendors), "
+                      "never incentivise, gate, or set staff quotas.", impact=3, effort=2, confidence=Confidence.VENDOR)
     return out

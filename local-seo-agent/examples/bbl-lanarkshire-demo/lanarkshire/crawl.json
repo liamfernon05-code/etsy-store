@@ -1,0 +1,83 @@
+{
+ "start_url": "https://www.brazilianbootylift.example/stores/brazilian-bootylift-lanarkshire/",
+ "pages": [
+  {
+   "url": "https://www.brazilianbootylift.example/stores/brazilian-bootylift-lanarkshire/",
+   "final_url": "https://www.brazilianbootylift.example/stores/brazilian-bootylift-lanarkshire/",
+   "status": 200,
+   "bytes": 949,
+   "headers": {
+    "content-type": "text/html"
+   },
+   "redirect_chain": [],
+   "title": "Brazilian Bootylift Lanarkshire",
+   "meta_description": "",
+   "h1": [
+    "Brazilian Booty Lift Lanarkshire"
+   ],
+   "h2": [
+    "Real results gallery"
+   ],
+   "canonical": "",
+   "robots_meta": "",
+   "viewport": false,
+   "lang": "en",
+   "jsonld": [],
+   "jsonld_errors": 0,
+   "internal_links": [
+    "https://www.brazilianbootylift.example/contact"
+   ],
+   "external_hosts": [],
+   "script_hosts": [
+    "connect.facebook.net",
+    "googletagmanager.com"
+   ],
+   "emails": [],
+   "tel_links": [],
+   "images": 2,
+   "images_missing_alt": 2,
+   "scripts": 2,
+   "text": "Brazilian Bootylift Lanarkshire Brazilian Booty Lift Lanarkshire Brazilian Booty Lift Lanarkshire offers the safest and fastest way to boost your rear appeal, sculpt your curves, erase cellulite and tighten loose skin using the latest non-surgical breakthrough in body contouring. Painless, no downtime and permanent results. Clinically proven. Detox your lymphatic system and get the same results as a surgical BBL without the risks. BOOK NOW AND SAVE 20% THIS MONTH. Only 4 slots left, offer ends tonight! Real results gallery Before and after photos of our clients. Call 07700 900123. Contact",
+   "word_count": 92,
+   "truncated": false
+  },
+  {
+   "url": "https://www.brazilianbootylift.example/contact",
+   "final_url": "https://www.brazilianbootylift.example/contact",
+   "status": 200,
+   "bytes": 159,
+   "headers": {
+    "content-type": "text/html"
+   },
+   "redirect_chain": [],
+   "title": "Contact",
+   "meta_description": "",
+   "h1": [
+    "Contact us"
+   ],
+   "h2": [],
+   "canonical": "",
+   "robots_meta": "",
+   "viewport": false,
+   "lang": "",
+   "jsonld": [],
+   "jsonld_errors": 0,
+   "internal_links": [],
+   "external_hosts": [],
+   "script_hosts": [],
+   "emails": [],
+   "tel_links": [],
+   "images": 0,
+   "images_missing_alt": 0,
+   "scripts": 0,
+   "text": "Contact Contact us Use the form to book. Send",
+   "word_count": 9,
+   "truncated": false
+  }
+ ],
+ "robots_status": 200,
+ "robots_txt": "User-agent: *\nAllow: /\n",
+ "sitemap_urls": [],
+ "sitemap_url_count": 0,
+ "errors": []
+}
