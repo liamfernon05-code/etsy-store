@@ -112,7 +112,8 @@ def summarise(store: Store, wave: str, profile: ClientProfile) -> dict:
         out["providers"][prov] = {
             "valid_runs": n,
             "failed_runs": len([r for r in store.rows(wave=wave, provider=prov) if not r["ok"]]),
-            "validity": stats.validity_label(n),
+            "validity": ("manual spot-check by a person on a real device (calibration only; not comparable with API samples)"
+                         if prov.startswith("manual:") else stats.validity_label(n)),
             "mention_rate": round(k_name / n, 3),
             "mention_rate_ci_wilson": tuple(round(x, 3) for x in stats.wilson(k_name, n)),
             "mention_rate_ci_clustered": tuple(round(x, 3) for x in cl),
