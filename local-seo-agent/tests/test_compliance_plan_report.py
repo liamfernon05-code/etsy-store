@@ -62,7 +62,9 @@ def test_review_reply_confidentiality_for_health(profile):
 def test_jurisdiction_warning(profile):
     assert jurisdiction_warning(profile) == ""
     profile.jurisdiction = "UK"
-    assert "UK (DMCC" in jurisdiction_warning(profile)
+    assert "[LAWYER]" in jurisdiction_warning(profile)           # UK is a supported market: research-based, not legal advice
+    profile.jurisdiction = "DE"
+    assert "no compliance pack" in jurisdiction_warning(profile)
 
 
 def test_llm_draft_retries_then_blocks(profile):

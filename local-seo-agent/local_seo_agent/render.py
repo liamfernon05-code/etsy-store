@@ -3,10 +3,12 @@
 Why: most AI crawlers do not execute JavaScript, but Googlebot does. Comparing raw HTML with the rendered DOM shows
 whether key content (services, NAP, hours) only exists after JS runs, so it may be invisible to AI answer engines.
 
-SSRF design: the browser NEVER touches the network itself. Every request is intercepted and re-fetched by our own
+SSRF design (hardened after the API-contract research found that `context.route` does NOT see HTTP redirect hops,
+WebSockets or data:/blob: fetches): the browser NEVER touches the network itself. Every request is intercepted and re-fetched by our own
 SafeFetcher (public IPs only, pinned connect, per-hop redirect validation, size/time caps) and fulfilled back into the
 page. Consequently DNS rebinding, redirects to internal hosts, and requests the page makes to internal services are all
-handled by the same validated code path. Additionally: only GET, only the client's own host (third-party scripts and
+handled by the same validated code path. The browser is also launched with a DEAD proxy (127.0.0.1:9, bypass '<-loopback>'), so any request route() cannot see
+(WebSockets, preconnects) fails closed. Additionally: only GET, only the client's own host (third-party scripts and
 trackers are aborted), service workers blocked, downloads off, request/byte budgets, images/media/fonts aborted.
 """
 
@@ -32,7 +34,10 @@ class RenderStats:
 
 
 def _host(u: str) -> str:
-    return (urlsplit(u).hostname or "").removeprefix("www.").lower()
+    """Origin key = hostname + effective port (a different port on the same host is a different service)."""
+    p = urlsplit(u)
+    port = p.port or (443 if p.scheme == "https" else 80)
+    return f"{(p.hostname or '').removeprefix('www.').lower()}:{port}"
 
 
 def render_page(url: str, fetcher: SafeFetcher, max_requests: int = 60, max_total_bytes: int = 8_000_000,
@@ -78,18 +83,31 @@ def render_page(url: str, fetcher: SafeFetcher, max_requests: int = 60, max_tota
             stats.reasons.append(f"fetch error: {type(e).__name__}")
             route.abort()
             return
+        if 300 <= res.status < 400:  # never hand the browser a redirect: Chromium would follow it itself, unseen by route()
+            stats.aborted += 1
+            stats.reasons.append(f"redirect not fulfilled: {req.url[:80]}")
+            route.abort()
+            return
         stats.fulfilled += 1
         stats.bytes += len(res.body)
         headers = {"content-type": res.headers.get("content-type", "application/octet-stream")}
         route.fulfill(status=res.status, headers=headers, body=res.body)
 
+    args = ["--disable-background-networking", "--proxy-bypass-list=<-loopback>"]
+    if os.geteuid() == 0:
+        args += ["--no-sandbox", "--disable-dev-shm-usage"]
     with sync_playwright() as p:
-        browser = p.chromium.launch(executable_path=exe, headless=True,
-                                    args=["--no-sandbox", "--disable-dev-shm-usage"] if os.geteuid() == 0 else [])
+        # FAIL-CLOSED network: Chromium is pointed at a dead proxy. Every request we fulfil in route() never touches the
+        # network; anything route() cannot see (WebSockets, preconnects, ...) fails instead of reaching an internal host.
+        browser = p.chromium.launch(executable_path=exe, headless=True, args=args,
+                                    proxy={"server": "http://127.0.0.1:9", "bypass": "<-loopback>"})
         try:
             ctx = browser.new_context(service_workers="block", accept_downloads=False, java_script_enabled=True,
-                                      user_agent=fetcher.user_agent, bypass_csp=False)
+                                      user_agent=fetcher.user_agent, bypass_csp=False, permissions=[])
             ctx.route("**/*", handler)
+            # WebSockets bypass route(). Verified experimentally: with no proxy the page's WebSocket reached a loopback
+            # "internal service" (1 TCP connection); with the dead proxy it did not (0). route_web_socket() was avoided on
+            # purpose: it hung the sync API in testing. The dead proxy is therefore the boundary for anything route() misses.
             page = ctx.new_page()
             page.set_default_timeout(timeout_ms)
             page.goto(url, wait_until="networkidle")
@@ -98,3 +116,28 @@ def render_page(url: str, fetcher: SafeFetcher, max_requests: int = 60, max_tota
             browser.close()
     data = parse_html(url, html, 200)
     return data, stats
+
+
+def render_findings(raw: PageData, rendered: PageData, phone_digits: str = "") -> list:
+    """Findings from comparing the raw HTML with the JS-rendered DOM (what AI crawlers vs Googlebot can see)."""
+    from .facts import VERIFIED
+    from .models import Confidence, Finding, Severity
+
+    out = []
+
+    def mk(id_, sev, title, **kw):
+        out.append(Finding(id=f"render.{id_}", category="crawlability", severity=sev, title=title, verified_on=VERIFIED,
+                           confidence=Confidence.EVIDENCE, **kw))
+
+    if rendered.word_count >= max(150, raw.word_count * 3):
+        mk("js-dependent", Severity.WARN, "Most page content only appears after JavaScript runs",
+           evidence=f"raw {raw.word_count} words vs rendered {rendered.word_count}", impact=4, effort=3,
+           detail="Googlebot renders JavaScript, but most AI crawlers do not, so this content may be invisible to them.",
+           fix="Server-render the key content (services, NAP, hours) or add it as static HTML.")
+    if phone_digits:
+        rd = "".join(ch for ch in rendered.text if ch.isdigit())
+        wd = "".join(ch for ch in raw.text if ch.isdigit())
+        if phone_digits[-10:] in rd and phone_digits[-10:] not in wd:
+            mk("nap-js-only", Severity.WARN, "Phone number only appears after JavaScript runs", impact=4, effort=2,
+               fix="Put the primary phone number in the static HTML (header/footer and contact page).")
+    return out

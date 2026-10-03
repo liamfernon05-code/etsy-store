@@ -8,7 +8,8 @@ from typing import Any
 
 from ..facts import VERIFIED
 from ..models import ClientProfile, Confidence, CrawlResult, Finding, Severity
-from ..verticals import LOCAL_TYPES, get_vertical
+from ..markets import market_for
+from ..verticals import LOCAL_TYPES, vertical_for
 
 REVIEW_DOC = "https://developers.google.com/search/blog/2019/09/making-review-rich-results-more-helpful"
 
@@ -41,7 +42,7 @@ def digits(s: Any) -> str:
 
 def check_schema(profile: ClientProfile, crawl: CrawlResult) -> list[Finding]:
     out: list[Finding] = []
-    vert = get_vertical(profile.vertical)
+    vert = vertical_for(profile)
     all_nodes: list[dict] = []
     errors = 0
     for p in crawl.pages:
@@ -87,6 +88,13 @@ def check_schema(profile: ClientProfile, crawl: CrawlResult) -> list[Finding]:
                               "static number in schema and on GBP.",
                        fix="Use the same primary number everywhere."))
 
+    # UK: addressCountry should be ISO alpha-2 'GB' (not 'UK')
+    if market_for(profile).is_uk and isinstance(node.get("address"), dict):
+        ctry = str(node["address"].get("addressCountry", "")).strip()
+        if ctry and ctry.upper() not in ("GB", "UNITED KINGDOM"):
+            out.append(_mk("schema.country", Severity.WARN, "Schema addressCountry is not 'GB'", evidence=ctry, impact=2, effort=1,
+                           fix="Use the ISO 3166-1 alpha-2 code 'GB' (not 'UK')."))
+
     # self-serving review markup: WARN, never ERROR (no penalty, just no stars)
     if any(("aggregateRating" in n or "review" in n) and (_types(n) & LOCAL_TYPES or "Organization" in _types(n))
            for n in all_nodes):
@@ -106,7 +114,7 @@ def check_schema(profile: ClientProfile, crawl: CrawlResult) -> list[Finding]:
 
 def generate_local_business_jsonld(profile: ClientProfile) -> dict:
     """Build JSON-LD only from client-supplied facts. Never adds ratings, awards or invented hours."""
-    vert = get_vertical(profile.vertical)
+    vert = vertical_for(profile)
     node: dict[str, Any] = {
         "@context": "https://schema.org",
         "@type": vert["preferred_schema"],
@@ -123,6 +131,10 @@ def generate_local_business_jsonld(profile: ClientProfile) -> dict:
     elif a.city:
         node["address"] = {"@type": "PostalAddress", "addressLocality": a.city,
                            "addressRegion": a.region, "addressCountry": a.country}
+    if profile.company_number:
+        node["identifier"] = profile.company_number     # Companies House number
+    if profile.vat_number:
+        node["vatID"] = profile.vat_number
     if profile.service_areas:
         node["areaServed"] = [{"@type": "City", "name": c} for c in profile.service_areas]
     if profile.same_as:

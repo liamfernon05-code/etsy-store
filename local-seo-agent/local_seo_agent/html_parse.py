@@ -25,6 +25,9 @@ class _Extractor(HTMLParser):
         self.h2: list[str] = []
         self.links: list[str] = []
         self.tel: list[str] = []
+        self.mail: list[str] = []
+        self.ext_hosts: set[str] = set()
+        self.script_hosts: set[str] = set()
         self.images = 0
         self.images_missing_alt = 0
         self.scripts = 0
@@ -52,7 +55,9 @@ class _Extractor(HTMLParser):
             href = a["href"].strip()
             if href.lower().startswith("tel:"):
                 self.tel.append(href[4:])
-            elif not href.lower().startswith(("mailto:", "javascript:", "#", "sms:")):
+            elif href.lower().startswith("mailto:"):
+                self.mail.append(href[7:].split("?")[0])
+            elif not href.lower().startswith(("javascript:", "#", "sms:")):
                 self.links.append(urljoin(self.base, href).split("#")[0])
         elif tag == "img":
             self.images += 1
@@ -60,6 +65,9 @@ class _Extractor(HTMLParser):
                 self.images_missing_alt += 1
         elif tag == "script":
             self.scripts += 1
+            src_host = (urlsplit(urljoin(self.base, a.get("src", ""))).hostname or "") if a.get("src") else ""
+            if src_host:
+                self.script_hosts.add(src_host.lower())
             if a.get("type", "").lower() == "application/ld+json":
                 self._ld = True
                 self.jsonld_raw.append("")
@@ -114,8 +122,11 @@ def parse_html(url: str, html: str, status: int = 200, headers: dict[str, str] |
     host = (urlsplit(url).hostname or "").removeprefix("www.")
     internal = []
     seen: set[str] = set()
+    ext_hosts: set[str] = set()
     for link in ex.links:
         h = (urlsplit(link).hostname or "").removeprefix("www.")
+        if h and h != host and urlsplit(link).scheme in ("http", "https"):
+            ext_hosts.add(h.lower())
         if h == host and link not in seen and urlsplit(link).scheme in ("http", "https"):
             seen.add(link)
             internal.append(link)
@@ -136,6 +147,9 @@ def parse_html(url: str, html: str, status: int = 200, headers: dict[str, str] |
         jsonld=jsonld,
         jsonld_errors=errors,
         internal_links=internal[:300],
+        external_hosts=sorted(ext_hosts)[:100],
+        script_hosts=sorted(h.removeprefix("www.") for h in ex.script_hosts)[:50],
+        emails=sorted(set(ex.mail))[:10],
         tel_links=ex.tel[:20],
         images=ex.images,
         images_missing_alt=ex.images_missing_alt,

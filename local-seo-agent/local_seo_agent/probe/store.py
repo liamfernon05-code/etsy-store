@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS runs (
   ok INTEGER NOT NULL, error TEXT DEFAULT '',
   verified INTEGER DEFAULT 0, name_match INTEGER DEFAULT 0, cited INTEGER DEFAULT 0, method TEXT DEFAULT '',
   entities TEXT DEFAULT '[]', cited_urls TEXT DEFAULT '[]',
-  response_text TEXT DEFAULT '', cost REAL DEFAULT 0
+  response_text TEXT DEFAULT '', cost REAL DEFAULT 0, leak INTEGER DEFAULT 0
 );
 CREATE INDEX IF NOT EXISTS runs_wave ON runs(wave, provider, prompt_kind);
 """
@@ -29,15 +29,19 @@ class Store:
         self.db = sqlite3.connect(str(path))
         self.db.row_factory = sqlite3.Row
         self.db.executescript(SCHEMA)
+        cols = {r[1] for r in self.db.execute("PRAGMA table_info(runs)")}
+        if "leak" not in cols:  # migrate databases created before UK support
+            self.db.execute("ALTER TABLE runs ADD COLUMN leak INTEGER DEFAULT 0")
+            self.db.commit()
 
     def add(self, **r) -> None:
         self.db.execute(
             "INSERT INTO runs (wave,provider,model,prompt_id,prompt_kind,prompt_text,location,ts,ok,error,verified,"
-            "name_match,cited,method,entities,cited_urls,response_text,cost) VALUES "
+            "name_match,cited,method,entities,cited_urls,response_text,cost,leak) VALUES "
             "(:wave,:provider,:model,:prompt_id,:prompt_kind,:prompt_text,:location,:ts,:ok,:error,:verified,"
-            ":name_match,:cited,:method,:entities,:cited_urls,:response_text,:cost)",
+            ":name_match,:cited,:method,:entities,:cited_urls,:response_text,:cost,:leak)",
             {"ts": time.time(), "ok": 1, "error": "", "verified": 0, "name_match": 0, "cited": 0, "method": "",
-             "entities": "[]", "cited_urls": "[]", "response_text": "", "cost": 0.0, **r})
+             "entities": "[]", "cited_urls": "[]", "response_text": "", "cost": 0.0, "leak": 0, **r})
         self.db.commit()
 
     def rows(self, wave: str | None = None, provider: str | None = None, kind: str = "nonbranded") -> list[sqlite3.Row]:

@@ -7,8 +7,10 @@ from __future__ import annotations
 
 from pydantic import BaseModel
 
+from . import uk
+from .markets import market_for
 from .models import ClientProfile, Confidence, Finding, Severity
-from .verticals import CORE_DIRECTORIES, get_vertical
+from .verticals import vertical_for
 
 CONF_WEIGHT = {Confidence.OFFICIAL: 1.0, Confidence.EVIDENCE: 0.8, Confidence.HEURISTIC: 0.5, Confidence.VENDOR: 0.5}
 
@@ -34,8 +36,18 @@ def _score(t: Task) -> float:
 
 
 def _playbook(profile: ClientProfile) -> list[Task]:
-    vert = get_vertical(profile.vertical)
-    dirs = [d for d, _ in CORE_DIRECTORIES] + [d for d, _ in vert["directories"]]
+    vert = vertical_for(profile)
+    is_uk = market_for(profile).is_uk
+    dirs = []
+    for name, note, status in vert["directories"]:
+        if status in ("defunct", "closing_2026_10"):
+            continue  # never recommend a listing on a closed/closing service
+        if status == "brand_only_checkatrade_owned":
+            continue
+        roles = uk.DIRECTORIES.get(name, {}).get("role", "").split(",") if is_uk else []
+        if "L" in roles and "F" not in roles:
+            continue  # paid lead-gen marketplaces get their own cost/benefit task, not a "claim your listing" step
+        dirs.append(name + (" (unverified status)" if status == "unverified" else ""))
     P = Task
     tasks = [
         P(id="pb.gbp-core", title="Claim, verify and fully complete the Google Business Profile",
@@ -53,7 +65,12 @@ def _playbook(profile: ClientProfile) -> list[Task]:
           impact=4, effort=3, confidence=Confidence.EVIDENCE, phase=30, manual=True),
         P(id="pb.review-engine", title="Run a compliant review programme: ask EVERY customer, reply to ALL reviews",
           why="Reviews are the second-largest pack factor group and a major input to AI answers (review text, recency, response rate).",
-          how=["Send the direct Google review link by SMS/email to every customer: no gating, no incentives, no staff-name requests, no on-premises kiosks.",
+          how=(["Invite ALL recent customers the same neutral way (or an impartial sample, e.g. every nth). Excluding customers with open complaints is not impartial.",
+                "No incentives of any kind: lawful in the UK only if prominently disclosed, but banned by Google, Trustpilot, Checkatrade and Yell; this tool never proposes them. No staff quotas or scripts naming staff.",
+                "Show on your own site only ratings computed from ALL genuine reviews, naming the source (DMCC Act 2024).",
+                "Sending by email/SMS may be direct marketing under PECR: use consent or soft opt-in, identify the sender and include an opt-out. QR codes and in-person asks are lowest risk. [LAWYER] if unsure."]
+               if is_uk else
+               ["Send the direct Google review link by SMS/email to every customer: no gating, no incentives, no staff-name requests, no on-premises kiosks."]) + [
                "Draft (never auto-post) replies; healthcare/legal replies must not confirm a patient/client relationship.",
                "Track velocity with weekly snapshots (the Places API returns only 5 reviews)."],
           impact=5, effort=3, confidence=Confidence.EVIDENCE, phase=30),
@@ -94,6 +111,8 @@ def _playbook(profile: ClientProfile) -> list[Task]:
                "No astroturfing on Reddit/forums/Wikipedia; participate openly or not at all."],
           impact=4, effort=3, confidence=Confidence.HEURISTIC, phase=90),
     ]
+    if is_uk:
+        tasks.extend(_uk_playbook(profile, vert))
     if profile.service_area_business or vert["sab_default"]:
         tasks.append(P(id="pb.sab", title="Configure as a service-area business correctly",
                        why="Hidden-address businesses must not publish a fake storefront; proximity works from the service location.",
@@ -106,7 +125,8 @@ def _playbook(profile: ClientProfile) -> list[Task]:
                        how=["GBP website link points to the location page, not the home page.",
                             "Per-location NAP table; store-locator pages must be crawlable HTML."],
                        impact=4, effort=4, confidence=Confidence.OFFICIAL, phase=60))
-    if vert["lsa"]:
+    lsa_ok = vert["lsa"] and not (is_uk and vert.get("key") == "lawyer" and (profile.city or "").lower() != "london")
+    if lsa_ok:
         tasks.append(P(id="pb.lsa", title="Evaluate Local Services Ads (paid, above the local pack)",
                        why="For this vertical LSAs can sit above the organic pack, which affects what '#1' means.",
                        how=["Check availability/licensing requirements for the vertical and area; compare cost per lead."],
@@ -142,3 +162,65 @@ def by_phase(tasks: list[Task]) -> dict[int, list[Task]]:
     for t in tasks:
         out.setdefault(t.phase, []).append(t)
     return out
+
+
+def _uk_playbook(profile: ClientProfile, vert: dict) -> list[Task]:
+    """UK-only tasks (research/uk). Legal items are flagged [LAWYER]; directory advice respects registry statuses."""
+    P = Task
+    key = vert.get("key", "generic")
+    tasks = [
+        P(id="pb.uk-registers", title="Align official registers: Companies House and your regulator/trade-body listings",
+          why="Assistants and Google match entities against official records, and AI answers have recommended firms that no longer trade.",
+          how=["Companies House: status 'active', registered name, number and registered office match the website footer (the registered office may differ from the trading/GBP address: keep them as separate fields).",
+               "Regulator/scheme registers relevant to the vertical (e.g. " + ", ".join(
+                   n for n, _, st in vert["directories"] if st != "defunct" and n in (
+                       "SRA register", "GDC register", "Gas Safe Register", "NICEIC", "TrustMark", "Food hygiene rating (FHRS/FHIS)",
+                       "Law Society of Scotland find-a-solicitor", "Law Society of Northern Ireland")) + "): verify, never just claim a badge.",
+               "Run `resolve` (postcodes.io) and set COMPANIES_HOUSE_API_KEY (free) so `audit` checks company status automatically."],
+          impact=3, effort=2, confidence=Confidence.EVIDENCE, phase=30, manual=True),
+        P(id="pb.uk-identity", title="Show the legally required business details on the website",
+          why="Limited companies must show registered name, company number, place of registration and registered office (SI 2015/17); E-Commerce Regulations reg 6 add an email address and VAT number if registered.",
+          how=["Footer/legal page with those details, plus a privacy policy and cookie information."],
+          impact=3, effort=1, confidence=Confidence.OFFICIAL, phase=30),
+        P(id="pb.uk-apple-bing", title="Claim Apple Business (formerly Business Connect) and Bing Places",
+          why="Apple Maps/Siri and Bing/Copilot are separate data sources from Google; UK iPhone use is high.",
+          how=["Use the same NAP, hours and categories as GBP.", "Add bank-holiday special hours for the right nation (gov.uk/bank-holidays.json has england-and-wales, scotland, northern-ireland)."],
+          impact=3, effort=2, confidence=Confidence.EVIDENCE, phase=30, manual=True),
+        P(id="pb.uk-consent", title="Check cookie/consent set-up for analytics, ads and call tracking (PECR)",
+          why="From 5 Feb 2026 PECR fines can reach GBP 17.5m or 4% of turnover; GA4 in default configuration likely does not meet the statistical exemption; call-tracking scripts set cookies too.",
+          how=["Equal-prominence accept/reject; no non-essential tags before consent; privacy policy lists each tag.",
+               "Call recording needs a lawful basis and a caller notice."],
+          impact=3, effort=2, confidence=Confidence.EVIDENCE, phase=60, manual=True),
+        P(id="pb.uk-ai-surfaces", title="Sample Google AI Mode / AI Overviews by hand and read the Search Console AI report",
+          why="AI Mode is live in the UK (since 2025-07-29). Search Console's Generative AI report reaches more sites over time; check it is available for your property.",
+          how=["Run `sheet-export` for a worksheet, observe on a real phone in the client's area, then `sheet-import`."],
+          impact=2, effort=2, confidence=Confidence.VENDOR, phase=60, needs_approval=False),
+    ]
+    if key in ("plumber", "heating_engineer", "electrician"):
+        tasks.append(P(id="pb.uk-trades-directories", title="Decide on Checkatrade / MyBuilder / TrustATrader using YOUR probe data",
+                       why="One agency study found ChatGPT citing Checkatrade in 78 of 80 trades answers (and Checkatrade has a ChatGPT app), but another study of Google AI Mode found the business's own site dominates: directional evidence only. Rated People is now a Checkatrade-owned brand and its memberships were not transferred.",
+                       how=["Run the probe first: if Checkatrade/MyBuilder appear in the cited domains for your prompts, a paid profile is more defensible.",
+                            "Memberships are paid: compare cost per lead; never buy reviews or incentivise reviews on any of them."],
+                       impact=3, effort=2, confidence=Confidence.HEURISTIC, phase=60, manual=True))
+    if key == "dentist":
+        tasks.append(P(id="pb.uk-dental", title="Dental: NHS listing for your nation, GDC numbers, confidential review replies",
+                       how=["Keep the NHS listing for your nation accurate (NHS.uk England, NHS inform Scotland, NHS 111 Wales, HSC Northern Ireland).",
+                            "Show each clinician's GDC number; say clearly whether you accept new NHS patients.",
+                            "Never confirm a reviewer was a patient or mention treatment in public replies (GDC confidentiality)."],
+                       impact=3, effort=1, confidence=Confidence.OFFICIAL, phase=30))
+    if key == "lawyer":
+        tasks.append(P(id="pb.uk-solicitor", title="Solicitors: SRA transparency items (England & Wales) or the right regulator elsewhere",
+                       how=["SRA number, 'authorised and regulated by the SRA', clickable digital badge, complaints procedure, and price/service information for the listed areas.",
+                            "Scotland / Northern Ireland: Law Society of Scotland / of Northern Ireland rules apply instead (not built into this tool). [LAWYER]"],
+                       impact=4, effort=2, confidence=Confidence.OFFICIAL, phase=30))
+    if key == "restaurant":
+        tasks.append(P(id="pb.uk-food", title="Food hygiene rating and allergen information",
+                       how=["Display your FHRS rating (mandatory in Wales and Northern Ireland; voluntary in England); Scotland uses FHIS (Pass / Improvement Required).",
+                            "Point menus and online ordering to allergen information."],
+                       impact=2, effort=1, confidence=Confidence.OFFICIAL, phase=60))
+    if profile.is_aesthetics or key == "salon":
+        tasks.append(P(id="pb.uk-aesthetics", title="Aesthetics: no prescription-only medicine brands in public copy; age checks; consented before/afters",
+                       how=["Use 'anti-wrinkle consultation', not 'Botox/Dysport' (CAP 12.12), including titles, alt text, GBP text and hashtags.",
+                            "Do not target under-18s; keep signed consent for before/after photos (CAP 3.45)."],
+                       impact=3, effort=1, confidence=Confidence.OFFICIAL, phase=30))
+    return tasks

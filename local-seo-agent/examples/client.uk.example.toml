@@ -1,0 +1,67 @@
+# UK client profile. Everything the agent drafts is built ONLY from what you put here.
+[client]
+name = "Northgate Heating & Plumbing Ltd"
+website = "https://www.example-heating.co.uk"
+phone = "0113 496 0123"           # national or +44 format
+vertical = "heating_engineer"     # dentist | lawyer (solicitor) | plumber | heating_engineer | electrician | restaurant | salon | generic
+jurisdiction = "UK"               # UK | US. Jersey/Guernsey/Isle of Man are NOT the UK (generic checks only)
+primary_city = "Leeds"
+nation = ""                       # ENG | WAL | SCO | NIR. Leave blank to derive from the postcode; run `resolve` for border postcodes
+service_area_business = true      # true if the street address is hidden on Google
+sells_gas_services = true
+is_aesthetics = false             # clinics/salons offering injectables: enables the prescription-only-medicine checks
+locations = 1
+target_services = ["heating engineer", "boiler repair", "boiler installation", "gas safe engineer"]
+service_areas = ["Headingley", "Chapel Allerton", "Roundhay"]
+brand_aliases = []
+same_as = []
+# Company details (limited companies / LLPs). Sole traders and partnerships are not on Companies House.
+company_number = "01234567"
+registered_name = "Northgate Heating & Plumbing Ltd"
+registered_office = "1 Example Street, Leeds, LS1 4AP"   # may differ from the trading address
+vat_number = ""
+# Facts the agent may use in drafts. Anything not listed here will not be claimed.
+facts = [
+  "Family-run heating engineers covering north Leeds",
+  "Gas Safe registered business",
+  "Same-day call-outs for no-heat emergencies",
+]
+
+[client.regulator_ids]            # supply only IDs you can show on the public registers
+gas_safe = "123456"
+# sra = "..."        # solicitors (England & Wales)
+# gdc = "..."        # dentists: each clinician's GDC number should be on the team page
+# cqc_rating = "Good"  # ONLY if the CQC register shows a rating for the location (primary dental care usually has none)
+# niceic = "..."
+# trustmark = "..."
+
+[client.hours]
+"Mon-Fri" = "08:00-17:00"
+
+[address]
+street = "12 Example Road"
+city = "Leeds"
+region = "West Yorkshire"         # county, council area or nation
+county = "West Yorkshire"         # optional; never used for NAP matching
+council_area = ""                 # Scotland/Wales/NI: e.g. "City of Edinburgh"
+postal_code = "LS6 1AA"
+country = "GB"
+
+# Google Business Profile facts you read off the profile by hand (the GBP API needs Google approval).
+[gbp]
+primary_category = "Heating contractor"
+rating = 4.8
+review_count = 42
+competitor_review_counts = [180, 120, 95]
+verified = true
+name_matches_signage = true
+hours_set = true
+special_hours_set = false
+description_set = true
+services_listed = true
+photo_count = 14
+primary_phone_is_tracking_number = false
+
+[[competitors]]
+name = "Example Boilers Leeds"
+website = "https://www.example-competitor.co.uk"

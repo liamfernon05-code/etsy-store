@@ -79,6 +79,30 @@ VERTICALS: dict[str, dict] = {
         "gbp_checks": ["Booking link", "Services and prices", "Staff/portfolio photos"],
         "lsa": False,
     },
+    "electrician": {
+        "label": "Electrician",
+        "schema_types": ["Electrician", "HomeAndConstructionBusiness", "LocalBusiness"],
+        "preferred_schema": "Electrician",
+        "sab_default": True,
+        "directories": [("Angi", ""), ("Thumbtack", ""), ("Better Business Bureau", "")],
+        "probe_terms": ["electrician", "emergency electrician", "panel upgrade", "rewiring", "ev charger installation"],
+        "singular": "electrician",
+        "compliance": ["licensing_display"],
+        "gbp_checks": ["Service areas set (max 20)", "Services with descriptions"],
+        "lsa": True,
+    },
+    "heating_engineer": {
+        "label": "Heating / HVAC engineer",
+        "schema_types": ["HVACBusiness", "HomeAndConstructionBusiness", "LocalBusiness"],
+        "preferred_schema": "HVACBusiness",
+        "sab_default": True,
+        "directories": [("Angi", ""), ("Thumbtack", ""), ("Better Business Bureau", "")],
+        "probe_terms": ["hvac contractor", "furnace repair", "ac repair", "water heater installation"],
+        "singular": "hvac contractor",
+        "compliance": ["licensing_display"],
+        "gbp_checks": ["Service areas set (max 20)", "24/7 hours accuracy"],
+        "lsa": True,
+    },
     "generic": {
         "label": "Local business (generic)",
         "schema_types": ["LocalBusiness"],
@@ -94,8 +118,136 @@ VERTICALS: dict[str, dict] = {
 }
 
 
+ALIASES = {"solicitor": "lawyer", "attorney": "lawyer", "law_firm": "lawyer", "trades": "plumber", "dental": "dentist",
+           "hairdresser": "salon", "barber": "salon", "beauty": "salon", "takeaway": "restaurant", "cafe": "restaurant",
+           "hvac": "heating_engineer", "gas_engineer": "heating_engineer"}
+
+
+def canonical_vertical(key: str) -> str:
+    k = (key or "generic").strip().lower().replace(" ", "_")
+    return ALIASES.get(k, k if k in VERTICALS else "generic")
+
+
 def get_vertical(key: str) -> dict:
-    return VERTICALS.get(key, VERTICALS["generic"])
+    return VERTICALS[canonical_vertical(key)]
+
+
+# UK overlay: UK-English search terms (the critic replaced Americanisms), UK directories by NAME (statuses live in
+# uk.DIRECTORIES), compliance packs (see compliance.py / checks/uk_checks.py) and UK-specific GBP checks.
+UK_OVERLAY: dict[str, dict] = {
+    "dentist": {
+        "label": "Dentist / dental practice (UK)",
+        "probe_terms": ["NHS dentist", "emergency dentist", "private dentist", "dental implants", "teeth whitening",
+                        "Invisalign", "NHS dentist taking new patients", "out of hours dentist"],
+        "singular": "dentist",
+        "directory_names": ["Google Business Profile", "Bing Places", "Apple Business", "Doctify", "Trustpilot", "Facebook", "Yell"],
+        "compliance": ["ymyl", "gdc", "confidential_replies", "asa_cap", "before_after"],
+        "gbp_checks": ["Accepting new NHS patients stated (if true)", "Booking link", "Languages spoken", "Opening hours incl. bank holidays"],
+        "lsa": False,
+    },
+    "lawyer": {
+        "label": "Solicitor / law firm (UK)",
+        "probe_terms": ["solicitor", "conveyancing solicitor", "family law solicitor", "wills and probate solicitor",
+                        "employment solicitor", "personal injury solicitor", "immigration solicitor", "divorce solicitor"],
+        "singular": "solicitor",
+        "directory_names": ["Google Business Profile", "Bing Places", "Apple Business", "Legal 500 / Chambers", "Trustpilot", "Facebook", "Yell"],
+        "compliance": ["ymyl", "sra", "confidential_replies", "asa_cap"],
+        "gbp_checks": ["Primary category 'Solicitor'", "Practice areas as services", "Fee information visible", "Free initial consultation stated (if true)"],
+        "lsa": True,  # London only for legal; handled in plan
+    },
+    "plumber": {
+        "label": "Plumber / heating engineer (UK)",
+        "probe_terms": ["plumber", "emergency plumber", "gas safe engineer", "boiler repair", "boiler installation",
+                        "central heating engineer", "burst pipe plumber", "tradesperson"],
+        "singular": "plumber",
+        "directory_names": ["Google Business Profile", "Bing Places", "Apple Business", "Checkatrade", "MyBuilder", "TrustATrader",
+                            "Which? Trusted Trader", "TrustMark", "Gas Safe Register", "Trustpilot", "Facebook", "Yell"],
+        "compliance": ["trade_badges", "dmcc_pricing", "asa_cap"],
+        "gbp_checks": ["Service areas set (max 20)", "Services with descriptions", "24/7 hours accuracy", "Gas Safe ID shown (if gas work)"],
+        "lsa": True,
+    },
+    "heating_engineer": {
+        "label": "Heating / gas engineer (UK)",
+        "probe_terms": ["heating engineer", "boiler repair", "boiler installation", "gas safe engineer", "boiler service",
+                        "central heating engineer", "radiator repair"],
+        "singular": "heating engineer",
+        "directory_names": ["Google Business Profile", "Bing Places", "Apple Business", "Checkatrade", "TrustATrader",
+                            "Which? Trusted Trader", "TrustMark", "Gas Safe Register", "Trustpilot", "Facebook", "Yell"],
+        "compliance": ["trade_badges", "dmcc_pricing", "asa_cap"],
+        "gbp_checks": ["Service areas set (max 20)", "Gas Safe ID shown", "24/7 hours accuracy"],
+        "lsa": True,
+    },
+    "electrician": {
+        "label": "Electrician (UK)",
+        "probe_terms": ["electrician", "emergency electrician", "EICR certificate", "fuse board upgrade",
+                        "consumer unit replacement", "electrical rewire", "NICEIC electrician", "EV charger installation"],
+        "singular": "electrician",
+        "directory_names": ["Google Business Profile", "Bing Places", "Apple Business", "Checkatrade", "MyBuilder", "TrustATrader",
+                            "Which? Trusted Trader", "TrustMark", "NICEIC", "Trustpilot", "Facebook", "Yell"],
+        "compliance": ["trade_badges", "dmcc_pricing", "asa_cap"],
+        "gbp_checks": ["Service areas set (max 20)", "Scheme membership (NICEIC/NAPIT/SELECT) shown if true"],
+        "lsa": True,
+    },
+    "restaurant": {
+        "label": "Restaurant / cafe / takeaway (UK)",
+        "probe_terms": ["restaurant", "Sunday roast", "brunch", "Indian takeaway", "fish and chip shop",
+                        "gluten free restaurant", "pub lunch", "gastropub"],
+        "singular": "restaurant",
+        "directory_names": ["Google Business Profile", "Bing Places", "Apple Business", "TripAdvisor", "TheFork", "OpenTable",
+                            "Just Eat", "Deliveroo", "Uber Eats", "Good Food Guide", "Hardens / SquareMeal / CAMRA WhatPub",
+                            "Food hygiene rating (FHRS/FHIS)", "Facebook", "Yell"],
+        "compliance": ["fhrs", "allergens", "asa_cap"],
+        "gbp_checks": ["Menu link (HTML, not PDF)", "Reservation link", "Dine-in/takeaway attributes", "Bank holiday hours"],
+        "lsa": False,
+    },
+    "salon": {
+        "label": "Hair / beauty salon (UK)",
+        "probe_terms": ["hairdresser", "barber", "balayage", "nail bar", "lash lift", "beauty salon", "waxing",
+                        "bridal hair and makeup"],
+        "singular": "hairdresser",
+        "directory_names": ["Google Business Profile", "Bing Places", "Apple Business", "Treatwell", "Fresha", "Booksy", "Facebook", "Yell"],
+        "compliance": ["aesthetics_pom", "before_after", "asa_cap"],
+        "gbp_checks": ["Booking link", "Services and prices", "Portfolio photos"],
+        "lsa": False,
+    },
+    "generic": {
+        "label": "Local business (UK)",
+        "probe_terms": [],
+        "singular": "business",
+        "directory_names": ["Google Business Profile", "Bing Places", "Apple Business", "Facebook", "Yell", "Trustpilot", "Companies House"],
+        "compliance": ["asa_cap"],
+        "gbp_checks": [],
+        "lsa": False,
+    },
+}
+
+
+def vertical_for(profile) -> dict:
+    """Vertical config merged for the client's market and nation. Same keys as VERTICALS entries plus `directories`
+    entries as (name, note, status)."""
+    from . import uk
+    from .markets import market_for
+
+    key = canonical_vertical(profile.vertical)
+    base = dict(VERTICALS[key])
+    if not market_for(profile).is_uk:
+        base["directories"] = [(n, note, "active") for n, note in [*CORE_DIRECTORIES, *base["directories"]]]
+        base["key"] = key
+        return base
+    ov = UK_OVERLAY.get(key, UK_OVERLAY["generic"])
+    base.update({k: v for k, v in ov.items() if k != "directory_names"})
+    names = list(ov["directory_names"])
+    names += uk.OFFICIAL_BY_NATION.get(key, {}).get(profile.nation or "ENG", [])
+    if not profile.nation and key in uk.OFFICIAL_BY_NATION:
+        names.append("(nation unknown: set `nation` in client.toml to get the right regulators/listings)")
+    dirs = []
+    for n in dict.fromkeys(names):
+        meta = uk.DIRECTORIES.get(n, {"status": "unverified", "note": ""})
+        dirs.append((n, meta.get("note", ""), meta.get("status", "unverified")))
+    base["directories"] = dirs
+    base["key"] = key
+    base["schema_types"] = VERTICALS[key]["schema_types"]
+    return base
 
 
 # Curated LocalBusiness-family @type values (hand-coded; the schema.org vocabulary is CC BY-SA 3.0, so we do

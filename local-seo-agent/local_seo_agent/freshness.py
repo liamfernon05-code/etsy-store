@@ -75,8 +75,30 @@ def load_verification(path: Path) -> dict:
     return json.loads(p.read_text()) if p.exists() else {}
 
 
-def update_in_progress(fetcher: SafeFetcher, urls: list[str] | None = None) -> dict:
-    """Return {'state': 'ACTIVE'|'NONE'|'UNKNOWN', 'incidents': [...]} from the Search Status Dashboard JSON."""
+RANKING_PRODUCT_ID = "rGHU1u87FJnkP6W2GwMi"   # 'Ranking' on status.search.google.com (from a search-result title; LIKELY)
+_UPDATE_RE = re.compile(r"(core|spam|helpful content|reviews|local)\s+update", re.I)
+VOLATILE_DAYS = 14
+
+
+def _parse_ts(v) -> datetime | None:
+    if not v or not isinstance(v, str):
+        return None
+    try:
+        dt = datetime.fromisoformat(v.replace("Z", "+00:00"))
+        return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
+    except ValueError:
+        return None
+
+
+def update_in_progress(fetcher: SafeFetcher, urls: list[str] | None = None, now: datetime | None = None) -> dict:
+    """{'state': 'ACTIVE' | 'RECENT' | 'NONE' | 'UNKNOWN', 'incidents': [...]}.
+
+    ACTIVE  = a Ranking-product update/spam/core incident with no end time.
+    RECENT  = one began or ended within VOLATILE_DAYS (Google says rollouts can take ~2 weeks and end times are posted late).
+    UNKNOWN = the dashboard could not be fetched/parsed. FAIL OPEN: never reported as 'no update'.
+    The endpoint and schema are inferred (host blocked during research): first run `status` once and check the output.
+    """
+    now = now or datetime.now(timezone.utc)
     for url in urls or STATUS_URLS:
         try:
             res = fetcher.fetch(url)
@@ -85,12 +107,27 @@ def update_in_progress(fetcher: SafeFetcher, urls: list[str] | None = None) -> d
             data = json.loads(res.text)
         except (BlockedURL, ValueError, Exception):  # noqa: BLE001
             continue
-        active = []
-        for inc in data if isinstance(data, list) else []:
-            if not isinstance(inc, dict) or inc.get("end"):
+        incidents = data.get("incidents", []) if isinstance(data, dict) else data
+        if not isinstance(incidents, list):
+            continue
+        active, recent = [], []
+        for inc in incidents:
+            if not isinstance(inc, dict):
                 continue
-            title = " ".join(str(inc.get(k, "")) for k in ("external_desc", "service_name")).lower()
-            if any(w in title for w in ("update", "ranking", "spam", "core")):
-                active.append({"begin": inc.get("begin"), "desc": str(inc.get("external_desc", ""))[:160]})
-        return {"state": "ACTIVE" if active else "NONE", "incidents": active, "source": url}
+            products = inc.get("affected_products") or []
+            ranking = any(isinstance(p, dict) and (p.get("id") == RANKING_PRODUCT_ID or str(p.get("title", "")).lower() == "ranking")
+                          for p in products) or str(inc.get("service_name", "")).lower() == "ranking"
+            blob = " ".join(str(inc.get(k, "")) for k in ("external_desc", "service_name", "title"))
+            mru = inc.get("most_recent_update")
+            blob += " " + (str(mru.get("text", "")) if isinstance(mru, dict) else "")
+            if not (ranking or _UPDATE_RE.search(blob)) or not _UPDATE_RE.search(blob):
+                continue
+            begin, end = _parse_ts(inc.get("begin")), _parse_ts(inc.get("end"))
+            item = {"begin": inc.get("begin"), "end": inc.get("end"), "desc": str(inc.get("external_desc", ""))[:160]}
+            if not inc.get("end"):
+                active.append(item)
+            elif (begin and (now - begin).days <= VOLATILE_DAYS) or (end and (now - end).days <= VOLATILE_DAYS):
+                recent.append(item)
+        state = "ACTIVE" if active else "RECENT" if recent else "NONE"
+        return {"state": state, "incidents": active + recent, "source": url}
     return {"state": "UNKNOWN", "incidents": [], "source": ""}

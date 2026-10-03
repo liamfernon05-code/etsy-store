@@ -68,3 +68,57 @@ Rule interpretation: applied to **direct** dependencies; transitive ones (lxml 3
 2. Search Console / Bing Webmaster Tools / GA4 read-only connectors (+ GBP API once Google approves access).
 3. Status Dashboard update-freeze; scheduled monthly probe waves with automatic wave comparison.
 4. Optional orchestrator/subagents only once the deterministic pipeline is validated on real clients.
+
+
+---
+
+# UK extension and limitation fixes (2026-10-03)
+
+Method: 3 more research agents (UK law and regulation; UK local-search market; exact REST/API contracts) each followed by a
+critic agent (reports and critiques in [`research/uk/`](research/uk/)). Again, most primary sites were blocked by the sandbox, so
+legal and platform claims come from multiple search summaries; the API contracts were mostly verified from machine-readable sources
+(Google discovery documents, vendor SDK source, the OpenAI OpenAPI spec) and, for Playwright, by the researcher's and critic's own tests.
+
+## What the UK critics changed
+
+| Finding | Where it landed |
+|---|---|
+| Trading-disclosure citation was a **revoked** instrument (2008 regs); correct one is SI 2015/17 | `facts.uk-identity`, `uk.company-number-on-site`; a test fails if the old citation returns |
+| CQC regulation 20A check would false-fail almost every dentist (primary dental care is generally not CQC-rated) | Check runs only when a rating is supplied (`regulator_ids.cqc_rating`) and only in England |
+| CAP rule numbers: testimonials 3.45-3.48 (not 3.47-3.50), comparisons/superlatives 3.32-3.36, puffery 3.6, recognisable advertising 2.1-2.4 | `facts.uk-cap-claims` |
+| "Illegal" wording for incentivised reviews | Reworded everywhere: lawful in the UK only if prominently disclosed, banned by Google/Trustpilot/Checkatrade/Yell, never proposed |
+| Review-request emails/SMS: PECR status unsettled (no ICO statement found) | Non-blocking WARN, human decides (`draft_warnings`, plan task) |
+| GA4 / tracking tags | Reported as **observed**, never "unlawful"; GA4 default config "likely does not meet" the statistical exemption |
+| Fine-cap wording; AA fine was GBP 7m reduced 40% to 4.2m; PO-box ban since 2024-03-04; complaints regime 2026-06-19 | `facts.py` |
+| Missing sectors: vets (CMA order), funerals (price lists), estate agents (redress scheme/fees), Children Act 2021, Scotland/NI law societies | **Documented as not built**; flagged [LAWYER] |
+| Rated People liquidation (2026-09-16, Checkatrade bought the brand, memberships not transferred); Scoot/Touch Local closing Oct 2026; Factual defunct; Thomson Local/Cylex/FreeIndex/Yelp UK only "unverified" | `uk.DIRECTORIES` statuses; the plan never recommends closed/closing/brand-only services |
+| "7 Dec 2025" money-back-guarantee date unsupported; MyBuilder owner is Angi (HomeAdvisor 2017, Angi stake 2021) | Removed / corrected |
+| Murray Digital (78/80 Checkatrade) and Whito (90% own site) studies: agencies selling AI visibility, single run, Checkatrade has a ChatGPT app | Facts tagged HEURISTIC "directional"; plan says run your own probe before paying for a directory |
+| NHS.uk is England only; law registers E&W only; FHIS in Scotland is not 0-5; Gas Safe covers NI | `OFFICIAL_BY_NATION`, nation-conditional checks |
+| Crown Dependencies (JE/GY/IM) look like UK postcodes and use +44 | Resolve to OTHER (generic mode + warning) |
+| Search Console AI report is no longer UK-only; from 2026-09-07 combines AI Mode + AI Overview impressions; still no API | `facts.uk-ai-search`; no connector built |
+| UK prompts: "plumber near me", "nail salon", "attorney" read American; `{county}` wrong outside England | UK-English terms, quoted search term, council-area clause, postcode-district prompt |
+
+## What the API-contract critic changed
+
+| Finding | Where it landed |
+|---|---|
+| `context.route` does not see HTTP redirect hops, WebSockets or data:/blob: fetches | Renderer fulfils everything through the validated fetcher, never hands the browser a 3xx; **dead-proxy fail-closed backstop verified** (WebSocket to a loopback service: 1 connection without it, 0 with it) |
+| `route_web_socket` hangs the sync API (researcher and our own test) | Not used |
+| DataForSEO `maps_search.url` is a search URL, not the website | Match on `domain` / `place_id` / phone only |
+| Gemini `groundingChunks` has four members; the OpenAI-compatible Gemini endpoint does not ground | Native `generateContent`; unknown chunk types skipped |
+| OpenAI defaults `user_location` to the US when omitted | Always sent; no US fallback for other markets |
+| GA4 "AI Assistant" channel membership disputed | Never relied on; both the channel group and the source regex are queried |
+| Search Console `type` vs `searchType` | `type` first, fall back to `searchType` on 400 |
+| Status Dashboard schema/retention unverified | Fail-open (`UNKNOWN`), date filtering client-side, first run should snapshot a live fixture |
+| Places SKU prices are LIKELY, not facts | Constants named as estimates; budget caps; never shown as facts |
+| Retry policy | Opt-in exponential backoff on 429/5xx for reads; never for costly calls; GBP 429 is "not approved", never retried |
+
+## Still open after this round
+
+- Nothing was run against live Google, OpenAI, Anthropic, Perplexity, DataForSEO or Companies House services (no credentials; sandbox egress blocked). Mock-transport tests prove request shape and parsing, not live behaviour.
+- Legal content is research-based and may be out of date by the time it is used; every legal fact carries a verification date and `[LAWYER]` where a human lawyer is needed. `verify-facts` exists but must be run on an open network.
+- The Status Dashboard endpoint and schema are inferred.
+- The Business Profile API needs Google approval (verified listing 60+ days old); until then use the Places API.
+- Google AI Overviews / AI Mode, consumer apps and voice assistants remain manual or vendor-collected samples.
+- Not built: vets / funeral / estate-agent / childcare packs, Law Society of Scotland / Northern Ireland rules, Welsh-language probes, OAuth refresh-token and service-account flows (only a bearer token from the environment), an orchestrator.

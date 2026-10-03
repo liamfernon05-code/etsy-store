@@ -5,5 +5,7 @@ jinja2>=3.1
 openai>=1.40
 # optional: LLM drafting (needs ANTHROPIC_API_KEY)
 claude-agent-sdk>=0.1
+# optional: audit --render (also needs a Chromium)
+playwright>=1.48
 # dev
 pytest>=8

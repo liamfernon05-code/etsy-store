@@ -5,6 +5,7 @@ from .crawlability import check_crawlability
 from .nap import check_gbp, check_nap
 from .schema import check_schema
 from .technical import check_technical
+from .uk_checks import check_uk
 
 
 def run_all(profile: ClientProfile, crawl: CrawlResult, extra: list[Finding] | None = None) -> list[Finding]:
@@ -14,6 +15,7 @@ def run_all(profile: ClientProfile, crawl: CrawlResult, extra: list[Finding] | N
         *check_schema(profile, crawl),
         *check_nap(profile, crawl),
         *check_gbp(profile),
+        *check_uk(profile, crawl),
         *(extra or []),
     ]
     order = {"ERROR": 0, "WARN": 1, "UNKNOWN": 2, "INFO": 3}

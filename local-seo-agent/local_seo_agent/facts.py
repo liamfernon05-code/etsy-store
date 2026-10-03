@@ -37,7 +37,7 @@ FACTS: list[dict] = [
     {"id": "gbp-review-policy-2026", "confidence": Confidence.VENDOR,
      "text": "Vendors report April 2026 Google review-policy changes (review gating, kiosk/shared-device reviews, soliciting staff-named reviews). Not read from Google's policy page: treat as WARN and verify.",
      "source": "Vendor summaries (Birdeye, Launchcodex and others)"},
-    {"id": "ftc-fake-reviews", "confidence": Confidence.OFFICIAL,
+    {"id": "ftc-fake-reviews", "confidence": Confidence.OFFICIAL, "markets": ["US"],
      "text": "US FTC rule 16 CFR 465 (effective 2024-10-21) bans fake or AI-generated reviews, paid-for sentiment and review suppression; civil penalty up to $53,088 per violation (Jan 2025 inflation adjustment; recheck the 2026-09-15 Federal Register notice). Non-US rules (UK DMCC Act, EU, AU) were not researched.",
      "source": "https://www.federalregister.gov/documents/2025/01/17/2025-01361/adjustments-to-civil-penalty-amounts"},
     {"id": "llms-txt", "confidence": Confidence.OFFICIAL,
@@ -52,7 +52,7 @@ FACTS: list[dict] = [
     {"id": "claude-search-provider", "confidence": Confidence.VENDOR,
      "text": "Claude's web search is strongly evidenced (not vendor-confirmed) to use Brave Search; results overlap Brave's by roughly 79-87% in third-party tests.",
      "source": "Anthropic subprocessor list; Profound re-test (Jun 2026)"},
-    {"id": "chatgpt-local", "confidence": Confidence.VENDOR,
+    {"id": "chatgpt-local", "confidence": Confidence.VENDOR, "markets": ["US"],
      "text": "ChatGPT local answers blend OpenAI's own index, scraped Google results and licensed data (Yelp deal announced 2026-07-23). The widely quoted 'Foursquare supplies 70% of ChatGPT local results' is not supported by a larger 2,880-prompt re-test (~0.06%). Yelp was in the grounding payload ~96% of the time but cited ~1%.",
      "source": "Search Engine Land; SteadyDemand re-test (single agency, not peer reviewed)"},
     {"id": "gemini-maps", "confidence": Confidence.VENDOR,
@@ -67,6 +67,52 @@ FACTS: list[dict] = [
     {"id": "custom-search-sunset", "confidence": Confidence.VENDOR,
      "text": "Google's Custom Search JSON API is closed to new customers and scheduled to shut down 2027-01-01. Do not build rank tracking on it.",
      "source": "Vendor/dev-community summaries"},
+    # ---------------- UK (research/uk/*; legal items need a human lawyer: lawyer=True) ----------------
+    {"id": "uk-dmcc-reviews", "confidence": Confidence.EVIDENCE, "markets": ["UK"], "lawyer": True,
+     "text": "UK: fake reviews, reviews that conceal an incentive, publishing reviews misleadingly, and failing to take reasonable and proportionate steps against fake reviews are banned practices under the Digital Markets, Competition and Consumers Act 2024 (Sch 20 para 13), in force 6 Apr 2025 (replacing the CPRs 2008). The CMA can fine directly: for undertakings the higher of GBP 300,000 or 10% of global turnover. An incentivised review is lawful only if the incentive is prominently disclosed, but Google, Trustpilot, Checkatrade and Yell ban them, so this tool never proposes incentives.",
+     "source": "CMA guidance CMA208; law-firm summaries (CMS, Pinsent Masons, Browne Jacobson). Statute/guidance text not read directly."},
+    {"id": "uk-cma-cases", "confidence": Confidence.EVIDENCE, "markets": ["UK"],
+     "text": "The CMA opened its first fake-review investigations on 2026-03-27 (Autotrader, Feefo, Dignity, Just Eat, Pasta Evangelists). Outcomes were not confirmed at the verification date: never describe them as concluded. First substantive DMCC fine: AA Developments Ltd, GBP 4.2m after a 40% settlement discount (drip pricing, 2026-04-15).",
+     "source": "gov.uk CMA press release; law-firm summaries"},
+    {"id": "uk-cap-claims", "confidence": Confidence.EVIDENCE, "markets": ["UK"], "lawyer": True,
+     "text": "UK ASA/CAP Code: objective claims need documentary evidence (3.7); unqualified superlatives are treated as comparisons with all competitors (3.32-3.36); testimonials need genuineness evidence and permission (3.45-3.48); trust marks need authorisation (3.50); 'guarantee' rules (3.53-3.54); recognisable advertising (2.1-2.4). Prescription-only medicines such as Botox cannot be advertised to the public (12.12); cosmetic-intervention ads must not target under-18s (12.25).",
+     "source": "ASA/CAP Code (rule numbers per the UK critic's check; Code amended 2025-04-07): verify against the current edition"},
+    {"id": "uk-pecr-fines", "confidence": Confidence.EVIDENCE, "markets": ["UK"], "lawyer": True,
+     "text": "UK: PECR maximum fines are GBP 17.5m or 4% of worldwide turnover (from 2026-02-05, Data (Use and Access) Act 2025). New consent exceptions for statistical, functionality and security uses apply from the same date (ICO final guidance 2026-04-29); standard GA4 configurations likely do not meet the statistical exception; advertising/remarketing tags need prior opt-in. The ICO is now the Information Commission (since 2026-09-30) but still branded the ICO.",
+     "source": "ICO; law-firm summaries (Bird & Bird, Osborne Clarke). ICO text not read directly."},
+    {"id": "uk-review-requests-pecr", "confidence": Confidence.HEURISTIC, "markets": ["UK"], "lawyer": True,
+     "text": "UK: whether a 'please review us' email/SMS is direct marketing under PECR is not settled (no ICO statement found). Conservative default: treat it as marketing (consent or soft opt-in, sender identity, opt-out in every message) and have a human decide.",
+     "source": "ICO direct-marketing guidance (commentary); researcher inference"},
+    {"id": "uk-platform-reviews", "confidence": Confidence.VENDOR, "markets": ["UK", "US"],
+     "text": "Google reportedly changed its Maps review policy on 2026-04-16/17: staff review quotas and soliciting reviews that name a staff member are banned; gating, incentives and kiosks remain prohibited. Trustpilot requires inviting all customers or an impartial sample (excluding customers with open complaints is not impartial).",
+     "source": "Trade press (ppc.land) and platform guidelines; Google help-centre text not read"},
+    {"id": "uk-identity", "confidence": Confidence.EVIDENCE, "markets": ["UK"], "lawyer": True,
+     "text": "UK limited companies must show their registered name, registration number, place of registration and registered office on the website (Company, LLP and Business (Names and Trading Disclosures) Regulations 2015, SI 2015/17, which replaced the revoked 2008 regulations). E-Commerce Regulations 2002 reg 6 add an email address and VAT number (if registered). The registered office and the trading/GBP address are separate fields.",
+     "source": "legislation.gov.uk/uksi/2015/17 (via summaries); Pinsent Masons"},
+    {"id": "uk-sra", "confidence": Confidence.EVIDENCE, "markets": ["UK"], "lawyer": True,
+     "text": "England and Wales only: solicitor websites must show price and service information for specified areas (conveyancing, probate, immigration, employment tribunals, some motoring offences, business debt recovery up to GBP 100k, licensing applications), complaints information, the SRA number and the clickable SRA digital badge. Scotland and Northern Ireland have separate regulators (Law Society of Scotland / of Northern Ireland).",
+     "source": "https://www.sra.org.uk/solicitors/standards-regulations/transparency-rules/"},
+    {"id": "uk-cqc-dental", "confidence": Confidence.EVIDENCE, "markets": ["UK"],
+     "text": "CQC regulation 20A (display your rating on your website) applies in England to providers that HAVE a CQC rating. Primary dental care is generally not rated, so the check only runs when the client supplies a rating. Dentists are held to GDC advertising and confidentiality standards (show GDC numbers; never confirm a reviewer was a patient).",
+     "source": "CQC 'display your ratings'; GDC guidance"},
+    {"id": "uk-fhrs", "confidence": Confidence.EVIDENCE, "markets": ["UK"],
+     "text": "Food hygiene rating display is mandatory in Wales and Northern Ireland, voluntary in England; Scotland uses FHIS (Pass / Improvement Required / Exempt / Awaiting Inspection) rather than 0-5.",
+     "source": "Food Standards Agency / FSS"},
+    {"id": "uk-lsa", "confidence": Confidence.VENDOR, "markets": ["UK"],
+     "text": "Google Local Services Ads in the UK: nationwide for home-service trades, Greater London only for legal services and estate agents. Google Guaranteed/Screened were reportedly replaced by 'Google Verified' from 2025-10-20 (claims only for jobs done before that date, within 30 days).",
+     "source": "Google LSA UK help/blog; UK trade-body summaries"},
+    {"id": "uk-ai-search", "confidence": Confidence.VENDOR, "markets": ["UK"],
+     "text": "Google AI Mode launched in the UK on 2025-07-29. The Search Console Generative AI report launched 2026-06-03 to a UK subset and was reported worldwide by 2026-08-31; from 2026-09-07 it reportedly combines AI Mode and AI Overview impressions and lets you filter AI Mode rows by prompt. Ask Maps (Gemini) UK availability is unconfirmed. Google ccTLDs redirect to google.com (from 2025-04-15): localisation relies on location signals, not google.co.uk.",
+     "source": "Trade press (Press Gazette, Search Engine Land, 9to5Google); not read from Google"},
+    {"id": "uk-ai-citation-studies", "confidence": Confidence.HEURISTIC, "markets": ["UK"],
+     "text": "Two small UK AI-citation studies (both published by agencies selling AI visibility, single-run, no variance) point in opposite directions: ChatGPT cited Checkatrade in 78 of 80 trades answers (Checkatrade also has a ChatGPT app), while Google AI Mode cited the business's own site in 90% of 159 answers. Directional only: measure each assistant separately.",
+     "source": "Murray Digital (2026-08-25); Whito (2026)"},
+    {"id": "uk-consumer-stats", "confidence": Confidence.EVIDENCE, "markets": ["UK"],
+     "text": "BrightLocal's 2026 local-review survey is a US panel: do not present its figures as UK data. Yext's UK survey (n=600) found 36.7% had used AI for local search in the past month.",
+     "source": "BrightLocal LCRS 2026; Yext UK survey 2026 (vendors)"},
+    {"id": "uk-apple", "confidence": Confidence.VENDOR, "markets": ["UK", "US"],
+     "text": "Apple Business Connect became 'Apple Business' on 2026-04-14 (existing claimed locations migrated).",
+     "source": "Apple Support; vendor summaries"},
     {"id": "update-freeze", "confidence": Confidence.OFFICIAL,
      "text": "A Google spam update began 2026-09-24 and was still rolling out on 2026-10-03 (expected to end ~2026-10-08). Avoid judging ranking changes during a rollout. Check status.search.google.com for the live state.",
      "source": "https://status.search.google.com/"},
@@ -76,6 +122,11 @@ FACTS: list[dict] = [
 def stale(fact_verified_on: str = VERIFIED, today: date | None = None) -> bool:
     today = today or date.today()
     return (today - date.fromisoformat(fact_verified_on)).days > STALE_AFTER_DAYS
+
+
+def for_market(code: str) -> list[dict]:
+    """Facts relevant to a market (default: both US and UK)."""
+    return [f for f in FACTS if code in f.get("markets", ["US", "UK"]) or code == "OTHER" and "markets" not in f]
 
 
 def get(fact_id: str) -> dict:

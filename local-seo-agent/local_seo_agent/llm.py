@@ -18,9 +18,10 @@ import asyncio
 from dataclasses import dataclass, field
 from typing import Callable
 
-from .compliance import Violation, check_draft
+from .compliance import Violation, check_draft, draft_warnings
+from .markets import location_for, market_for
 from .models import ClientProfile
-from .verticals import get_vertical
+from .verticals import vertical_for
 
 BUILTIN_TOOLS = ["Bash", "Read", "Write", "Edit", "Glob", "Grep", "WebFetch", "WebSearch", "Task", "NotebookEdit",
                  "TodoWrite", "KillShell", "BashOutput"]
@@ -49,6 +50,7 @@ class Draft:
     text: str
     violations: list[Violation] = field(default_factory=list)
     blocked: bool = False
+    warnings: list[str] = field(default_factory=list)
 
 
 async def _query(system: str, user: str, model: str | None, budget_usd: float) -> str:
@@ -70,7 +72,7 @@ def complete(system: str, user: str, model: str | None = None, budget_usd: float
 
 
 def _facts_block(profile: ClientProfile) -> str:
-    vert = get_vertical(profile.vertical)
+    vert = vertical_for(profile)
     lines = [f"Business: {profile.name}", f"Type: {vert['label']}", f"City: {profile.city}",
              f"Website: {profile.website}", f"Phone: {profile.phone}"]
     if profile.service_areas:
@@ -93,11 +95,15 @@ def draft(profile: ClientProfile, kind: str, detail: str = "", untrusted_review:
         user += f"\n<task_detail>\n{detail[:300]}\n</task_detail>\n"
     if untrusted_review:
         user += f"\n<untrusted_review>\n{untrusted_review[:1500]}\n</untrusted_review>\n"
-    ck = "review-reply" if kind == "review-reply" else "generic"
+    ck = ck_kind(kind)
     text = completer(RULES, user, model)
     violations = check_draft(text, profile, ck, extra_allowed=[detail])
     if violations:  # one corrective retry, then block
         fb = "; ".join(f"{v.code}: {v.message}" for v in violations)
         text = completer(RULES, user + f"\nYour previous draft violated the rules ({fb}). Rewrite it to comply.", model)
         violations = check_draft(text, profile, ck, extra_allowed=[detail])
-    return Draft(kind, text, violations, blocked=bool(violations))
+    return Draft(kind, text, violations, blocked=bool(violations), warnings=draft_warnings(text, profile, ck_kind(kind)))
+
+
+def ck_kind(kind: str) -> str:
+    return kind if kind in ("review-reply", "review-request") else "generic"

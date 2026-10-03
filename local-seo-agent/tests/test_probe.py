@@ -140,7 +140,7 @@ def test_perplexity_provider_location_and_citations(profile):
 
     p = OpenAICompatProvider("perplexity", model="sonar", client=_Obj(chat=_Obj(completions=C())))
     r = p.ask("q", profile)
-    assert r.cited_urls == ["https://a.test/x", "https://b.test/y"]
+    assert r.cited_urls == ["https://b.test/y", "https://a.test/x"]            # search_results first, then citations
     assert seen["extra_body"]["web_search_options"]["user_location"]["city"] == "Austin"
 
 

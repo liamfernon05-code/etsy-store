@@ -9,7 +9,8 @@ import re
 
 from ..facts import VERIFIED
 from ..models import ClientProfile, Confidence, CrawlResult, Finding, Severity
-from ..verticals import get_vertical
+from ..markets import market_for
+from ..verticals import vertical_for
 from .schema import digits
 
 
@@ -62,7 +63,9 @@ def check_nap(profile: ClientProfile, crawl: CrawlResult) -> list[Finding]:
                        impact=1, effort=1))
     elif a.street:
         street_key = _norm(a.street)
-        if street_key not in _norm(text_all) and a.postal_code not in text_all:
+        pc_ok = bool(a.postal_code) and re.sub(r"\s", "", a.postal_code).upper() in re.sub(r"\s", "", text_all).upper()
+        # UK: the postcode plus first address line is the key; county is never used for matching
+        if street_key not in _norm(text_all) and not pc_ok:
             out.append(_mk("nap.address-not-on-site", Severity.ERROR, "Street address not found in crawled page text",
                            impact=4, effort=1, fix="Show the full address exactly as it appears on GBP."))
     out.append(_mk("nap.directories-manual", Severity.UNKNOWN, "Directory NAP consistency requires manual verification",
@@ -75,7 +78,7 @@ def check_gbp(profile: ClientProfile) -> list[Finding]:
     """Evaluate manually entered GBP facts. Marked VENDOR-confidence where it rests on vendor claims."""
     g = profile.gbp
     out: list[Finding] = []
-    vert = get_vertical(profile.vertical)
+    vert = vertical_for(profile)
 
     def mk(id_, sev, title, **kw):
         kw.setdefault("confidence", Confidence.EVIDENCE)

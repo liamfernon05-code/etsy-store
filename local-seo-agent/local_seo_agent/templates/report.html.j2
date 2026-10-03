@@ -70,6 +70,7 @@ small{color:var(--muted)}ul{padding-left:1.2em;margin:.4em 0}
 <li>Valid runs: {{ p.valid_runs }} (failed: {{ p.failed_runs }}) &middot; <em>{{ p.validity }}</em></li>
 <li>Mention rate: <strong>{{ '%.0f'|format(p.mention_rate*100) }}%</strong>, 95% interval (prompt-clustered) {{ '%.0f'|format(p.mention_rate_ci_clustered[0]*100) }}&ndash;{{ '%.0f'|format(p.mention_rate_ci_clustered[1]*100) }}%</li>
 <li>Verified mentions (domain / phone / address): {{ '%.0f'|format(p.verified_mention_rate*100) }}% &middot; Client domain cited: {{ '%.0f'|format(p.citation_rate*100) }}%</li>
+{% if market == 'UK' %}<li>US-context answers (dollar prices, ZIP/state codes) in UK probes: {{ '%.0f'|format(p.localisation_leak_rate*100) }}% <small>(a localisation failure if high)</small></li>{% endif %}
 <li>Smallest change detectable between two equal waves: ~{{ '%.0f'|format(p.min_detectable_diff_vs_equal_wave*100) }} percentage points</li>
 </ul>
 <table><thead><tr><th>Most-named businesses</th><th>Runs</th><th>Most-cited domains</th><th>Runs</th></tr></thead><tbody>
@@ -79,12 +80,31 @@ small{color:var(--muted)}ul{padding-left:1.2em;margin:.4em 0}
 {% endfor %}
 </div>
 {% endfor %}
-<div class="card caveat"><strong>Not measured</strong><ul>{% for n in not_measured %}<li>{{ n }}</li>{% endfor %}</ul></div>
+{% if calibration %}<div class="card"><strong>API vs real-app calibration (manual spot-checks)</strong>
+<table><thead><tr><th>API</th><th>App</th><th>Prompts compared</th><th>Agreement</th></tr></thead><tbody>
+{% for c in calibration %}<tr><td>{{ c.api }}</td><td>{{ c.app }}</td><td>{{ c.prompts_compared }}</td><td>{{ '%.0f'|format(c.agreement*100) }}%</td></tr>{% endfor %}
+</tbody></table><small>Small manual samples: indicative only. Low agreement means the API numbers do not represent what real users see.</small></div>{% endif %}
+<div class="card caveat"><strong>Not measured by API</strong><ul>{% for n in not_measured %}<li>{{ n }}</li>{% endfor %}</ul></div>
+{% endif %}
+
+{% if extras %}
+<h2>Performance data</h2>
+{% if extras.geogrid %}<div class="card"><strong>Local rank (geo-grid, licensed SERP data)</strong>
+<table><thead><tr><th>Keyword</th><th>Wave</th><th>Grid</th><th>Avg rank</th><th>Top-3 share</th><th>Coverage</th></tr></thead><tbody>
+{% for g in extras.geogrid %}<tr><td>{{ g.keyword }}</td><td>{{ g.wave }}</td><td>{{ g.size }}x{{ g.size }} / {{ g.spacing_km }} km</td><td>{{ g.arp }}</td><td>{{ g.solv }}%</td><td>{{ g.coverage }}%</td></tr>{% endfor %}
+</tbody></table><small>Average rank counts missing points as 21. Local rankings vary by searcher location; change claims need repeated runs.</small></div>{% endif %}
+{% if extras.gsc %}<div class="card"><strong>Search Console ({{ extras.gsc.start }} to {{ extras.gsc.end }})</strong><br>
+{{ extras.gsc.clicks }} clicks, {{ extras.gsc.impressions }} impressions, CTR {{ '%.1f'|format(extras.gsc.ctr*100) }}%; {{ extras.gsc.queries_with_city }} queries mention the city.<br><small>{{ extras.gsc.note }}</small></div>{% endif %}
+{% if extras.ga4 %}<div class="card"><strong>AI-assistant traffic in GA4 (last {{ extras.ga4.days }} days)</strong><br>
+{{ extras.ga4.ai_sessions }} sessions, {{ extras.ga4.ai_key_events }} key events.<br><small>{{ extras.ga4.note }}</small></div>{% endif %}
+{% if extras.gbp %}<div class="card"><strong>Google Business Profile (last 28 days)</strong><br>
+{{ extras.gbp.performance.impressions }} impressions, {{ extras.gbp.performance.calls }} calls, {{ extras.gbp.performance.website_clicks }} website clicks, {{ extras.gbp.performance.direction_requests }} direction requests.
+{% if extras.gbp.reviews.total %}<br>{{ extras.gbp.reviews.total }} reviews (average {{ extras.gbp.reviews.average_rating }}); reply rate in the latest {{ extras.gbp.reviews.sampled }}: {{ extras.gbp.reviews.reply_rate }}.{% endif %}</div>{% endif %}
 {% endif %}
 
 <h2>Reference facts used (with verification dates)</h2>
 <table><thead><tr><th>Fact</th><th>Evidence</th><th>Verified</th></tr></thead><tbody>
-{% for f in facts %}<tr><td>{{ f.text }}<br><small>{{ f.source }}</small></td><td>{{ f.confidence.value }}</td><td>{{ f.verified_on }}{% if f.stale %} <strong>(stale: re-verify)</strong>{% endif %}</td></tr>{% endfor %}
+{% for f in facts %}<tr><td>{{ f.text }}{% if f.lawyer %} <strong>[LAWYER]</strong>{% endif %}<br><small>{{ f.source }}</small></td><td>{{ f.confidence.value }}</td><td>{{ f.verified_on }}{% if f.stale %} <strong>(stale: re-verify)</strong>{% endif %}</td></tr>{% endfor %}
 </tbody></table>
 <p class="muted">AI-visibility numbers come from API samples, which differ from consumer apps. Whitespark percentages are expert opinion about Google's local pack, not AI-assistant weights.</p>
 </main>

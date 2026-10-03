@@ -6,6 +6,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass
 
+from ..markets import localisation_leak, market_for
 from ..models import ClientProfile
 from . import stats
 from .entities import cited_domains, extract_listed_entities, match_client, top_entities
@@ -14,9 +15,11 @@ from .providers import Provider
 from .store import Store
 
 NOT_MEASURED = [
-    "Google AI Overviews and AI Mode (no compliant API; Gemini API grounding is a different system): sample manually.",
-    "Consumer ChatGPT/Claude/Perplexity apps (API answers differ; one study found ~24% brand overlap): calibrate monthly by hand.",
-    "Voice assistants (Siri/Alexa) and in-car assistants.",
+    "Google AI Overviews and AI Mode have no compliant API (Gemini API grounding is a different system): shown only if "
+    "someone observed them by hand (sheet-export / sheet-import).",
+    "Consumer ChatGPT/Claude/Perplexity apps differ from their APIs (one study found ~24% brand overlap): shown only as "
+    "manual calibration samples.",
+    "Voice assistants (Siri, Alexa, Google Assistant) are measured only through manual observation.",
 ]
 
 
@@ -51,6 +54,7 @@ def run_probe(profile: ClientProfile, providers: list[Provider], store: Store, w
     budget = budget or Budget(5.0)
     prompts: list[Prompt] = build_prompts(profile) + (branded_prompts(profile) if include_branded else [])
     location = f"{profile.city}, {profile.address.region} {profile.address.country}".strip()
+    market = market_for(profile)
     done = failed = 0
     halted = ""
     for prov in providers:
@@ -75,7 +79,7 @@ def run_probe(profile: ClientProfile, providers: list[Provider], store: Store, w
                           verified=int(m["verified"]), name_match=int(m["name_match"]), cited=int(m["cited"]),
                           method=m["method"], entities=json.dumps(extract_listed_entities(resp.text)),
                           cited_urls=json.dumps(resp.cited_urls), response_text=resp.text[:6000],
-                          cost=resp.cost_estimate)
+                          cost=resp.cost_estimate, leak=int(localisation_leak(resp.text, market)))
                 done += 1
                 if progress:
                     progress(done, failed)
@@ -113,12 +117,15 @@ def summarise(store: Store, wave: str, profile: ClientProfile) -> dict:
             "valid_runs": n,
             "failed_runs": len([r for r in store.rows(wave=wave, provider=prov) if not r["ok"]]),
             "validity": ("manual spot-check by a person on a real device (calibration only; not comparable with API samples)"
-                         if prov.startswith("manual:") else stats.validity_label(n)),
+                         if prov.startswith("manual:") else
+                         "vendor-collected SERP sample (directional; not comparable with API samples)"
+                         if prov.startswith("serp:") else stats.validity_label(n)),
             "mention_rate": round(k_name / n, 3),
             "mention_rate_ci_wilson": tuple(round(x, 3) for x in stats.wilson(k_name, n)),
             "mention_rate_ci_clustered": tuple(round(x, 3) for x in cl),
             "verified_mention_rate": round(k_ver / n, 3),
             "citation_rate": round(k_cite / n, 3),
+            "localisation_leak_rate": round(sum(r["leak"] for r in rows) / n, 3),
             "top_named_entities": ents,
             "top_cited_domains": cited_domains([json.loads(r["cited_urls"]) for r in rows], 10),
             "models_seen": sorted(store.models_seen(prov, wave)),

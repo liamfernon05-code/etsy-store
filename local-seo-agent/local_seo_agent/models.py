@@ -11,7 +11,9 @@ import tomllib
 from enum import Enum
 from pathlib import Path
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
+
+from . import uk
 
 _CTRL = re.compile(r"[\x00-\x08\x0b-\x1f\x7f]")
 
@@ -68,9 +70,11 @@ class Finding(BaseModel):
 class Address(BaseModel):
     street: str = ""
     city: str = ""
-    region: str = ""
-    postal_code: str = ""
-    country: str = "US"
+    region: str = ""        # US state, or UK county / council area / nation
+    postal_code: str = ""   # ZIP or UK postcode
+    country: str = ""       # ISO alpha-2 ("US", "GB"); derived from `jurisdiction` when empty
+    county: str = ""        # UK, optional (never used for NAP matching)
+    council_area: str = ""  # UK, Scotland/Wales/NI
 
 
 class Competitor(BaseModel):
@@ -115,12 +119,44 @@ class ClientProfile(BaseModel):
     same_as: list[str] = []
     locations: int = 1
     gbp: GBPInputs = GBPInputs()
+    # --- UK / identity (all optional) ---
+    nation: str = ""                    # ENG | WAL | SCO | NIR (derived from the postcode when unambiguous)
+    company_number: str = ""            # Companies House number (limited companies / LLPs)
+    registered_name: str = ""           # legal name if different from the trading name
+    registered_office: str = ""         # registered office address (may differ from the trading address)
+    vat_number: str = ""
+    regulator_ids: dict[str, str] = {}  # e.g. {"sra": "123456", "gdc": "...", "gas_safe": "...", "cqc": "..."}
+    latitude: float | None = None       # used for geo-grid and user_location; resolved from the postcode if unset
+    longitude: float | None = None
+    language: str = "en"
+    is_aesthetics: bool = False         # clinic/salon offering injectables etc. (UK CAP 12.12 checks)
+    sells_gas_services: bool = False
 
     @field_validator("website")
     @classmethod
     def _site(cls, v: str) -> str:
         v = v.strip()
         return v if v.startswith(("http://", "https://")) else "https://" + v
+
+    @model_validator(mode="after")
+    def _market_defaults(self) -> "ClientProfile":
+        from .markets import market_code  # local import: markets imports uk, not models
+
+        code = market_code(self.jurisdiction)
+        if not self.address.country:
+            self.address.country = {"UK": "GB", "US": "US"}.get(code, "")
+        if code == "UK":
+            if self.address.postal_code:
+                self.address.postal_code = uk.normalise_postcode(self.address.postal_code)
+            if not self.nation:
+                self.nation = (uk.nation_from_nation_text(self.address.region) or uk.nation_from_nation_text(
+                    self.address.council_area) or "")
+                pc_nation = uk.nation_from_postcode(self.address.postal_code)
+                if not self.nation and pc_nation in uk.NATIONS:
+                    self.nation = pc_nation
+            else:
+                self.nation = uk.nation_from_nation_text(self.nation) or self.nation.upper()
+        return self
 
     @property
     def city(self) -> str:
@@ -157,6 +193,9 @@ class PageData(BaseModel):
     jsonld: list[dict] = []
     jsonld_errors: int = 0
     internal_links: list[str] = []
+    external_hosts: list[str] = []   # unique hostnames this page links to
+    script_hosts: list[str] = []     # unique hostnames of external <script src> (analytics/ads/tag managers)
+    emails: list[str] = []           # mailto: addresses
     tel_links: list[str] = []
     images: int = 0
     images_missing_alt: int = 0
