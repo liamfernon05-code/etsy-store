@@ -97,6 +97,7 @@ class GBPInputs(BaseModel):
     services_listed: bool | None = None
     photo_count: int | None = None
     verified: bool | None = None
+    verified_on: str = ""            # ISO date the profile was verified/accepted (drives the "new profile" playbook)
     name_matches_signage: bool | None = None
     primary_phone_is_tracking_number: bool | None = None
 
@@ -161,6 +162,15 @@ class ClientProfile(BaseModel):
     @property
     def city(self) -> str:
         return self.primary_city or self.address.city
+
+    def gbp_age_days(self, today=None) -> int | None:
+        """Days since the Google Business Profile was verified (None if unknown/invalid)."""
+        from datetime import date
+
+        try:
+            return ((today or date.today()) - date.fromisoformat(self.gbp.verified_on)).days
+        except ValueError:
+            return None
 
 
 def load_profile(path: Path) -> ClientProfile:

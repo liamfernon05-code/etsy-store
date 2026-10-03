@@ -103,6 +103,18 @@ VERTICALS: dict[str, dict] = {
         "gbp_checks": ["Service areas set (max 20)", "24/7 hours accuracy"],
         "lsa": True,
     },
+    "cosmetic_surgery": {
+        "label": "Cosmetic surgery clinic (e.g. BBL)",
+        "schema_types": ["MedicalClinic", "MedicalBusiness", "LocalBusiness"],
+        "preferred_schema": "MedicalClinic",
+        "sab_default": False,
+        "directories": [("RealSelf", "Consumer reviews and surgeon finder"), ("Healthgrades", ""), ("American Society of Plastic Surgeons", "US finder")],
+        "probe_terms": ["BBL", "Brazilian butt lift", "BBL surgeon", "cosmetic surgery clinic"],
+        "singular": "cosmetic surgeon",
+        "compliance": ["ymyl", "hipaa_replies", "health_claims", "before_after", "no_inducements"],
+        "gbp_checks": ["Surgeon credentials shown", "Consultation booking link", "Hours", "Accurate procedure list"],
+        "lsa": False,
+    },
     "generic": {
         "label": "Local business (generic)",
         "schema_types": ["LocalBusiness"],
@@ -118,7 +130,9 @@ VERTICALS: dict[str, dict] = {
 }
 
 
-ALIASES = {"solicitor": "lawyer", "attorney": "lawyer", "law_firm": "lawyer", "trades": "plumber", "dental": "dentist",
+ALIASES = {"bbl": "cosmetic_surgery", "cosmetic_surgeon": "cosmetic_surgery", "plastic_surgery": "cosmetic_surgery",
+           "plastic_surgeon": "cosmetic_surgery", "cosmetic_surgery_clinic": "cosmetic_surgery", "aesthetic_surgery": "cosmetic_surgery",
+           "solicitor": "lawyer", "attorney": "lawyer", "law_firm": "lawyer", "trades": "plumber", "dental": "dentist",
            "hairdresser": "salon", "barber": "salon", "beauty": "salon", "takeaway": "restaurant", "cafe": "restaurant",
            "hvac": "heating_engineer", "gas_engineer": "heating_engineer"}
 
@@ -208,6 +222,16 @@ UK_OVERLAY: dict[str, dict] = {
         "directory_names": ["Google Business Profile", "Bing Places", "Apple Business", "Treatwell", "Fresha", "Booksy", "Facebook", "Yell"],
         "compliance": ["aesthetics_pom", "before_after", "asa_cap"],
         "gbp_checks": ["Booking link", "Services and prices", "Portfolio photos"],
+        "lsa": False,
+    },
+    "cosmetic_surgery": {
+        "label": "Cosmetic surgery clinic / BBL provider (UK)",
+        "probe_terms": ["BBL", "Brazilian butt lift", "BBL surgeon", "BBL cost UK", "is BBL safe", "BBL recovery",
+                        "cosmetic surgery clinic", "plastic surgeon"],
+        "singular": "cosmetic surgeon",
+        "directory_names": ["Google Business Profile", "Bing Places", "Apple Business", "Doctify", "Trustpilot", "Facebook", "Yell"],
+        "compliance": ["ymyl", "gmc", "cqc_rated", "confidential_replies", "asa_cap", "before_after", "aesthetics_pom", "no_inducements"],
+        "gbp_checks": ["Surgeon credentials (GMC) shown", "Consultation booking link", "Opening hours incl. bank holidays", "Accurate procedure list"],
         "lsa": False,
     },
     "generic": {
