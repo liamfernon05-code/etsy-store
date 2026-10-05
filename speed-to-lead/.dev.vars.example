@@ -1,0 +1,5 @@
+# Copy to .dev.vars for `wrangler dev`. Never commit the real file.
+FISH_API_KEY=
+GHL_TOKEN=
+LEAD_WEBHOOK_SECRET=
+FISH_WEBHOOK_SECRET=

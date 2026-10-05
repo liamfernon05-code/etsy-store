@@ -1,0 +1,15 @@
+{
+  "name": "speed-to-lead",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Cloudflare Worker: GoHighLevel new lead -> Fish Audio outbound AI call -> summary written back to the contact",
+  "scripts": {
+    "test": "node --test \"test/*.test.js\"",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

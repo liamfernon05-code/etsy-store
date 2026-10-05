@@ -1,0 +1,22 @@
+name = "speed-to-lead"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+# Non-secret settings. Secrets (FISH_API_KEY, GHL_TOKEN, LEAD_WEBHOOK_SECRET,
+# FISH_WEBHOOK_SECRET) are set with `wrangler secret put`, never here.
+[vars]
+FISH_AGENT_ID = "REPLACE_WITH_AGENT_ID"
+FISH_PHONE_NUMBER_ID = "REPLACE_WITH_PHONE_NUMBER_ID"
+DEFAULT_COUNTRY_CODE = "+61"
+# Field names as they arrive in the GoHighLevel webhook body
+ENQUIRY_FIELD = "enquiry"
+CONSENT_FIELD = "consent"
+# Optional: exact label of your consent checkbox if it does not start with "I agree"
+CONSENT_VALUE = ""
+# Optional: id of a GHL custom field (Yes/No or text) to receive the qualified flag
+GHL_QUALIFIED_FIELD_ID = ""
+
+# Run `npx wrangler kv namespace create LEADS` and paste the id it prints.
+[[kv_namespaces]]
+binding = "LEADS"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
