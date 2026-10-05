@@ -9,6 +9,13 @@ test("toE164 handles AU formats", () => {
   assert.equal(toE164("0061412345678", "+61"), "+61412345678");
   assert.equal(toE164("412345678", "+61"), "+61412345678");
 });
+test("toE164 handles US formats", () => {
+  assert.equal(toE164("(734) 212-2691", "+1"), "+17342122691");
+  assert.equal(toE164("734.212.2691", "+1"), "+17342122691");
+  assert.equal(toE164("1 734 212 2691", "+1"), "+17342122691");
+  assert.equal(toE164("+1 734 212 2691", "+1"), "+17342122691");
+  assert.equal(toE164("212 2691", "+1"), null); // 7 digits is too short
+});
 test("toE164 rejects junk", () => {
   assert.equal(toE164("", "+61"), null);
   assert.equal(toE164("abc", "+61"), null);

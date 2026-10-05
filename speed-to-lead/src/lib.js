@@ -18,7 +18,11 @@ export function toE164(raw, defaultCountryCode = "") {
   else if (cc) out = "+" + cc + digits;
   else return null;
 
-  return E164.test(out) ? out : null;
+  if (!E164.test(out)) return null;
+  // US/Canada (+1) numbers are exactly 10 digits after the country code and the
+  // area code can't start with 0 or 1; anything else would be a dud dial.
+  if (out.startsWith("+1") && !/^\+1[2-9]\d{9}$/.test(out)) return null;
+  return out;
 }
 
 const YES = new Set(["true", "yes", "y", "on", "1", "checked", "agree", "agreed", "consent", "i agree"]);

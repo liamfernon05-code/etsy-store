@@ -13,6 +13,10 @@ Fish Audio call.analyzed -> POST /webhook/fish -> GHL note + tag (+ optional cus
 - **Fish Audio JSON field names are unverified** (docs were not reachable when this was written). Check `src/fish.js` against the three Fish docs pages linked in that file's header before going live. It is the only file that knows Fish's shapes.
 - Not yet deployed or tested against a real call.
 
+## Phone number
+
+Leads are in the US, so `DEFAULT_COUNTRY_CODE` is `+1`. A number bought inside GHL (LC Phone) may not expose SIP credentials for importing into Fish (unverified): to start, buy a US number in Fish ($1.20 a month) and use its `phone_number_id`. Importing your own GHL/Twilio number later changes only that id in `wrangler.toml`.
+
 ## Before you deploy (from the guide)
 
 1. Outbound calling enabled for your Fish workspace (ask support; do this first).
@@ -58,4 +62,4 @@ Logs while testing: `npx wrangler tail`.
 
 ## Compliance
 
-Written consent kept (the form record), AI disclosed in the first sentence, recording disclosed, Australian Do Not Call Register and calling hours checked. Read the first few dozen transcripts before trusting `qualified`.
+US leads: prior express written consent kept (the form record, per the FCC's 2024 ruling on AI voices under the TCPA), AI disclosed in the first sentence, recording disclosed (some states need all-party consent), National Do Not Call Registry and state calling-hour rules checked (federal: 8am to 9pm in the lead's local time). Read the first few dozen transcripts before trusting `qualified`.
