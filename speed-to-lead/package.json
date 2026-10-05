@@ -6,6 +6,7 @@
   "description": "Cloudflare Worker: GoHighLevel new lead -> Fish Audio outbound AI call -> summary written back to the contact",
   "scripts": {
     "test": "node --test \"test/*.test.js\"",
+    "test:e2e": "node test/e2e.mjs",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy"
   },

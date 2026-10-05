@@ -1,5 +1,5 @@
 // GoHighLevel (LeadConnector API v2) write-back. Auth is a Private Integration token.
-const BASE = "https://services.leadconnectorhq.com";
+const DEFAULT_BASE = "https://services.leadconnectorhq.com";
 
 function headers(env) {
   return {
@@ -11,7 +11,7 @@ function headers(env) {
 }
 
 async function call(env, method, path, body) {
-  const res = await fetch(BASE + path, { method, headers: headers(env), body: JSON.stringify(body) });
+  const res = await fetch((env.GHL_BASE_URL || DEFAULT_BASE) + path, { method, headers: headers(env), body: JSON.stringify(body) });
   if (!res.ok) throw new Error(`GHL ${method} ${path} -> ${res.status} ${(await res.text()).slice(0, 200)}`);
 }
 

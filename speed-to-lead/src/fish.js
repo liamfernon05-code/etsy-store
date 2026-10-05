@@ -11,11 +11,11 @@
 
 import { findKey, toBool } from "./lib.js";
 
-const BASE = "https://api.fish.audio";
+const DEFAULT_BASE = "https://api.fish.audio";
 
 export function buildCallRequest(env, lead, phoneE164) {
   return {
-    url: `${BASE}/v1/agent/phone-calls`,
+    url: `${env.FISH_BASE_URL || DEFAULT_BASE}/v1/agent/phone-calls`,
     init: {
       method: "POST",
       headers: {
